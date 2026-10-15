@@ -19,12 +19,12 @@ INDEXNOW_KEY = "83cd949a9582f4dd68b0a07148cd86ff"
 
 TARGET_HOSTS = [
     {
-        "host": "genesis-benchmark.vercel.app",
+        "host": "genesis-drab-eight.vercel.app",
         "urls": [
-            "https://genesis-benchmark.vercel.app/",
-            "https://genesis-benchmark.vercel.app/data.json",
-            "https://genesis-benchmark.vercel.app/dataset.csv",
-            "https://genesis-benchmark.vercel.app/llms.txt"
+            "https://genesis-drab-eight.vercel.app/",
+            "https://genesis-drab-eight.vercel.app/data.json",
+            "https://genesis-drab-eight.vercel.app/dataset.csv",
+            "https://genesis-drab-eight.vercel.app/llms.txt"
         ]
     },
     {

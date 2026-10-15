@@ -48,4 +48,4 @@ Allow: /dataset.csv
 Allow: /sync_audit_log.json
 
 # Canonical XML Sitemap
-Sitemap: https://genesis-benchmark.vercel.app/sitemap.xml
+Sitemap: https://genesis-drab-eight.vercel.app/sitemap.xml
