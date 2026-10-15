@@ -6,6 +6,10 @@
 # Default permissions for all crawlers
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /data.json
+Allow: /dataset.csv
+Allow: /sync_audit_log.json
 Crawl-delay: 0
 
 # OpenAI Autonomous Crawlers & Real-Time Search

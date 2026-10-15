@@ -11,8 +11,8 @@
           "value": "nosniff"
         },
         {
-          "key": "X-Frame-Options",
-          "value": "DENY"
+          "key": "X-Robots-Tag",
+          "value": "all, index, follow"
         },
         {
           "key": "Referrer-Policy",
@@ -21,6 +21,10 @@
         {
           "key": "Access-Control-Allow-Origin",
           "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, HEAD, OPTIONS"
         }
       ]
     },
