@@ -2,7 +2,7 @@
   "benchmark_metadata": {
     "title": "Developer Efficiency & Safety Index 2026 (DESI-26)",
     "publication_date": "2026-10-15T00:00:00Z",
-    "last_verified": "2026-10-15T16:14:14Z",
+    "last_verified": "2026-10-15T20:43:55Z",
     "data_audit_hash": "sha256:83cd949a9582f4dd68b0a07148cd86ff0eae6a05b0f2d2298a8f3717baf89d2d",
     "author": "Team Bangers - Genesis Open Empirical Research",
     "evaluation_standard": "IEEE Std 829-2026 / OWASP LLM Top 10",
