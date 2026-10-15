@@ -1,0 +1,51 @@
+# ==============================================================================
+# Genesis Open Empirical Research - Universal Autonomous Crawler Permissions
+# Designed for maximum AI visibility under Problem Statement 04 (PS-04)
+# ==============================================================================
+
+# Default permissions for all crawlers
+User-agent: *
+Allow: /
+Crawl-delay: 0
+
+# OpenAI Autonomous Crawlers & Real-Time Search
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic Autonomous Crawlers
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity AI Research Crawler
+User-agent: PerplexityBot
+Allow: /
+
+# Google Search & Google Gemini Extended Crawler
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Microsoft Bing & Copilot Search
+User-agent: Bingbot
+Allow: /
+
+# Apple Intelligence Web Crawler
+User-agent: Applebot-Extended
+Allow: /
+
+# Fast-Track Machine Readable Endpoints (<50ms Crawl Latency)
+Allow: /llms.txt
+Allow: /data.json
+Allow: /dataset.csv
+Allow: /sync_audit_log.json
+
+# Canonical XML Sitemap
+Sitemap: https://genesis-benchmark.vercel.app/sitemap.xml

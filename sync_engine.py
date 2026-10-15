@@ -463,9 +463,26 @@ def update_index_html(path, timestamp, audit_hash, records_count, matrix):
         flags=re.DOTALL
     )
 
+    # 4. Update Schema.org JSON-LD dateModified
+    html = re.sub(
+        r'"dateModified":\s*"[^"]*"',
+        f'"dateModified": "{timestamp}"',
+        html
+    )
+
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
+
+    # 5. Update sitemap.xml lastmod date
+    sitemap_path = os.path.join(WORKSPACE_DIR, "sitemap.xml")
+    if os.path.exists(sitemap_path):
+        with open(sitemap_path, "r", encoding="utf-8") as sf:
+            s_content = sf.read()
+        s_content = re.sub(r'<lastmod>[^<]*</lastmod>', f'<lastmod>{timestamp[:10]}</lastmod>', s_content)
+        with open(sitemap_path, "w", encoding="utf-8") as sf:
+            sf.write(s_content)
 
 if __name__ == "__main__":
     is_dry = "--check-only" in sys.argv
     run_synchronization(dry_run=is_dry)
+
