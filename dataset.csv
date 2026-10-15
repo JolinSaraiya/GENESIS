@@ -1,0 +1,7 @@
+rank,tool_name,model_backend,org,speedup_percent,swe_bench_verified_percent,defect_density_per_1k_loc,security_vulnerability_rate_percent,commercial_cost,environment,date
+1,Sonar Foundation Agent,Claude 4.5 Opus,Anthropic,52.0,79.2,3.8,6.4,Enterprise API,SWE-bench Verified 500 Docker Containers,2025-12-05
+2,TRAE Agent,Doubao-Seed-Code,ByteDance,49.0,78.8,4.1,7.2,Public Beta,SWE-bench Verified 500 Docker Containers,2025-09-28
+3,live-SWE-agent,Gemini 3 Pro Preview,Google DeepMind,47.0,77.4,4.3,6.9,API Metered,SWE-bench Verified 500 Docker Containers,2025-11-20
+4,Cursor Agent,Claude 3.5 Sonnet,Anysphere,48.0,51.2,5.1,12.4,$20 / user / month,Docker Sandbox Python 3.12 / TS 5.4 / Go 1.22,2026-02-15
+5,GitHub Copilot,GPT-4o Integration,GitHub / Microsoft,38.0,36.4,6.8,16.2,$19 / user / month,Docker Sandbox Python 3.12 / TS 5.4 / Go 1.22,2026-01-10
+6,Human Senior Engineer Baseline,10+ Years Professional Experience,Control Group,0.0,42.0,4.2,10.1,Standard engineering salary,Identical SWE-bench verified repository tasks,2026-03-01

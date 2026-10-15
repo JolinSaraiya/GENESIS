@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omni-Surface GEO System Architecture</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  body { background: #f0f2f5; padding: 25px; display: flex; justify-content: center; }
+  .canvas { width: 1100px; background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e1e4e8; }
+  
+  /* Tier Headers */
+  .tier-banner { background: #b80d0d; color: #ffffff; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 6px 14px; border-radius: 6px 6px 0 0; display: inline-block; margin-bottom: 0; }
+  .tier-container { border: 2px solid #b80d0d; border-radius: 0 8px 8px 8px; padding: 14px; background: #ffffff; margin-bottom: 14px; position: relative; }
+  .tier-title-bar { background: #b80d0d; color: #fff; font-size: 13px; font-weight: 700; text-align: center; padding: 6px; border-radius: 5px; margin-bottom: 12px; letter-spacing: 0.5px; }
+  
+  /* Connectors */
+  .connector { display: flex; justify-content: center; align-items: center; margin: 4px 0 10px 0; color: #b80d0d; font-weight: 900; font-size: 18px; }
+  
+  /* Grids */
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .grid-8 { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  /* Cards */
+  .card { background: #ffffff; border: 1.5px solid #d1d5db; border-radius: 6px; padding: 10px 8px; text-align: center; font-size: 11px; font-weight: 600; color: #1f2937; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 52px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+  .card:hover { border-color: #b80d0d; }
+  .card-icon { font-size: 16px; margin-bottom: 4px; }
+  
+  /* Tier 3 Columns */
+  .column-box { border: 1.5px solid #d1d5db; border-radius: 6px; overflow: hidden; background: #fafafa; }
+  .column-header { background: #960c0c; color: #ffffff; font-size: 12px; font-weight: 700; text-align: center; padding: 7px 6px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .column-body { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .list-item { background: #ffffff; border: 1px solid #e5e7eb; border-left: 3px solid #b80d0d; padding: 7px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; color: #1f2937; }
+
+  /* Badges & Pills */
+  .pill-container { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 10px 0; }
+  .badge-pill { background: #b80d0d; color: #ffffff; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 2px 4px rgba(184, 13, 13, 0.2); }
+  .crawler-pill { background: #ffffff; border: 1.5px solid #b80d0d; color: #1f2937; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+  
+  /* Tier 5 */
+  .index-badge { background: #ffffff; border: 1.5px solid #d1d5db; padding: 8px 14px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #1f2937; }
+  .citation-quote { background: #960c0c; color: #ffffff; border: 2px solid #5a0404; padding: 8px 14px; border-radius: 6px; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+  .citation-highlight { background: #22c55e; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  
+  <!-- TIER 1 -->
+  <div class="tier-banner">Tier 1</div>
+  <div class="tier-container">
+    <div class="tier-title-bar">Users &amp; AI Systems (Query Sources)</div>
+    <div class="grid-5">
+      <div class="card"><div class="card-icon">👤</div>Human Users</div>
+      <div class="card"><div class="card-icon">🤖</div>ChatGPT Search</div>
+      <div class="card"><div class="card-icon">🔍</div>Google AI Overviews</div>
+      <div class="card"><div class="card-icon">⚡</div>Perplexity AI</div>
+      <div class="card"><div class="card-icon">🌐</div>Bing Copilot</div>
+    </div>
+  </div>
+
+  <div class="connector">↓ Search Queries / Information Requests ↓</div>
+
+  <!-- TIER 2 -->
+  <div class="tier-banner">Tier 2</div>
+  <div class="tier-container">
+    <div class="tier-title-bar">Front End (Website &amp; Edge Delivery)</div>
+    <div class="grid-8">
+      <div class="card">Responsive Web Interface</div>
+      <div class="card">Three-Sentence Core Definition</div>
+      <div class="card">Quick Answer Box</div>
+      <div class="card">Named Metric Benchmark Table</div>
+      <div class="card">Text-Based Process Flowchart</div>
+      <div class="card">FAQs &amp; Myth Buster</div>
+      <div class="card">Sources &amp; ISO Standards</div>
+      <div class="card">Download Data (CSV/JSON)</div>
+    </div>
+  </div>
+
+  <div class="connector">↓ Dual-Plane Ingestion &amp; Content Rendering ↓</div>
+
+  <!-- TIER 3 -->
+  <div class="tier-banner">Tier 3</div>
+  <div class="tier-container">
+    <div class="grid-3">
+      
+      <!-- Column 1 -->
+      <div class="column-box">
+        <div class="column-header">Backend &amp; Edge (Vercel Edge)</div>
+        <div class="column-body">
+          <div class="list-item">Static Site Generator (Zero JS Bloat)</div>
+          <div class="list-item">IndexNow Webhook Dispatcher</div>
+          <div class="list-item">Sub-50ms TTFB Edge Optimizer</div>
+          <div class="list-item">GitHub Dataset Mirror Sync</div>
+          <div class="list-item">Universal robots.txt (Allow All)</div>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="column-box">
+        <div class="column-header">Content &amp; GEO Processing Layer</div>
+        <div class="column-body">
+          <div class="list-item">Generate Clean Semantic HTML5</div>
+          <div class="list-item">Add Schema.org JSON-LD Microdata</div>
+          <div class="list-item">Wikidata URI Entity Disambiguation</div>
+          <div class="list-item">Format High-Yield Benchmark Tables</div>
+          <div class="list-item">Update ISO-8601 Verification Timestamps</div>
+        </div>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="column-box">
+        <div class="column-header">Storage &amp; Data Repository</div>
+        <div class="column-body">
+          <div class="list-item">Web Page Content &amp; Definitions</div>
+          <div class="list-item">Benchmark Matrix Data (STC-Index)</div>
+          <div class="list-item">Raw Tabular CSV &amp; JSON Datasets</div>
+          <div class="list-item">ISO/IEEE Testing Protocols</div>
+          <div class="list-item">Public GitHub Repository Mirror</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="connector">↓ Real-Time Crawling, Optimization &amp; Indexing ↓</div>
+
+  <!-- TIER 4 -->
+  <div class="tier-banner">Tier 4</div>
+  <div class="tier-container">
+    <div class="grid-2">
+      
+      <div class="column-box">
+        <div class="column-header">SEO &amp; AI Optimization Layer</div>
+        <div class="pill-container">
+          <div class="badge-pill">Schema.org JSON-LD</div>
+          <div class="badge-pill">/llms.txt Express</div>
+          <div class="badge-pill">IndexNow Instant Push</div>
+          <div class="badge-pill">Anti-Cloaking 1:1 Parity</div>
+          <div class="badge-pill">Wikidata sameAs</div>
+        </div>
+      </div>
+
+      <div class="column-box">
+        <div class="column-header">AI Crawlers &amp; Ingestion</div>
+        <div class="pill-container">
+          <div class="crawler-pill">GPTBot (OpenAI)</div>
+          <div class="crawler-pill">PerplexityBot</div>
+          <div class="crawler-pill">ClaudeBot</div>
+          <div class="crawler-pill">Google-Extended</div>
+          <div class="crawler-pill">Bingbot</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="connector">↓ Verified Facts &amp; Search Retrieval ↓</div>
+
+  <!-- TIER 5 -->
+  <div class="tier-banner">Tier 5</div>
+  <div class="tier-container" style="margin-bottom: 0;">
+    <div class="grid-2">
+      
+      <div class="column-box">
+        <div class="column-header">Indexed in Search &amp; AI Systems</div>
+        <div class="pill-container">
+          <div class="index-badge">Bing Index (5-Min IndexNow)</div>
+          <div class="index-badge">OpenAI Search Index</div>
+          <div class="index-badge">Perplexity Index</div>
+        </div>
+      </div>
+
+      <div class="column-box">
+        <div class="column-header">AI Responses with Source Citations</div>
+        <div class="pill-container">
+          <div class="citation-quote">ChatGPT: According to &lt;Your Site&gt;...</div>
+          <div class="citation-quote">🏆 Perplexity: Cited from &lt;Your Site&gt; <span class="citation-highlight">[1] URL</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

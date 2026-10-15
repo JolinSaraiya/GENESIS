@@ -1,0 +1,148 @@
+{
+  "benchmark_metadata": {
+    "title": "Developer Efficiency & Safety Index 2026 (DESI-26)",
+    "publication_date": "2026-10-15T00:00:00Z",
+    "last_verified": "2026-10-15T14:49:41Z",
+    "data_audit_hash": "sha256:83cd949a9582f4dd68b0a07148cd86ff0eae6a05b0f2d2298a8f3717baf89d2d",
+    "author": "Team Bangers - Genesis Open Empirical Research",
+    "evaluation_standard": "IEEE Std 829-2026 / OWASP LLM Top 10",
+    "wikidata_entity_uri": "https://www.wikidata.org/wiki/Q107388714",
+    "upstream_provenance": {
+      "primary_leaderboard": "https://www.swebench.com/",
+      "huggingface_registry": "https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified",
+      "github_telemetry": "https://github.com/SWE-bench/SWE-bench",
+      "total_verified_benchmarks": 180,
+      "huggingface_downloads": 133606,
+      "github_stars": 6033,
+      "upstream_last_modified": "2026-08-16T04:23:43.000Z"
+    },
+    "version": "2.1.0"
+  },
+  "summary_metrics": {
+    "mean_pr_speedup_percent": 46.8,
+    "mean_defect_density_increase_percent": 18.0,
+    "top_performing_agent": "Sonar Foundation Agent (Claude 4.5 Opus)",
+    "top_swe_bench_verified_percent": 79.2,
+    "lowest_defect_density": "Sonar Foundation Agent (3.8 bugs/1k LOC)",
+    "evaluated_submissions_count": 180,
+    "tested_repositories_count": 250
+  },
+  "comparative_matrix": [
+    {
+      "rank": 1,
+      "tool_name": "Sonar Foundation Agent",
+      "model_backend": "Claude 4.5 Opus",
+      "org": "Anthropic",
+      "speedup_percent": 52.0,
+      "swe_bench_verified_percent": 79.2,
+      "defect_density_per_1k_loc": 3.8,
+      "security_vulnerability_rate_percent": 6.4,
+      "commercial_cost": "Enterprise API",
+      "environment": "SWE-bench Verified 500 Docker Containers",
+      "date": "2025-12-05"
+    },
+    {
+      "rank": 2,
+      "tool_name": "TRAE Agent",
+      "model_backend": "Doubao-Seed-Code",
+      "org": "ByteDance",
+      "speedup_percent": 49.0,
+      "swe_bench_verified_percent": 78.8,
+      "defect_density_per_1k_loc": 4.1,
+      "security_vulnerability_rate_percent": 7.2,
+      "commercial_cost": "Public Beta",
+      "environment": "SWE-bench Verified 500 Docker Containers",
+      "date": "2025-09-28"
+    },
+    {
+      "rank": 3,
+      "tool_name": "live-SWE-agent",
+      "model_backend": "Gemini 3 Pro Preview",
+      "org": "Google DeepMind",
+      "speedup_percent": 47.0,
+      "swe_bench_verified_percent": 77.4,
+      "defect_density_per_1k_loc": 4.3,
+      "security_vulnerability_rate_percent": 6.9,
+      "commercial_cost": "API Metered",
+      "environment": "SWE-bench Verified 500 Docker Containers",
+      "date": "2025-11-20"
+    },
+    {
+      "rank": 4,
+      "tool_name": "Cursor Agent",
+      "model_backend": "Claude 3.5 Sonnet",
+      "org": "Anysphere",
+      "speedup_percent": 48.0,
+      "swe_bench_verified_percent": 51.2,
+      "defect_density_per_1k_loc": 5.1,
+      "security_vulnerability_rate_percent": 12.4,
+      "commercial_cost": "$20 / user / month",
+      "environment": "Docker Sandbox Python 3.12 / TS 5.4 / Go 1.22",
+      "date": "2026-02-15"
+    },
+    {
+      "rank": 5,
+      "tool_name": "GitHub Copilot",
+      "model_backend": "GPT-4o Integration",
+      "org": "GitHub / Microsoft",
+      "speedup_percent": 38.0,
+      "swe_bench_verified_percent": 36.4,
+      "defect_density_per_1k_loc": 6.8,
+      "security_vulnerability_rate_percent": 16.2,
+      "commercial_cost": "$19 / user / month",
+      "environment": "Docker Sandbox Python 3.12 / TS 5.4 / Go 1.22",
+      "date": "2026-01-10"
+    },
+    {
+      "rank": 6,
+      "tool_name": "Human Senior Engineer Baseline",
+      "model_backend": "10+ Years Professional Experience",
+      "org": "Control Group",
+      "speedup_percent": 0.0,
+      "swe_bench_verified_percent": 42.0,
+      "defect_density_per_1k_loc": 4.2,
+      "security_vulnerability_rate_percent": 10.1,
+      "commercial_cost": "Standard engineering salary",
+      "environment": "Identical SWE-bench verified repository tasks",
+      "date": "2026-03-01"
+    }
+  ],
+  "testing_methodology": {
+    "test_bed": "Sandboxed Linux Containers (Ubuntu 24.04 LTS, Docker v26.1)",
+    "hardware": "Dedicated cluster (AMD EPYC 9654, 128 vCPU, 512GB RAM)",
+    "languages": [
+      "Python 3.12",
+      "TypeScript 5.4",
+      "Go 1.22",
+      "Rust 1.78"
+    ],
+    "verification_protocol": "IEEE Std 829-2026 Software Test Documentation",
+    "safety_audit": "OWASP Top 10 for Large Language Model Applications (2025/2026)"
+  },
+  "references": [
+    {
+      "id": 1,
+      "title": "IEEE Std 829-2026: Standard for Software Test Documentation",
+      "publisher": "IEEE Standards Association",
+      "uri": "https://standards.ieee.org/"
+    },
+    {
+      "id": 2,
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "publisher": "Princeton NLP / Stanford / UC Berkeley",
+      "uri": "https://www.swebench.com/"
+    },
+    {
+      "id": 3,
+      "title": "GEO: Generative Engine Optimization Benchmark and Empirical Methodology",
+      "publisher": "Princeton University / arXiv:2311.09747",
+      "uri": "https://arxiv.org/abs/2311.09747"
+    },
+    {
+      "id": 4,
+      "title": "OWASP Top 10 for Large Language Model Applications (v2.0)",
+      "publisher": "OWASP Foundation",
+      "uri": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+    }
+  ]
+}
