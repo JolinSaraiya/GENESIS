@@ -53,10 +53,13 @@ def ping_indexnow(dry_run=False):
     for target in TARGET_HOSTS:
         host = target["host"]
         urls = target["urls"]
+        key_loc = f"https://{host}/{INDEXNOW_KEY}.txt"
+        if "github.io" in host:
+            key_loc = f"https://{host}/GENESIS/{INDEXNOW_KEY}.txt"
         payload = {
             "host": host,
             "key": INDEXNOW_KEY,
-            "keyLocation": f"https://{host}/{INDEXNOW_KEY}.txt",
+            "keyLocation": key_loc,
             "urlList": urls
         }
         json_data = json.dumps(payload).encode("utf-8")
