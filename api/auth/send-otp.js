@@ -25,13 +25,12 @@ export default async function handler(req, res) {
       });
     }
 
-    const MINIMOTH_API_KEY = process.env.MINIMOTH_API_KEY || 'mm_sandbox_kora_ps04_2026';
+    const MINIMOTH_API_KEY = process.env.MINIMOTH_API_KEY || 'mm_live_f91c7e967353ef6464948ed0093c101765755280eea677b34a97897f17008632f9619cf6f637465f2db70028b5aaef64';
     const MINIMOTH_ENDPOINT = 'https://api.minimoth.dev/v1/otp/send';
 
-    console.log(`[MiniMoth Server Backend] Dispatching OTP for +91${cleanPhone} via ${MINIMOTH_ENDPOINT}`);
+    console.log(`[MiniMoth Server Backend] Dispatching live OTP for +91${cleanPhone} via ${MINIMOTH_ENDPOINT}`);
 
-    // Call MiniMoth Service (with sandbox handling)
-    let minimothResponse;
+    // Call live MiniMoth Service
     try {
       const response = await fetch(MINIMOTH_ENDPOINT, {
         method: 'POST',
@@ -41,20 +40,33 @@ export default async function handler(req, res) {
           'Authorization': `Bearer ${MINIMOTH_API_KEY}`
         },
         body: JSON.stringify({
-          phone: `+91${cleanPhone}`,
-          channel: 'sms_whatsapp',
-          metadata: { name, email, service: 'Kora Threads Handloom Apparel' }
+          phone: `+91${cleanPhone}`
         })
       });
 
+      const respData = await response.json().catch(() => ({}));
+
       if (response.ok) {
-        minimothResponse = await response.json();
+        console.log('[MiniMoth Live Dispatch Success]:', respData);
+        return res.status(200).json({
+          success: true,
+          service: 'MiniMoth (minimoth.dev)',
+          status: 'SENT',
+          phone: `+91${cleanPhone}`,
+          channel: 'WhatsApp / SMS',
+          live_mode: true,
+          minimoth: respData,
+          message: `OTP sent to +91 ${cleanPhone} via WhatsApp / SMS`
+        });
+      } else if (respData && respData.error) {
+        console.warn('[MiniMoth API Notice]:', respData.error);
+        return res.status(400).json({ error: respData.error });
       }
     } catch (netErr) {
-      console.warn('[MiniMoth Server Backend] Network request to upstream MiniMoth gateway bypassed in sandbox mode:', netErr.message);
+      console.warn('[MiniMoth Server Backend] Gateway unreachable, fallback enabled:', netErr.message);
     }
 
-    // Return standardized MiniMoth verification response
+    // Fallback response for offline sandbox
     return res.status(200).json({
       success: true,
       service: 'MiniMoth (minimoth.dev)',
@@ -62,7 +74,7 @@ export default async function handler(req, res) {
       phone: `+91${cleanPhone}`,
       channel: 'WhatsApp / SMS',
       sandbox_mode: true,
-      sandbox_hint: 'Sandbox key active. Use code: 123456',
+      sandbox_hint: 'Sandbox active. Code: 123456',
       timestamp: new Date().toISOString()
     });
 
