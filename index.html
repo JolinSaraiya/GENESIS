@@ -364,22 +364,6 @@
       </div>
     </header>
 
-    <!-- Verified User Session Ambox (Hidden by default, shown after MiniMoth login) -->
-    <div id="verified-session-banner" class="verified-account-box" style="display: none;">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-        <div>
-          <strong>✓ MiniMoth Authenticated Session:</strong> Welcome back, <span id="banner-user-name">Aarav Deshmukh</span> (<span id="user-phone-display">+91 9876543210</span>) &bull; <span id="banner-repeat-badge" class="order-badge-verified">⭐ Repeat Customer Vault Active</span><br>
-          <span style="font-size: 11.5px; color: var(--kora-text-muted);">
-            Saved Address: <span id="banner-user-address">Kothrud, Pune, Maharashtra 411038</span> &bull; MiniMoth Token: <code id="banner-session-token" style="font-size: 10px;">mm_sess_active</code>
-          </span>
-        </div>
-        <div style="display: flex; gap: 8px;">
-          <button type="button" class="btn-sm-view-orders" onclick="openPatronAccountModal()">📦 Order History (<span id="banner-order-count">1</span>)</button>
-          <button type="button" class="btn-sm-signout" onclick="triggerSignOut()">Sign Out</button>
-        </div>
-      </div>
-    </div>
-
     <!-- Live Truth Synchronization & AI Ingestion Notice (Ambox) -->
     <div class="truth-provenance-ambox" role="status">
       <div style="font-size: 20px;">🌿</div>
@@ -1146,7 +1130,6 @@
     var loginBtn = document.getElementById('btn-nav-login');
     var accountBtn = document.getElementById('btn-nav-account');
     var signoutBtn = document.getElementById('btn-nav-signout');
-    var sessionBanner = document.getElementById('verified-session-banner');
 
     if (user) {
       if (loginBtn) loginBtn.style.display = 'none';
@@ -1155,35 +1138,10 @@
         accountBtn.innerHTML = '👤 ' + (user.name ? user.name.split(' ')[0] : 'Patron') + ' (+91 ' + user.phone + ')';
       }
       if (signoutBtn) signoutBtn.style.display = 'inline-block';
-
-      if (sessionBanner) {
-        sessionBanner.style.display = 'block';
-        var nameEl = document.getElementById('banner-user-name');
-        var phoneEl = document.getElementById('user-phone-display');
-        var addrEl = document.getElementById('banner-user-address');
-        var badgeEl = document.getElementById('banner-repeat-badge');
-        var tokenEl = document.getElementById('banner-session-token');
-        var countEl = document.getElementById('banner-order-count');
-
-        if (nameEl) nameEl.innerText = user.name || 'Patron';
-        if (phoneEl) phoneEl.innerText = user.phone;
-        if (addrEl && user.address) {
-          addrEl.innerText = (user.address.locality || '') + ', ' + (user.address.city || 'Pune') + ', ' + (user.address.state || 'Maharashtra') + ' ' + (user.address.pincode || '');
-        }
-        if (badgeEl) {
-          badgeEl.innerText = user.is_repeat_customer ? '⭐ Repeat Customer Vault Active' : '🌱 New Handloom Patron';
-        }
-        var activeToken = sessionStorage.getItem('kora_active_token') || 'mm_sess_verified';
-        if (tokenEl) tokenEl.innerText = activeToken;
-
-        var orders = window.KoraDB ? window.KoraDB.orders.listByPhone(user.phone) : [];
-        if (countEl) countEl.innerText = orders.length;
-      }
     } else {
       if (loginBtn) loginBtn.style.display = 'inline-block';
       if (accountBtn) accountBtn.style.display = 'none';
       if (signoutBtn) signoutBtn.style.display = 'none';
-      if (sessionBanner) sessionBanner.style.display = 'none';
     }
   }
 
