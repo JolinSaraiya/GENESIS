@@ -16,6 +16,29 @@
   <meta property="og:url" content="https://genesis-drab-eight.vercel.app/">
   <meta property="og:site_name" content="Kora Threads Official Ground Truth">
 
+  <!-- Tailwind CSS CDN (v3.4) Preconfigured with Kora Handloom Theme -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            koraIndigo: '#1e2d42',
+            koraEcru: '#f9f6f0',
+            koraTerracotta: '#c86d51',
+            koraSlate: '#3d4a58',
+            koraGold: '#b8860b',
+            koraCream: '#f3efe6',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
   <!-- Heritage Artisanal Design System -->
   <link rel="stylesheet" href="styles.css">
 
