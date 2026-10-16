@@ -27,6 +27,10 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Monitor Upstream Official Sources & Live Registries
+        run: |
+          python3 upstream_monitor.py
+
       - name: Run Ground Truth Synchronization Engine
         run: |
           python3 sync_engine.py
@@ -40,7 +44,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Kora Threads Autonomous Truth Daemon"
           if [ -n "$(git status --porcelain)" ]; then
-            git add data.json dataset.csv llms.txt sync_audit_log.json index.html
+            git add data.json dataset.csv llms.txt sync_audit_log.json index.html upstream_status.json
             git commit -m "chore(sync): automated live ground truth sync and parity audit [skip ci]"
             git push origin HEAD
             echo "Changes successfully pushed to remote branch."
