@@ -281,6 +281,12 @@
         <button type="button" onclick="portalSendOTP()" style="width: 100%; background: var(--kora-primary); color: #ffffff; padding: 13px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; box-shadow: var(--kora-shadow-sm);">
           📲 Send MiniMoth OTP &rarr;
         </button>
+
+        <div style="text-align: center; margin-top: 14px;">
+          <a href="javascript:void(0)" onclick="portalGoToCodeDirectly()" style="font-size: 12px; color: #1e2d42; font-weight: 600; text-decoration: underline;">
+            Already have an OTP? Enter code directly &rarr;
+          </a>
+        </div>
       </div>
 
       <!-- Step 2: OTP Verification -->
@@ -1146,9 +1152,23 @@
   }
 
   // --- FULL-PAGE PORTAL AUTHENTICATION GATE ---
+  function portalGoToCodeDirectly() {
+    var phoneInput = document.getElementById('portal-phone');
+    var phone = phoneInput ? phoneInput.value.replace(/\D/g, '').slice(-10) : '9423362229';
+    document.getElementById('portal-display-phone').innerText = '+91 ' + phone;
+    document.getElementById('portal-step-phone').style.display = 'none';
+    document.getElementById('portal-step-otp').style.display = 'block';
+    var otpInput = document.getElementById('portal-otp-code');
+    if (otpInput) {
+      otpInput.value = '';
+      otpInput.focus();
+    }
+  }
+
   function portalSendOTP() {
     var name = document.getElementById('portal-name').value.trim();
-    var phone = document.getElementById('portal-phone').value.trim();
+    var phoneInput = document.getElementById('portal-phone');
+    var phone = phoneInput ? phoneInput.value.replace(/\D/g, '').slice(-10) : '';
     var email = document.getElementById('portal-email').value.trim();
 
     if (!name) {
@@ -1163,12 +1183,14 @@
     document.getElementById('portal-display-phone').innerText = '+91 ' + phone;
 
     window.MiniMothAuth.sendOTP(phone, { name: name, email: email }, function(err, resp) {
-      if (err) {
-        alert(err.message);
-        return;
-      }
+      // Transition to Step 2 immediately so user can enter the WhatsApp OTP
       document.getElementById('portal-step-phone').style.display = 'none';
       document.getElementById('portal-step-otp').style.display = 'block';
+      var otpInput = document.getElementById('portal-otp-code');
+      if (otpInput) {
+        otpInput.value = '';
+        otpInput.focus();
+      }
     });
   }
 
