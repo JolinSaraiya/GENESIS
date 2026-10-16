@@ -262,7 +262,7 @@
           <label style="display: block; font-size: 12.5px; font-weight: 600; color: #1e2d42; margin-bottom: 6px; text-align: center;">
             Enter 6-Digit Verification Code:
           </label>
-          <input type="text" id="portal-otp-code" maxlength="6" value="123456" placeholder="123456" style="width: 100%; padding: 12px; border: 2px solid #b8860b; border-radius: 6px; font-size: 22px; font-weight: 700; text-align: center; letter-spacing: 8px; box-sizing: border-box; background: #ffffff; color: #1e2d42;" />
+          <input type="text" id="portal-otp-code" maxlength="6" value="" placeholder="Enter 6-digit OTP" style="width: 100%; padding: 12px; border: 2px solid #b8860b; border-radius: 6px; font-size: 22px; font-weight: 700; text-align: center; letter-spacing: 6px; box-sizing: border-box; background: #ffffff; color: #1e2d42;" />
         </div>
 
         <button type="button" onclick="portalVerifyOTP()" style="width: 100%; background: #2e7d32; color: #ffffff; padding: 13px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);">
@@ -1169,16 +1169,23 @@
   }
 
   function portalVerifyOTP() {
-    var phone = document.getElementById('portal-phone').value.trim();
-    var code = document.getElementById('portal-otp-code').value.trim();
+    var phoneInput = document.getElementById('portal-phone');
+    var codeInput = document.getElementById('portal-otp-code');
+    var phone = phoneInput ? phoneInput.value.replace(/\D/g, '').slice(-10) : '';
+    var code = codeInput ? codeInput.value.replace(/\D/g, '').trim() : '';
+
+    if (code.length !== 6) {
+      alert("Please enter the complete 6-digit OTP code received on WhatsApp/SMS.");
+      return;
+    }
 
     window.MiniMothAuth.verifyOTP(phone, code, function(err, data) {
       if (err) {
         alert(err.message);
         return;
       }
-      sessionStorage.setItem('kora_active_token', 'mm_sess_verified');
-      unlockStorefront(data.user);
+      sessionStorage.setItem('kora_active_token', (data && data.session_token) ? data.session_token : 'mm_sess_verified');
+      unlockStorefront((data && data.user) ? data.user : { name: 'Patron', phone: phone });
     });
   }
 

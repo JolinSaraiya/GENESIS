@@ -32,6 +32,7 @@ export default async function handler(req, res) {
 
     // If live key is provided, try upstream verification
     let isVerified = (cleanCode === SANDBOX_CODE);
+    let upstreamData = null;
 
     if (!isVerified) {
       try {
@@ -47,9 +48,18 @@ export default async function handler(req, res) {
             code: cleanCode
           })
         });
+
+        const data = await response.json().catch(() => ({}));
         if (response.ok) {
-          const data = await response.json();
-          if (data && data.verified) isVerified = true;
+          console.log('[MiniMoth Live Verify Success]:', data);
+          isVerified = true;
+          upstreamData = data;
+        } else if (data && data.error && cleanCode !== SANDBOX_CODE) {
+          console.warn('[MiniMoth Verify Error]:', data.error);
+          return res.status(401).json({
+            success: false,
+            error: data.error
+          });
         }
       } catch (e) {
         console.warn('[MiniMoth Server Backend] Upstream verify check failed:', e.message);
@@ -59,7 +69,7 @@ export default async function handler(req, res) {
     if (!isVerified) {
       return res.status(401).json({
         success: false,
-        error: 'Invalid verification code. Please enter the 6-digit OTP code (Sandbox: 123456).'
+        error: 'Invalid verification code. Please enter the OTP received on WhatsApp/SMS or 123456.'
       });
     }
 
