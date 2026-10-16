@@ -227,18 +227,26 @@
        DEDICATED FULL-SCREEN SIGN-IN PORTAL (GATED STOREFRONT)
        Visitors must authenticate via MiniMoth Phone OTP before accessing the site
        ========================================================================= -->
-  <div id="kora-signin-screen" style="display: flex; min-height: 100vh; width: 100%; align-items: center; justify-content: center; background: #f9f6f0; padding: 32px 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; box-sizing: border-box;">
-    <div style="max-width: 460px; width: 100%; background: #ffffff; border: 1px solid #e2d9cc; border-radius: 12px; box-shadow: 0 12px 35px rgba(30, 45, 66, 0.09); padding: 36px 30px; text-align: left; box-sizing: border-box;">
+  <div id="kora-signin-screen" style="display: flex; min-height: 100vh; width: 100%; align-items: center; justify-content: center; background: var(--kora-page-bg); padding: 32px 16px; font-family: var(--font-sans); box-sizing: border-box; transition: background 0.25s ease;">
+    <div style="max-width: 460px; width: 100%; background: var(--kora-card-bg); border: 1px solid var(--kora-border); border-radius: 12px; box-shadow: var(--kora-shadow-lg); padding: 36px 30px; text-align: left; box-sizing: border-box; position: relative; color: var(--kora-text); transition: all 0.25s ease;">
       
+      <!-- Quick Theme Switcher in Portal -->
+      <div style="position: absolute; top: 16px; right: 16px;">
+        <button type="button" class="btn-theme-toggle" onclick="toggleKoraTheme()" style="padding: 5px 9px; font-size: 11px;" title="Switch Theme">
+          <span id="portal-theme-icon">🌙</span>
+        </button>
+      </div>
+
       <!-- Brand Header -->
       <div style="text-align: center; margin-bottom: 22px;">
-        <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #b8860b; background: #fbf5e8; padding: 4px 12px; border-radius: 20px; border: 1px solid #ebd9b5; display: inline-block; margin-bottom: 10px;">
+        <img src="logo.jpg" alt="Kora Threads Logo" style="height: 56px; width: 56px; border-radius: 10px; margin: 0 auto 10px auto; display: block; border: 1px solid var(--kora-border); box-shadow: var(--kora-shadow-sm); background: #ffffff;">
+        <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--kora-primary); background: var(--kora-badge-bg); padding: 4px 12px; border-radius: 20px; border: 1px solid var(--kora-border); display: inline-block; margin-bottom: 10px;">
           Patron Access Portal
         </span>
-        <h1 style="font-family: Georgia, serif; font-size: 30px; color: #1e2d42; margin: 0 0 4px 0; font-weight: 700; letter-spacing: -0.5px;">
+        <h1 style="font-family: var(--font-serif); font-size: 30px; color: var(--kora-primary); margin: 0 0 4px 0; font-weight: 700; letter-spacing: -0.5px;">
           Kora Threads
         </h1>
-        <p style="font-size: 13px; color: #5a6675; margin: 0;">
+        <p style="font-size: 13px; color: var(--kora-text-muted); margin: 0;">
           Pure Indian Handloom &bull; Pune, Maharashtra &bull; Est. 2021
         </p>
       </div>
@@ -246,65 +254,65 @@
       <!-- Step 1: User Registration / Phone Input -->
       <div id="portal-step-phone">
         <div style="margin-bottom: 14px;">
-          <label style="display: block; font-size: 12.5px; font-weight: 600; color: #1e2d42; margin-bottom: 5px;">
-            Full Name <span style="color: #c86d51;">*</span>
+          <label style="display: block; font-size: 12.5px; font-weight: 600; color: var(--kora-text); margin-bottom: 5px;">
+            Full Name <span style="color: var(--kora-primary);">*</span>
           </label>
-          <input type="text" id="portal-name" placeholder="e.g. Priya Sharma" value="Priya Sharma" style="width: 100%; padding: 11px 14px; border: 1px solid #d0c7b9; border-radius: 6px; font-size: 14px; box-sizing: border-box; background: #fdfcf9; color: #1e2d42;" />
+          <input type="text" id="portal-name" placeholder="e.g. Priya Sharma" value="Priya Sharma" style="width: 100%; padding: 11px 14px; border: 1px solid var(--kora-border); border-radius: 6px; font-size: 14px; box-sizing: border-box; background: var(--kora-input-bg); color: var(--kora-text);" />
         </div>
 
         <div style="margin-bottom: 14px;">
-          <label style="display: block; font-size: 12.5px; font-weight: 600; color: #1e2d42; margin-bottom: 5px;">
-            Mobile Number (+91) <span style="color: #c86d51;">*</span>
+          <label style="display: block; font-size: 12.5px; font-weight: 600; color: var(--kora-text); margin-bottom: 5px;">
+            Mobile Number (+91) <span style="color: var(--kora-primary);">*</span>
           </label>
           <div style="display: flex;">
-            <span style="background: #f0eae1; border: 1px solid #d0c7b9; border-right: none; padding: 11px 12px; font-size: 14px; color: #5a6675; font-weight: 600; border-radius: 6px 0 0 6px;">+91</span>
-            <input type="tel" id="portal-phone" maxlength="10" placeholder="9876543210" value="9876543210" style="flex: 1; padding: 11px 14px; border: 1px solid #d0c7b9; border-radius: 0 6px 6px 0; font-size: 14px; box-sizing: border-box; background: #fdfcf9; color: #1e2d42;" />
+            <span style="background: var(--kora-badge-bg); border: 1px solid var(--kora-border); border-right: none; padding: 11px 12px; font-size: 14px; color: var(--kora-text-muted); font-weight: 600; border-radius: 6px 0 0 6px;">+91</span>
+            <input type="tel" id="portal-phone" maxlength="10" placeholder="9876543210" value="9876543210" style="flex: 1; padding: 11px 14px; border: 1px solid var(--kora-border); border-radius: 0 6px 6px 0; font-size: 14px; box-sizing: border-box; background: var(--kora-input-bg); color: var(--kora-text);" />
           </div>
-          <span style="font-size: 11px; color: #7a8694; margin-top: 4px; display: block;">Protects against 1-in-8 delivery failures on COD orders.</span>
+          <span style="font-size: 11px; color: var(--kora-text-muted); margin-top: 4px; display: block;">Protects against 1-in-8 delivery failures on COD orders.</span>
         </div>
 
         <div style="margin-bottom: 20px;">
-          <label style="display: block; font-size: 12.5px; font-weight: 600; color: #1e2d42; margin-bottom: 5px;">
+          <label style="display: block; font-size: 12.5px; font-weight: 600; color: var(--kora-text); margin-bottom: 5px;">
             Email Address (Optional)
           </label>
-          <input type="email" id="portal-email" placeholder="priya.sharma@example.com" value="priya.sharma@example.com" style="width: 100%; padding: 11px 14px; border: 1px solid #d0c7b9; border-radius: 6px; font-size: 14px; box-sizing: border-box; background: #fdfcf9; color: #1e2d42;" />
+          <input type="email" id="portal-email" placeholder="priya.sharma@example.com" value="priya.sharma@example.com" style="width: 100%; padding: 11px 14px; border: 1px solid var(--kora-border); border-radius: 6px; font-size: 14px; box-sizing: border-box; background: var(--kora-input-bg); color: var(--kora-text);" />
         </div>
 
-        <button type="button" onclick="portalSendOTP()" style="width: 100%; background: #1e2d42; color: #ffffff; padding: 13px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 12px rgba(30, 45, 66, 0.2);">
+        <button type="button" onclick="portalSendOTP()" style="width: 100%; background: var(--kora-primary); color: #ffffff; padding: 13px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; box-shadow: var(--kora-shadow-sm);">
           📲 Send MiniMoth OTP &rarr;
         </button>
       </div>
 
       <!-- Step 2: OTP Verification -->
       <div id="portal-step-otp" style="display: none;">
-        <div style="background: #fbf5e8; border: 1px solid #ebd9b5; border-radius: 6px; padding: 12px; margin-bottom: 18px; text-align: center;">
-          <div style="font-size: 13px; color: #1e2d42; font-weight: 600;">
-            OTP sent to <span id="portal-display-phone" style="color: #b8860b; font-weight: 700;">+91 9876543210</span>
+        <div style="background: var(--kora-badge-bg); border: 1px solid var(--kora-border); border-radius: 6px; padding: 12px; margin-bottom: 18px; text-align: center;">
+          <div style="font-size: 13px; color: var(--kora-text); font-weight: 600;">
+            OTP sent to <span id="portal-display-phone" style="color: var(--kora-primary); font-weight: 700;">+91 9876543210</span>
           </div>
-          <div style="font-size: 11.5px; color: #5a6675; margin-top: 4px;">
+          <div style="font-size: 11.5px; color: var(--kora-text-muted); margin-top: 4px;">
             MiniMoth Sandbox Mode &bull; Enter code: <strong>123456</strong>
           </div>
         </div>
 
         <div style="margin-bottom: 20px;">
-          <label style="display: block; font-size: 12.5px; font-weight: 600; color: #1e2d42; margin-bottom: 6px; text-align: center;">
+          <label style="display: block; font-size: 12.5px; font-weight: 600; color: var(--kora-text); margin-bottom: 6px; text-align: center;">
             Enter 6-Digit Verification Code:
           </label>
-          <input type="text" id="portal-otp-code" maxlength="6" value="123456" placeholder="123456" style="width: 100%; padding: 12px; border: 2px solid #b8860b; border-radius: 6px; font-size: 22px; font-weight: 700; text-align: center; letter-spacing: 8px; box-sizing: border-box; background: #ffffff; color: #1e2d42;" />
+          <input type="text" id="portal-otp-code" maxlength="6" value="123456" placeholder="123456" style="width: 100%; padding: 12px; border: 2px solid var(--kora-primary); border-radius: 6px; font-size: 22px; font-weight: 700; text-align: center; letter-spacing: 8px; box-sizing: border-box; background: var(--kora-input-bg); color: var(--kora-text);" />
         </div>
 
-        <button type="button" onclick="portalVerifyOTP()" style="width: 100%; background: #2e7d32; color: #ffffff; padding: 13px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);">
+        <button type="button" onclick="portalVerifyOTP()" style="width: 100%; background: var(--kora-primary); color: #ffffff; padding: 13px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: var(--kora-shadow-sm);">
           ✓ Verify &amp; Unlock Storefront &rarr;
         </button>
 
         <div style="text-align: center; margin-top: 14px;">
-          <a href="javascript:void(0)" onclick="portalBackToPhone()" style="font-size: 12px; color: #5a6675; text-decoration: underline;">
+          <a href="javascript:void(0)" onclick="portalBackToPhone()" style="font-size: 12px; color: var(--kora-text-muted); text-decoration: underline;">
             &larr; Change mobile number
           </a>
         </div>
       </div>
 
-      <div style="margin-top: 22px; padding-top: 16px; border-top: 1px solid #f0eae1; text-align: center; font-size: 11.5px; color: #7a8694;">
+      <div style="margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--kora-border); text-align: center; font-size: 11.5px; color: var(--kora-text-muted);">
         🔒 Direct cooperative sourcing &bull; 100% Pure Cotton &bull; 10-Day Returns
       </div>
     </div>
@@ -1530,6 +1538,7 @@
   function updateThemeToggleUI(theme) {
     var icon = document.getElementById('theme-toggle-icon');
     var text = document.getElementById('theme-toggle-text');
+    var portalIcon = document.getElementById('portal-theme-icon');
     if (icon && text) {
       if (theme === 'dark') {
         icon.textContent = '☀️';
@@ -1538,6 +1547,9 @@
         icon.textContent = '🌙';
         text.textContent = 'Dark';
       }
+    }
+    if (portalIcon) {
+      portalIcon.textContent = (theme === 'dark') ? '☀️' : '🌙';
     }
   }
 
