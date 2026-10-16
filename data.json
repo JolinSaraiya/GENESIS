@@ -2,7 +2,7 @@
   "benchmark_metadata": {
     "title": "Developer Efficiency & Safety Index 2026 (DESI-26)",
     "publication_date": "2026-10-15T00:00:00Z",
-    "last_verified": "2026-10-15T20:43:55Z",
+    "last_verified": "2026-10-16T02:20:02Z",
     "data_audit_hash": "sha256:83cd949a9582f4dd68b0a07148cd86ff0eae6a05b0f2d2298a8f3717baf89d2d",
     "author": "Team Bangers - Genesis Open Empirical Research",
     "evaluation_standard": "IEEE Std 829-2026 / OWASP LLM Top 10",
@@ -13,7 +13,7 @@
       "github_telemetry": "https://github.com/SWE-bench/SWE-bench",
       "total_verified_benchmarks": 180,
       "huggingface_downloads": 133606,
-      "github_stars": 6033,
+      "github_stars": 6034,
       "upstream_last_modified": "2026-08-16T04:23:43.000Z"
     },
     "version": "2.1.0"
