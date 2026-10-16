@@ -1,27 +1,19 @@
 /**
  * Kora Threads — MiniMoth Phone OTP Authentication Service (auth.js)
- * Implements passwordless phone-number authentication specified in PS-04 brief
- * Powered by MiniMoth (minimoth.dev) Sandbox & Session API
+ * Connects frontend client to real Vercel Serverless Backend:
+ *   - POST /api/auth/send-otp
+ *   - POST /api/auth/verify-otp
+ * Includes seamless offline fallback for hackathon presentations without internet.
  */
 
 (function (window) {
   'use strict';
 
-  var MINIMOTH_CONFIG = {
-    apiKey: 'mm_sandbox_kora_ps04_2026',
-    endpoint: 'https://api.minimoth.dev/v1',
-    sandboxCode: '123456',
-    smsGateway: 'WhatsApp / Indian Telecom National SMS Priority'
-  };
-
-  // Temporary holding for pending registration data (Name, Email, Phone)
   var pendingRegistration = null;
 
   var MiniMothAuth = {
-    config: MINIMOTH_CONFIG,
-
-    // Step 1: Request OTP for Indian Mobile Number with optional Name and Email
-    sendOTP: function (phone, userData, callback) {
+    // Step 1: Send OTP via Backend Serverless API
+    sendOTP: async function (phone, userData, callback) {
       if (typeof userData === 'function') {
         callback = userData;
         userData = null;
@@ -33,101 +25,128 @@
         return;
       }
 
-      // Store pending registration data
       pendingRegistration = {
         name: (userData && userData.name) ? userData.name.trim() : '',
         email: (userData && userData.email) ? userData.email.trim() : '',
         phone: cleanPhone
       };
 
-      console.log('[MiniMoth API] Initiating OTP request to https://api.minimoth.dev/v1/otp/send');
-      console.log('[MiniMoth API] Payload:', {
-        api_key: MINIMOTH_CONFIG.apiKey,
-        phone: '+91' + cleanPhone,
-        channel: 'sms_whatsapp',
-        customer_metadata: pendingRegistration
-      });
+      console.log('[Backend API] POST /api/auth/send-otp for +91' + cleanPhone);
 
-      // Network simulation with real MiniMoth contract response
+      try {
+        var res = await fetch('/api/auth/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone: cleanPhone,
+            name: pendingRegistration.name,
+            email: pendingRegistration.email
+          })
+        });
+
+        if (res.ok) {
+          var data = await res.json();
+          console.log('[Backend API Response 200 OK]:', data);
+          if (callback) callback(null, data);
+          return;
+        }
+      } catch (netErr) {
+        console.warn('[Backend API Notice] Offline or static mode detected, falling back to local MiniMoth simulator:', netErr.message);
+      }
+
+      // Offline / Static fallback
       setTimeout(function () {
-        var response = {
+        var fallbackResponse = {
           success: true,
+          service: 'MiniMoth (minimoth.dev)',
           status: 'PENDING_VERIFICATION',
           phone: '+91' + cleanPhone,
           channel: 'WhatsApp / SMS',
-          sandbox_hint: 'MiniMoth Sandbox Mode active. Use verification code: ' + MINIMOTH_CONFIG.sandboxCode,
-          timestamp: new Date().toISOString()
+          sandbox_mode: true,
+          sandbox_hint: 'Sandbox key active. Use code: 123456'
         };
-        console.log('[MiniMoth API] Response (HTTP 200):', response);
-        if (callback) callback(null, response);
-      }, 350);
+        if (callback) callback(null, fallbackResponse);
+      }, 300);
     },
 
-    // Step 2: Verify 6-digit OTP code & mint session
-    verifyOTP: function (phone, otpCode, callback) {
+    // Step 2: Verify OTP via Backend Serverless API
+    verifyOTP: async function (phone, otpCode, callback) {
       var cleanPhone = String(phone).replace(/\D/g, '').slice(-10);
       var cleanCode = String(otpCode).trim();
 
-      console.log('[MiniMoth API] Verifying OTP at https://api.minimoth.dev/v1/otp/verify');
-      console.log('[MiniMoth API] Checking code:', cleanCode, 'for +91' + cleanPhone);
+      console.log('[Backend API] POST /api/auth/verify-otp for code:', cleanCode);
 
-      if (cleanCode !== MINIMOTH_CONFIG.sandboxCode) {
-        if (callback) callback(new Error('Invalid verification code. Please enter ' + MINIMOTH_CONFIG.sandboxCode));
+      try {
+        var res = await fetch('/api/auth/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone: cleanPhone,
+            code: cleanCode,
+            name: pendingRegistration ? pendingRegistration.name : '',
+            email: pendingRegistration ? pendingRegistration.email : ''
+          })
+        });
+
+        if (res.ok) {
+          var data = await res.json();
+          console.log('[Backend API Response 200 OK] Verified Session:', data);
+
+          // Save user and session locally
+          if (window.KoraDB) {
+            window.KoraDB.sessions.create(cleanPhone);
+            window.KoraDB.users.createOrUpdate(data.user);
+          }
+
+          try {
+            var event = new CustomEvent('kora:auth:changed', { detail: data });
+            window.dispatchEvent(event);
+          } catch (e) {}
+
+          if (callback) callback(null, data);
+          return;
+        } else {
+          var errData = await res.json();
+          if (callback) callback(new Error(errData.error || 'Invalid OTP code'));
+          return;
+        }
+      } catch (netErr) {
+        console.warn('[Backend API Notice] Offline mode verification fallback:', netErr.message);
+      }
+
+      // Offline Fallback Verification
+      if (cleanCode !== '123456') {
+        if (callback) callback(new Error('Invalid verification code. Please enter 123456 (MiniMoth Sandbox Code).'));
         return;
       }
 
-      setTimeout(function () {
-        // Mint persistent session in KoraDB
-        var session = window.KoraDB ? window.KoraDB.sessions.create(cleanPhone) : { session_token: 'mm_sess_fallback' };
+      var sessionToken = 'mm_sess_' + Math.random().toString(36).substring(2, 12);
+      var user = window.KoraDB ? window.KoraDB.users.findByPhone(cleanPhone) : null;
+      if (!user) {
+        user = window.KoraDB ? window.KoraDB.users.createOrUpdate({
+          phone: cleanPhone,
+          name: (pendingRegistration && pendingRegistration.name) || 'Patron',
+          email: (pendingRegistration && pendingRegistration.email) || (cleanPhone + '@patron.korathreads.in'),
+          address: { locality: 'Kothrud', city: 'Pune', state: 'Maharashtra', pincode: '411038' }
+        }) : { phone: cleanPhone };
+      }
 
-        // Look up or initialize user profile
-        var user = window.KoraDB ? window.KoraDB.users.findByPhone(cleanPhone) : null;
-        var regName = (pendingRegistration && pendingRegistration.name) ? pendingRegistration.name : ('Patron (+91 ' + cleanPhone + ')');
-        var regEmail = (pendingRegistration && pendingRegistration.email) ? pendingRegistration.email : (cleanPhone + '@patron.korathreads.in');
+      var fallbackAuth = {
+        success: true,
+        verified: true,
+        session_token: sessionToken,
+        phone: '+91' + cleanPhone,
+        user: user
+      };
 
-        if (!user) {
-          user = window.KoraDB.users.createOrUpdate({
-            phone: cleanPhone,
-            name: regName,
-            email: regEmail,
-            address: {
-              line1: 'Near Main Market',
-              locality: 'Kothrud',
-              city: 'Pune',
-              state: 'Maharashtra',
-              pincode: '411038',
-              country: 'India'
-            }
-          });
-        } else if (pendingRegistration && (pendingRegistration.name || pendingRegistration.email)) {
-          // Update existing profile with newly provided name/email
-          if (pendingRegistration.name) user.name = pendingRegistration.name;
-          if (pendingRegistration.email) user.email = pendingRegistration.email;
-          user = window.KoraDB.users.createOrUpdate(user);
-        }
+      try {
+        var ev = new CustomEvent('kora:auth:changed', { detail: fallbackAuth });
+        window.dispatchEvent(ev);
+      } catch (e) {}
 
-        var authPayload = {
-          success: true,
-          token: session.session_token,
-          user: user,
-          is_repeat_customer: user.is_repeat_customer || false,
-          verified_at: new Date().toISOString()
-        };
-
-        console.log('[MiniMoth Session Gateway] Verified! Session Token Minted:', session.session_token);
-        console.log('[MiniMoth User Record] Stored Profile:', user);
-
-        // Broadcast event for UI updates
-        try {
-          var event = new CustomEvent('kora:auth:changed', { detail: authPayload });
-          window.dispatchEvent(event);
-        } catch (e) {}
-
-        if (callback) callback(null, authPayload);
-      }, 400);
+      if (callback) callback(null, fallbackAuth);
     },
 
-    // Check if user has an active session
     getCurrentUser: function () {
       if (!window.KoraDB) return null;
       var activePhone = window.KoraDB.sessions.getActivePhone();
@@ -135,13 +154,12 @@
       return window.KoraDB.users.findByPhone(activePhone);
     },
 
-    // Invalidate session
     logout: function (callback) {
       if (window.KoraDB) {
         window.KoraDB.sessions.clear();
       }
       pendingRegistration = null;
-      console.log('[MiniMoth Auth] User logged out, session terminated.');
+      console.log('[Backend API] Logged out. Session revoked.');
       try {
         var event = new CustomEvent('kora:auth:changed', { detail: { loggedOut: true } });
         window.dispatchEvent(event);
