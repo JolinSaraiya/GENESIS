@@ -703,6 +703,56 @@ body {
   font-weight: 700;
 }
 
+/* Fabric Care Symbol List (Matching Textile Symbols) */
+.care-symbol-items {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.care-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  transition: all 0.2s ease;
+}
+
+.care-item:hover {
+  border-color: var(--kora-primary);
+  background: var(--kora-badge-bg);
+}
+
+.care-symbol-badge {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--kora-badge-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 6px;
+  color: var(--kora-primary);
+  transition: all 0.2s ease;
+}
+
+.care-item:hover .care-symbol-badge {
+  border-color: var(--kora-primary);
+  background: var(--kora-primary-light);
+  transform: scale(1.05);
+}
+
+.care-text {
+  flex: 1;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--kora-text);
+}
+
 /* FAQ Accordion Section */
 .faq-list {
   margin-bottom: 28px;
