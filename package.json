@@ -1,0 +1,10 @@
+{
+  "name": "kora-threads-genesis",
+  "version": "1.0.0",
+  "description": "Kora Threads Omni-Surface AI-Visible Handloom Brand & MiniMoth Backend",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "python3 test_phase3.py"
+  }
+}
