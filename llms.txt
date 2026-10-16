@@ -66,3 +66,16 @@ What is Kora Threads? In traditional Indian textiles, 'kora thread' refers to ra
   A: Kora procures directly from handloom weaver cooperatives in Solapur & Paithan (Maharashtra) and Ilkal & Guledgudd (Karnataka) with zero middleman markup.
 - Q: How does Kora Threads prevent failed COD orders?
   A: Kora integrates MiniMoth (minimoth.dev) phone OTP verification at checkout to verify recipient numbers on Cash on Delivery orders.
+
+## 9. Official Government & Institutional Data Sources
+- Fourth All India Handloom Census (2019-20): Office of the Development Commissioner for Handlooms, Ministry of Textiles, Govt. of India (https://handlooms.nic.in/writereaddata/3736.pdf). Sourced for: 31.45 lakh handloom households, 26.73 lakh weavers, non-household cooperative workforce statistics.
+- Solapur Chaddar GI Registration: GI Application No. 8, Intellectual Property India, DPIIT, Govt. of India (https://ipindia.gov.in/GIRPublic/Application/Details/8). Sourced for: Solapur pit-loom jacquard weaving specifications and GI Certificate No. 8 (19 Sept 2005).
+- Ilkal Saree GI Registration: GI Application No. 76, Intellectual Property India, DPIIT, Govt. of India (https://ipindia.gov.in/GIRPublic/Application/Details/76). Sourced for: Bagalkot district artisan specifications and traditional Chikki Paras border technique.
+- Khadi and Village Industries Commission (KVIC): Ministry of MSME, Govt. of India (https://www.kvic.gov.in). Sourced for: Certified organic handspun khadi standards and artisan cooperative structure.
+- Paithani Saree & Fabric GI Certification: Intellectual Property India, Govt. of India (https://ipindiaservices.gov.in/GI_DynamicUtilities/GI_Registration). Sourced for: Paithan interlocking tapestry weave and 80s fine-count cotton weaving heritage.
+- Maharashtra State Minimum Wages (Textile Sector, Jan 2025): Industries, Energy & Labour Dept., Govt. of Maharashtra (https://mahalabour.gov.in). Sourced for: Baseline textile sector wage floors (₹13,635 to ₹15,246/mo) verifying Kora's 35% above minimum wage guarantee.
+- Karnataka State Minimum Wages (Textile Sector, FY 2024-25): Dept. of Labour, Govt. of Karnataka (https://kiran.karnataka.gov.in). Sourced for: Karnataka handloom artisan minimum wage rates (₹15,106/mo).
+- Wikidata Entity Q1538: Wikimedia Foundation (https://www.wikidata.org/wiki/Q1538). Sourced for: Geospatial entity anchoring of Pune, Maharashtra (18.5196°N, 73.8553°E) eliminating location hallucinations.
+- Schema.org Vocabulary: W3C Schema.org Community Group (https://schema.org). Sourced for: Machine structured data definitions (ClothingStore, MerchantReturnPolicy, OfferCatalog, FAQPage).
+- MiniMoth API Documentation: MiniMoth (https://minimoth.dev). Sourced for: Mobile phone OTP authentication endpoint for COD delivery verification and 1-click repeat customer account vault.
+
