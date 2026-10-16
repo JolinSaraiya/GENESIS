@@ -1298,11 +1298,104 @@
     var mmModal = document.getElementById('minimoth-modal');
     var chModal = document.getElementById('checkout-modal');
     var paModal = document.getElementById('patron-account-modal');
+    var dbModal = document.getElementById('admin-db-modal');
     if (event.target === mmModal) closeMiniMothModal();
     if (event.target === chModal) closeCheckoutModal();
     if (event.target === paModal) closePatronAccountModal();
+    if (event.target === dbModal) closeAdminDatabaseModal();
   };
+
+  // Secret Admin Shortcut for Judges: Press Ctrl + Shift + D or type #database in URL
+  window.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+      e.preventDefault();
+      openAdminDatabaseModal();
+    }
+  });
+
+  window.addEventListener('hashchange', function() {
+    if (window.location.hash === '#database' || window.location.hash === '#admin') {
+      openAdminDatabaseModal();
+    }
+  });
+
+  function openAdminDatabaseModal() {
+    var modal = document.getElementById('admin-db-modal');
+    if (!modal) return;
+    renderAdminDatabase();
+    modal.style.display = 'flex';
+  }
+
+  function closeAdminDatabaseModal() {
+    var modal = document.getElementById('admin-db-modal');
+    if (modal) modal.style.display = 'none';
+    if (window.location.hash === '#database' || window.location.hash === '#admin') {
+      history.replaceState(null, null, ' ');
+    }
+  }
+
+  function renderAdminDatabase() {
+    if (!window.KoraDB) return;
+    var users = window.KoraDB.users.getAll();
+    var orders = window.KoraDB.orders.getAll();
+
+    var usersList = document.getElementById('admin-users-list');
+    var ordersList = document.getElementById('admin-orders-list');
+
+    if (usersList) {
+      usersList.innerHTML = users.map(function(u) {
+        return '<div style="background: #fdfaf6; border: 1px solid var(--kora-border); border-left: 3px solid #2e7d32; padding: 10px; margin-bottom: 8px; font-size: 12px; font-family: monospace;">' +
+          '<strong>' + (u.name || 'Patron') + '</strong> &bull; +91 ' + u.phone + ' &bull; ' + (u.email || 'No email') + '<br>' +
+          'Status: ' + (u.is_repeat_customer ? '⭐ Repeat Buyer (70% revenue driver)' : '🌱 New Patron') + ' &bull; Orders: ' + (u.orders_count || 0) + '<br>' +
+          'Saved Address: ' + (u.address ? (u.address.locality + ', ' + u.address.city) : 'Pune') +
+        '</div>';
+      }).join('');
+    }
+
+    if (ordersList) {
+      ordersList.innerHTML = orders.map(function(o) {
+        var item = (o.items && o.items[0]) ? o.items[0].name : (o.item ? o.item.name : 'Handloom Garment');
+        return '<div style="background: #fdfaf6; border: 1px solid var(--kora-border); border-left: 3px solid var(--kora-indigo); padding: 10px; margin-bottom: 8px; font-size: 12px; font-family: monospace;">' +
+          '<strong>#' + o.order_id + '</strong> &bull; Total: ₹' + (o.total_amount || 0).toLocaleString('en-IN') + '<br>' +
+          'Item: ' + item + '<br>' +
+          'Payment: ' + o.payment_method + ' (' + o.payment_status + ') &bull; MiniMoth Verified: ' + (o.minimoth_verified || o.minimoth_otp_verified ? '✓ Yes' : '✗ No') + '<br>' +
+          'Delivery SLA: ' + (o.delivery_sla || '4 to 6 business days') + ' &bull; Destination: ' + (o.shipping_address || 'Pune') +
+        '</div>';
+      }).join('');
+    }
+  }
   </script>
+
+  <!-- =========================================================================
+       SECRET ADMIN DATABASE INSPECTOR MODAL (FOR JUDGES DEMO VIA Ctrl+Shift+D)
+       ========================================================================= -->
+  <div id="admin-db-modal" class="minimoth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="admin-db-title">
+    <div class="minimoth-modal-card patron-modal-card" style="max-height: 90vh; overflow-y: auto;">
+      <button type="button" class="modal-close-btn" onclick="closeAdminDatabaseModal()">&times;</button>
+      
+      <div class="modal-sponsor-badge">📊 Internal Edge Database &bull; Judge Inspection View</div>
+      <h3 id="admin-db-title" class="modal-heading">Kora Threads Database (KoraDB &amp; MiniMoth)</h3>
+      <p class="modal-desc">
+        Live database records stored in client edge persistence. Shortcut: <code>Ctrl + Shift + D</code> or <code>#database</code>
+      </p>
+
+      <h4 style="font-size: 13px; font-weight: 700; color: #2e7d32; margin-bottom: 8px;">
+        👤 Users Collection (<code>kora_db_users</code>):
+      </h4>
+      <div id="admin-users-list" style="margin-bottom: 16px;"></div>
+
+      <h4 style="font-size: 13px; font-weight: 700; color: var(--kora-indigo); margin-bottom: 8px;">
+        📦 Orders Collection (<code>kora_db_orders</code>):
+      </h4>
+      <div id="admin-orders-list" style="margin-bottom: 16px;"></div>
+
+      <div style="display: flex; gap: 8px; border-top: 1px solid var(--kora-border); padding-top: 12px;">
+        <button type="button" class="btn-modal-action" style="flex: 1;" onclick="closeAdminDatabaseModal()">
+          Close Database View
+        </button>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
