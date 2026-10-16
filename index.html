@@ -762,8 +762,19 @@
         Enter your 10-digit mobile number to verify your identity and unlock 1-click checkout.
       </p>
 
-      <!-- Step 1: Phone Number Input -->
+      <!-- Step 1: User Registration / Phone Number Input -->
       <div id="otp-step-phone">
+        <div id="login-extra-fields">
+          <div class="minimoth-input-group">
+            <label for="mm-name-input" class="minimoth-label">Full Name</label>
+            <input type="text" id="mm-name-input" class="minimoth-input" placeholder="e.g. Aarav Deshmukh" value="Aarav Deshmukh">
+          </div>
+          <div class="minimoth-input-group">
+            <label for="mm-email-input" class="minimoth-label">Email Address</label>
+            <input type="email" id="mm-email-input" class="minimoth-input" placeholder="e.g. aarav.deshmukh@example.in" value="aarav.deshmukh@example.in">
+          </div>
+        </div>
+
         <div class="minimoth-input-group">
           <label for="mm-phone-input" class="minimoth-label">Indian Mobile Number (+91)</label>
           <input type="tel" id="mm-phone-input" class="minimoth-input" placeholder="e.g. 9876543210" maxlength="10" value="9876543210">
@@ -772,7 +783,7 @@
           Send Verification OTP (WhatsApp / SMS)
         </button>
         <div class="otp-sandbox-hint">
-          ℹ️ MiniMoth Sandbox Key Active &bull; Test number prefilled &bull; Zero SMS charge
+          ℹ️ MiniMoth Sandbox Key Active &bull; Test credentials prefilled &bull; Zero SMS charge
         </div>
       </div>
 
@@ -1012,19 +1023,22 @@
     var modal = document.getElementById('minimoth-modal');
     var title = document.getElementById('modal-title');
     var subtitle = document.getElementById('modal-subtitle');
+    var extraFields = document.getElementById('login-extra-fields');
 
     document.getElementById('otp-step-phone').style.display = 'block';
     document.getElementById('otp-step-verify').style.display = 'none';
     document.getElementById('otp-step-success').style.display = 'none';
 
     if (mode === 'cod') {
+      if (extraFields) extraFields.style.display = 'none';
       selectedProduct = productName || 'Solapur Pit-Loom Cotton Kurta';
       selectedPrice = price || 2450;
       title.innerText = 'Verify Cash on Delivery (COD)';
       subtitle.innerHTML = 'Verifying your mobile number for <strong>' + selectedProduct + ' (₹' + selectedPrice + ')</strong>. Eliminates 1-in-8 delivery failures caused by mistyped phone numbers.';
     } else {
-      title.innerText = 'Sign In to Repeat Customer Vault';
-      subtitle.innerHTML = 'Passwordless mobile authentication powered by MiniMoth. Repeat buyers (70% of sales) get instant 1-click address checkout.';
+      if (extraFields) extraFields.style.display = 'block';
+      title.innerText = 'Patron Sign In / Registration (MiniMoth)';
+      subtitle.innerHTML = 'Passwordless authentication powered by MiniMoth. Enter your name, email, and phone to unlock your 1-click repeat customer vault.';
     }
 
     if (modal) modal.style.display = 'flex';
@@ -1036,14 +1050,23 @@
   }
 
   function sendMiniMothOTP() {
+    var nameInput = document.getElementById('mm-name-input');
+    var emailInput = document.getElementById('mm-email-input');
     var phoneInput = document.getElementById('mm-phone-input');
     var phone = phoneInput ? phoneInput.value.trim() : "";
+    var name = nameInput ? nameInput.value.trim() : "";
+    var email = emailInput ? emailInput.value.trim() : "";
+
+    if (currentModalMode === 'login' && !name) {
+      alert("Please enter your full name.");
+      return;
+    }
     if (phone.length < 10) {
-      alert("Please enter a valid 10-digit Indian phone number.");
+      alert("Please enter a valid 10-digit Indian mobile number.");
       return;
     }
 
-    window.MiniMothAuth.sendOTP(phone, function(err, resp) {
+    window.MiniMothAuth.sendOTP(phone, { name: name, email: email }, function(err, resp) {
       if (err) {
         alert(err.message);
         return;
@@ -1070,7 +1093,7 @@
       if (currentModalMode === 'cod') {
         msg.innerHTML = '<strong>Order Placed!</strong> Your COD order for <em>' + selectedProduct + '</em> (₹' + selectedPrice + ') has been verified for +91 ' + phone + '. No failed delivery risk!';
       } else {
-        msg.innerHTML = '<strong>Welcome Back!</strong> Mobile session token minted. Repeat customer address auto-filled for 1-click ordering.';
+        msg.innerHTML = '<strong>Welcome Back, ' + (authPayload.user.name || 'Patron') + '!</strong> Phone +91 ' + phone + ' verified. Repeat customer address auto-filled for 1-click ordering.';
       }
       updateAuthHeaderUI();
     });
