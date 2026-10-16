@@ -841,13 +841,122 @@ body {
   background: #faebd7;
 }
 
-/* Pincode Estimator Widget */
-.pincode-checker-box {
+/* Patron Account & Order History Portal */
+.btn-patron-account {
+  background: #ffffff;
+  color: var(--kora-indigo);
+  border: 1px solid var(--kora-indigo);
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-patron-account:hover {
+  background: var(--kora-badge-bg);
+}
+
+.btn-signout {
+  background: transparent;
+  color: #c93b2b;
+  border: 1px solid #e0a39d;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-signout:hover {
+  background: #fdf2f1;
+  border-color: #c93b2b;
+}
+
+.btn-sm-view-orders {
+  background: var(--kora-indigo);
+  color: #ffffff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-sm-signout {
+  background: transparent;
+  color: #c93b2b;
+  border: 1px solid #e0a39d;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.btn-sm-signout:hover {
+  background: #fdf2f1;
+}
+
+.patron-modal-card {
+  max-width: 620px;
+}
+
+.account-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  background: var(--kora-cream);
+  padding: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--kora-border);
+  margin-bottom: 16px;
+  font-size: 12.5px;
+}
+
+.account-info-item strong {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--kora-text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.past-order-card {
   background: #ffffff;
   border: 1px solid var(--kora-border);
-  padding: 18px;
+  border-left: 4px solid var(--kora-indigo);
+  padding: 14px;
   border-radius: 4px;
-  margin: 20px 0;
+  margin-bottom: 10px;
+  font-size: 12.5px;
+}
+
+.past-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--kora-border);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.order-badge-verified {
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 /* Responsive */

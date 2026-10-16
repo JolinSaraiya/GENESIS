@@ -216,9 +216,15 @@
         </ul>
       </nav>
 
-      <div class="nav-actions">
-        <button type="button" class="btn-minimoth-login" onclick="openMiniMothModal('login')">
+      <div id="nav-actions-container" class="nav-actions">
+        <button type="button" id="btn-nav-login" class="btn-minimoth-login" onclick="openMiniMothModal('login')">
           📱 Sign In (MiniMoth OTP)
+        </button>
+        <button type="button" id="btn-nav-account" class="btn-patron-account" style="display: none;" onclick="openPatronAccountModal()">
+          👤 My Account
+        </button>
+        <button type="button" id="btn-nav-signout" class="btn-signout" style="display: none;" onclick="triggerSignOut()">
+          🚪 Sign Out
         </button>
         <button type="button" class="btn-cart-quick" onclick="openCheckoutModal('Solapur Pit-Loom Cotton Kurta', 2450)">
           🛍️ Instant Checkout &amp; Pay
@@ -227,8 +233,19 @@
     </header>
 
     <!-- Verified User Session Ambox (Hidden by default, shown after MiniMoth login) -->
-    <div id="verified-session-banner" class="verified-account-box">
-      <strong>✓ MiniMoth Verified Account:</strong> Welcome back! Phone authenticated: <code id="user-phone-display">+91 98765 43210</code> | <strong>Saved Address:</strong> Kothrud, Pune, Maharashtra 411038 | <em>Repeat customer 1-click checkout unlocked.</em>
+    <div id="verified-session-banner" class="verified-account-box" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <div>
+          <strong>✓ MiniMoth Authenticated Session:</strong> Welcome back, <span id="banner-user-name">Aarav Deshmukh</span> (<span id="user-phone-display">+91 9876543210</span>) &bull; <span id="banner-repeat-badge" class="order-badge-verified">⭐ Repeat Customer Vault Active</span><br>
+          <span style="font-size: 11.5px; color: var(--kora-text-muted);">
+            Saved Address: <span id="banner-user-address">Kothrud, Pune, Maharashtra 411038</span> &bull; MiniMoth Token: <code id="banner-session-token" style="font-size: 10px;">mm_sess_active</code>
+          </span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn-sm-view-orders" onclick="openPatronAccountModal()">📦 Order History (<span id="banner-order-count">1</span>)</button>
+          <button type="button" class="btn-sm-signout" onclick="triggerSignOut()">Sign Out</button>
+        </div>
+      </div>
     </div>
 
     <!-- Live Truth Synchronization & AI Ingestion Notice (Ambox) -->
@@ -909,10 +926,68 @@
         </button>
       </div>
 
+  <!-- =========================================================================
+       PATRON ACCOUNT & ORDER HISTORY MODAL (POWERED BY MINIMOTH SESSIONS)
+       Displays: Name, Email, Phone, MiniMoth Token, Saved Address & Past Orders
+       ========================================================================= -->
+  <div id="patron-account-modal" class="minimoth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="patron-account-title">
+    <div class="minimoth-modal-card patron-modal-card">
+      <button type="button" class="modal-close-btn" onclick="closePatronAccountModal()" aria-label="Close Account Modal">&times;</button>
+      
+      <div class="modal-sponsor-badge">⚡ Authenticated via MiniMoth (minimoth.dev)</div>
+      <h3 id="patron-account-title" class="modal-heading">Patron Profile &amp; Order History</h3>
+      <p class="modal-desc">
+        Your verified session and past artisanal orders retrieved securely from KoraDB.
+      </p>
+
+      <!-- Profile Grid -->
+      <div class="account-info-grid">
+        <div class="account-info-item">
+          <strong>Patron Name</strong>
+          <span id="account-name-val">Aarav Deshmukh</span>
+        </div>
+        <div class="account-info-item">
+          <strong>Verified Phone</strong>
+          <span id="account-phone-val">+91 98765 43210</span>
+        </div>
+        <div class="account-info-item">
+          <strong>Email Address</strong>
+          <span id="account-email-val">aarav.deshmukh@example.in</span>
+        </div>
+        <div class="account-info-item">
+          <strong>Patron Status</strong>
+          <span id="account-status-badge" class="order-badge-verified">⭐ Repeat Customer (70% revenue driver)</span>
+        </div>
+        <div class="account-info-item" style="grid-column: span 2;">
+          <strong>Saved Delivery Address (1-Click Checkout)</strong>
+          <span id="account-address-val">B-402, Mayur Vihar, Kothrud, Pune, Maharashtra 411038</span>
+        </div>
+        <div class="account-info-item" style="grid-column: span 2;">
+          <strong>Active MiniMoth Session Token</strong>
+          <code id="account-token-val" style="font-size: 11px; color: var(--kora-indigo); word-break: break-all;">mm_sess_active_token</code>
+        </div>
+      </div>
+
+      <!-- Past Orders List -->
+      <h4 style="font-size: 13.5px; font-weight: 700; color: var(--kora-indigo); margin-bottom: 10px;">
+        📦 Past Handloom Orders (<span id="account-orders-count">1</span>):
+      </h4>
+      <div id="account-orders-container" style="max-height: 220px; overflow-y: auto; margin-bottom: 16px;">
+        <!-- Dynamically rendered via JS -->
+      </div>
+
+      <!-- Modal Footer Actions -->
+      <div style="display: flex; gap: 8px; border-top: 1px solid var(--kora-border); padding-top: 14px;">
+        <button type="button" class="btn-signout" style="flex: 1;" onclick="triggerSignOut()">
+          🚪 Sign Out of Account
+        </button>
+        <button type="button" class="btn-modal-action" style="flex: 1; margin-top: 0;" onclick="closePatronAccountModal()">
+          🛍️ Continue Shopping
+        </button>
+      </div>
+
     </div>
   </div>
-
-
 
   <!-- Load Database, MiniMoth Authentication & Payment Modules -->
   <script src="db.js"></script>
@@ -933,27 +1008,121 @@
 
   function updateAuthHeaderUI() {
     var user = window.MiniMothAuth ? window.MiniMothAuth.getCurrentUser() : null;
-    var loginBtn = document.querySelector('.btn-minimoth-login');
+    var loginBtn = document.getElementById('btn-nav-login');
+    var accountBtn = document.getElementById('btn-nav-account');
+    var signoutBtn = document.getElementById('btn-nav-signout');
     var sessionBanner = document.getElementById('verified-session-banner');
-    var phoneDisplay = document.getElementById('user-phone-display');
 
-    if (user && loginBtn) {
-      loginBtn.innerHTML = '✓ +91 ' + user.phone + ' (Sign Out)';
-      loginBtn.onclick = function() {
-        if (confirm('Sign out of MiniMoth session for +91 ' + user.phone + '?')) {
-          window.MiniMothAuth.logout();
-          updateAuthHeaderUI();
-        }
-      };
+    if (user) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (accountBtn) {
+        accountBtn.style.display = 'inline-flex';
+        accountBtn.innerHTML = '👤 ' + (user.name ? user.name.split(' ')[0] : 'Patron') + ' (+91 ' + user.phone + ')';
+      }
+      if (signoutBtn) signoutBtn.style.display = 'inline-block';
+
       if (sessionBanner) {
         sessionBanner.style.display = 'block';
-        if (phoneDisplay) phoneDisplay.innerText = '+91 ' + user.phone;
+        var nameEl = document.getElementById('banner-user-name');
+        var phoneEl = document.getElementById('user-phone-display');
+        var addrEl = document.getElementById('banner-user-address');
+        var badgeEl = document.getElementById('banner-repeat-badge');
+        var tokenEl = document.getElementById('banner-session-token');
+        var countEl = document.getElementById('banner-order-count');
+
+        if (nameEl) nameEl.innerText = user.name || 'Patron';
+        if (phoneEl) phoneEl.innerText = user.phone;
+        if (addrEl && user.address) {
+          addrEl.innerText = (user.address.locality || '') + ', ' + (user.address.city || 'Pune') + ', ' + (user.address.state || 'Maharashtra') + ' ' + (user.address.pincode || '');
+        }
+        if (badgeEl) {
+          badgeEl.innerText = user.is_repeat_customer ? '⭐ Repeat Customer Vault Active' : '🌱 New Handloom Patron';
+        }
+        var activeToken = sessionStorage.getItem('kora_active_token') || 'mm_sess_verified';
+        if (tokenEl) tokenEl.innerText = activeToken;
+
+        var orders = window.KoraDB ? window.KoraDB.orders.listByPhone(user.phone) : [];
+        if (countEl) countEl.innerText = orders.length;
       }
-    } else if (loginBtn) {
-      loginBtn.innerHTML = '📱 Sign In (MiniMoth OTP)';
-      loginBtn.onclick = function() { openMiniMothModal('login'); };
+    } else {
+      if (loginBtn) loginBtn.style.display = 'inline-block';
+      if (accountBtn) accountBtn.style.display = 'none';
+      if (signoutBtn) signoutBtn.style.display = 'none';
       if (sessionBanner) sessionBanner.style.display = 'none';
     }
+  }
+
+  function triggerSignOut() {
+    if (confirm('Sign out of your MiniMoth session?')) {
+      window.MiniMothAuth.logout(function() {
+        closePatronAccountModal();
+        closeMiniMothModal();
+        closeCheckoutModal();
+        updateAuthHeaderUI();
+        alert('Signed out successfully. MiniMoth session terminated.');
+      });
+    }
+  }
+
+  function openPatronAccountModal() {
+    var user = window.MiniMothAuth ? window.MiniMothAuth.getCurrentUser() : null;
+    if (!user) {
+      openMiniMothModal('login');
+      return;
+    }
+
+    var modal = document.getElementById('patron-account-modal');
+    document.getElementById('account-name-val').innerText = user.name || 'Patron';
+    document.getElementById('account-phone-val').innerText = '+91 ' + user.phone;
+    document.getElementById('account-email-val').innerText = user.email || (user.phone + '@patron.korathreads.in');
+
+    var statusEl = document.getElementById('account-status-badge');
+    if (statusEl) {
+      statusEl.innerText = user.is_repeat_customer ? '⭐ Repeat Customer (70% revenue driver)' : '🌱 New Handloom Patron';
+    }
+
+    var addrEl = document.getElementById('account-address-val');
+    if (addrEl && user.address) {
+      addrEl.innerText = (user.address.line1 ? user.address.line1 + ', ' : '') + user.address.locality + ', ' + user.address.city + ', ' + user.address.state + ' ' + user.address.pincode;
+    }
+
+    var tokenEl = document.getElementById('account-token-val');
+    var activeToken = sessionStorage.getItem('kora_active_token') || 'mm_sess_verified';
+    if (tokenEl) tokenEl.innerText = activeToken;
+
+    // Load past orders
+    var orders = window.KoraDB ? window.KoraDB.orders.listByPhone(user.phone) : [];
+    document.getElementById('account-orders-count').innerText = orders.length;
+    var container = document.getElementById('account-orders-container');
+
+    if (container) {
+      if (orders.length === 0) {
+        container.innerHTML = '<div style="padding: 16px; text-align: center; color: var(--kora-text-muted); background: #fdfaf6; border: 1px dashed var(--kora-border); border-radius: 4px;">No past orders yet. Browse our collections above to place your first order!</div>';
+      } else {
+        container.innerHTML = orders.map(function(ord) {
+          var itemName = (ord.items && ord.items[0]) ? ord.items[0].name : (ord.item ? ord.item.name : 'Handloom Garment');
+          return '<div class="past-order-card">' +
+            '<div class="past-order-header">' +
+              '<strong>#' + ord.order_id + '</strong>' +
+              '<span class="order-badge-verified">✓ ' + (ord.payment_status || 'CONFIRMED') + '</span>' +
+            '</div>' +
+            '<div style="font-weight: 600; color: var(--kora-indigo); margin-bottom: 4px;">' + itemName + ' &bull; ₹' + (ord.total_amount || 0).toLocaleString('en-IN') + '</div>' +
+            '<div style="font-size: 11.5px; color: var(--kora-text-muted);">' +
+              'Payment: ' + ord.payment_method + ' (MiniMoth Verified: ' + (ord.minimoth_verified || ord.minimoth_otp_verified ? '✓ Yes' : '✗ No') + ')<br>' +
+              'Destination: ' + ord.shipping_address + '<br>' +
+              'Delivery SLA: ' + (ord.delivery_sla || '4 to 6 business days') + ' &bull; Status: ' + (ord.tracking_status || 'Confirmed') +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+    }
+
+    if (modal) modal.style.display = 'flex';
+  }
+
+  function closePatronAccountModal() {
+    var modal = document.getElementById('patron-account-modal');
+    if (modal) modal.style.display = 'none';
   }
 
   // --- MINIMOTH MODAL ---
@@ -1120,78 +1289,18 @@
       }
       closeCheckoutModal();
       alert("🎉 " + result.message + "\n\nOrder ID: " + result.order.order_id + "\nDelivery SLA: 4 to 6 business days");
-      renderDatabaseInspector();
-    });
-  }
-
-  // --- DATABASE INSPECTOR DRAWER ---
-  function openDatabaseInspector() {
-    renderDatabaseInspector();
-    var backdrop = document.getElementById('db-inspector-backdrop');
-    var drawer = document.getElementById('db-inspector-drawer');
-    if (backdrop) backdrop.style.display = 'block';
-    if (drawer) drawer.style.display = 'flex';
-  }
-
-  function closeDatabaseInspector() {
-    var backdrop = document.getElementById('db-inspector-backdrop');
-    var drawer = document.getElementById('db-inspector-drawer');
-    if (backdrop) backdrop.style.display = 'none';
-    if (drawer) drawer.style.display = 'none';
-  }
-
-  function renderDatabaseInspector() {
-    if (!window.KoraDB) return;
-    var users = window.KoraDB.users.getAll();
-    var orders = window.KoraDB.orders.getAll();
-
-    document.getElementById('stat-total-users').innerText = users.length;
-    document.getElementById('stat-total-orders').innerText = orders.length;
-
-    var ordersContainer = document.getElementById('db-orders-list');
-    if (ordersContainer) {
-      if (orders.length === 0) {
-        ordersContainer.innerHTML = '<div style="color: #888; font-size: 12px;">No orders recorded yet.</div>';
-      } else {
-        ordersContainer.innerHTML = orders.map(function(ord) {
-          return '<div class="db-record-card">' +
-            '<strong>#' + ord.order_id + '</strong> &bull; Total: ₹' + (ord.total_amount || 0).toLocaleString('en-IN') + '<br>' +
-            'Item: ' + (ord.items && ord.items[0] ? ord.items[0].name : 'Handloom Garment') + '<br>' +
-            'Payment: <span style="color: #1b365d; font-weight: bold;">' + ord.payment_method + ' (' + ord.payment_status + ')</span> &bull; MiniMoth Verified: ' + (ord.minimoth_verified ? '✓ Yes' : '✗ No') + '<br>' +
-            'SLA: ' + ord.delivery_sla + ' &bull; Address: ' + ord.shipping_address + '<br>' +
-            '<span style="color: #666; font-size: 11px;">Created: ' + ord.created_at + '</span>' +
-            '</div>';
-        }).join('');
-      }
-    }
-
-    var usersContainer = document.getElementById('db-users-list');
-    if (usersContainer) {
-      usersContainer.innerHTML = users.map(function(usr) {
-        return '<div class="db-record-card" style="border-left-color: #2e7d32;">' +
-          '<strong>' + usr.name + '</strong> &bull; +91 ' + usr.phone + '<br>' +
-          'Status: ' + (usr.is_repeat_customer ? '⭐ Repeat Buyer (70% revenue driver)' : 'New Customer') + '<br>' +
-          'Past Orders: ' + (usr.orders_count || 0) + ' &bull; Total Spent: ₹' + (usr.total_spent_inr || 0).toLocaleString('en-IN') + '<br>' +
-          'Saved Address: ' + (usr.address ? usr.address.locality + ', ' + usr.address.city : 'Pune') +
-          '</div>';
-      }).join('');
-    }
-  }
-
-  function resetDemoDatabase() {
-    if (confirm("Reset demo database back to clean benchmark seed?")) {
-      window.KoraDB.resetDatabase();
-      renderDatabaseInspector();
       updateAuthHeaderUI();
-    }
+    });
   }
 
   // Close modals when clicking backdrop
   window.onclick = function(event) {
     var mmModal = document.getElementById('minimoth-modal');
     var chModal = document.getElementById('checkout-modal');
+    var paModal = document.getElementById('patron-account-modal');
     if (event.target === mmModal) closeMiniMothModal();
     if (event.target === chModal) closeCheckoutModal();
+    if (event.target === paModal) closePatronAccountModal();
   };
   </script>
 
