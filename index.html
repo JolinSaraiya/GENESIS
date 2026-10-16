@@ -20,15 +20,26 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            koraIndigo: '#1e2d42',
-            koraEcru: '#f9f6f0',
-            koraTerracotta: '#c86d51',
-            koraSlate: '#3d4a58',
-            koraGold: '#b8860b',
-            koraCream: '#f3efe6',
+            koraIndigo: '#C25E38',
+            koraEcru: '#FDFBF7',
+            koraTerracotta: '#C25E38',
+            koraSlate: '#1C1917',
+            koraGold: '#E07A5F',
+            koraCream: '#FAF6F0',
+            darkBg: '#121212',
+            darkCard: '#1E1E24',
+            darkText: '#F5F4F0',
+            darkMuted: '#A8A29E',
+            darkAccent: '#E07A5F',
+            lightBg: '#FDFBF7',
+            lightCard: '#FFFFFF',
+            lightText: '#1C1917',
+            lightMuted: '#78716C',
+            lightAccent: '#C25E38'
           },
           fontFamily: {
             serif: ['Playfair Display', 'Georgia', 'serif'],
@@ -37,6 +48,23 @@
         }
       }
     }
+  </script>
+
+  <!-- Instant Theme Initializer (Zero-Flicker) -->
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem('kora-theme');
+        var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var activeTheme = savedTheme || (systemDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', activeTheme);
+        if (activeTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
   </script>
 
   <!-- Heritage Artisanal Design System -->
@@ -202,7 +230,13 @@
     <!-- Top Navigation Header -->
     <header class="kora-navbar">
       <div class="brand-identity">
-        <a href="#brand-overview" class="brand-logo-text">Kora Threads</a>
+        <a href="#brand-overview" class="brand-logo-link" title="Kora Threads Sustainable Handloom">
+          <img src="logo.jpg" alt="Kora Threads Logo" class="brand-logo-img">
+          <div class="brand-logo-text-group">
+            <span class="brand-logo-text">Kora Threads</span>
+            <span class="brand-logo-tagline">Sustainable Handloom</span>
+          </div>
+        </a>
         <span class="brand-origin-badge">Pune &bull; Est. 2021</span>
       </div>
 
@@ -217,6 +251,10 @@
       </nav>
 
       <div id="nav-actions-container" class="nav-actions">
+        <button type="button" id="theme-toggle-btn" class="btn-theme-toggle" onclick="toggleKoraTheme()" aria-label="Toggle Dark and Light Theme" title="Switch Theme">
+          <span id="theme-toggle-icon">🌙</span>
+          <span id="theme-toggle-text">Dark</span>
+        </button>
         <button type="button" id="btn-nav-login" class="btn-minimoth-login" onclick="openMiniMothModal('login')">
           📱 Sign In (MiniMoth OTP)
         </button>
@@ -1292,6 +1330,42 @@
       updateAuthHeaderUI();
     });
   }
+
+  // Theme Toggle Controller
+  function updateThemeToggleUI(theme) {
+    var icon = document.getElementById('theme-toggle-icon');
+    var text = document.getElementById('theme-toggle-text');
+    if (icon && text) {
+      if (theme === 'dark') {
+        icon.textContent = '☀️';
+        text.textContent = 'Light';
+      } else {
+        icon.textContent = '🌙';
+        text.textContent = 'Dark';
+      }
+    }
+  }
+
+  function toggleKoraTheme() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    if (next === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('kora-theme', next);
+    } catch (e) {}
+    updateThemeToggleUI(next);
+  }
+
+  // Synchronize button text on load
+  document.addEventListener('DOMContentLoaded', function() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    updateThemeToggleUI(current);
+  });
 
   // Close modals when clicking backdrop
   window.onclick = function(event) {

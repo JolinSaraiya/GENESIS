@@ -1,34 +1,115 @@
 /* ==========================================================================
    Kora Threads — Artisanal Handloom Enterprise Design System (PS-04)
-   Aesthetic: Heritage Indian Handloom Luxury (Indigo, Ecru, Slate, Warm Ochre)
-   Accessibility: WCAG AAA Compliant, Sub-35ms TTFB, Zero Render-Blocking JS
+   Theme System: Dual Theme (Dark & Light)
+   WCAG AAA Compliant, Sub-35ms TTFB, Zero Render-Blocking JS
    ========================================================================== */
 
-:root {
-  --kora-bg: #ffffff;
-  --kora-page-bg: #f9f7f4;
-  --kora-card-bg: #ffffff;
-  --kora-border: #dcd6cc;
-  --kora-border-light: #eae5dc;
-  
-  --kora-text: #1a1a1a;
-  --kora-text-muted: #595550;
-  --kora-text-light: #7c7770;
-  
-  --kora-indigo: #1b365d;
-  --kora-indigo-hover: #264b80;
-  --kora-indigo-light: #eef3f9;
-  
-  --kora-ochre: #8b5a14;
-  --kora-ochre-light: #fdf6ec;
-  
-  --kora-badge-bg: #f2ede4;
-  --kora-success: #1e6b37;
-  --kora-success-bg: #edf7f0;
-  
+/* LIGHT THEME (Default) */
+:root,
+[data-theme="light"] {
+  /* Background: Soft Cream / Warm Off-White (#FDFBF7 / Tailwind bg-stone-50) */
+  --kora-page-bg: #FDFBF7;
+  --kora-bg: #FFFFFF;
+
+  /* Card Background: Pure Clean White (#FFFFFF / Tailwind bg-white) */
+  --kora-card-bg: #FFFFFF;
+
+  /* Main Text: Deep Charcoal / Slate (#1C1917 / Tailwind text-stone-900) */
+  --kora-text: #1C1917;
+
+  /* Secondary Text: Muted Gray-Brown (#78716C / Tailwind text-stone-500) */
+  --kora-text-muted: #78716C;
+  --kora-text-light: #A8A29E;
+
+  /* Primary Accent (Buttons/Borders): Terracotta / Burnt Rust (#C25E38) */
+  --kora-primary: #C25E38;
+  --kora-primary-hover: #A54B29;
+  --kora-primary-light: #FBF1EC;
+
+  /* Theme Aliases for Full Compatibility */
+  --kora-indigo: #C25E38;
+  --kora-indigo-hover: #A54B29;
+  --kora-indigo-light: #FBF1EC;
+  --kora-ochre: #C25E38;
+  --kora-ochre-light: #FDF5F0;
+  --kora-alert: #B91C1C;
+
+  /* Borders & Surfaces */
+  --kora-border: #E7E5E4;
+  --kora-border-light: #F5F5F4;
+  --kora-badge-bg: #F5EFEB;
+  --kora-cream: #FAF6F0;
+  --kora-input-bg: #FFFFFF;
+
+  /* Competition Notice Banner */
+  --kora-banner-bg: #F5EEE2;
+  --kora-banner-border: #E2D5C1;
+  --kora-banner-text: #523B17;
+
+  /* Success states */
+  --kora-success: #1E6B37;
+  --kora-success-bg: #EDF7F0;
+
+  /* Shadows */
+  --kora-shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.05);
+  --kora-shadow: 0 4px 14px rgba(28, 25, 23, 0.06);
+  --kora-shadow-lg: 0 12px 30px rgba(28, 25, 23, 0.12);
+
   --font-serif: "Linux Libertine", Georgia, "Times New Roman", serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", Consolas, Menlo, Monaco, monospace;
+}
+
+/* DARK THEME */
+[data-theme="dark"],
+html.dark {
+  /* Background: Deep Slate / Charcoal (#121212 / Tailwind bg-zinc-950) */
+  --kora-page-bg: #121212;
+  --kora-bg: #17171C;
+
+  /* Card Background: Muted Dark Gray (#1E1E24 / Tailwind bg-zinc-900) */
+  --kora-card-bg: #1E1E24;
+
+  /* Main Text: Soft Linen / Light Cream (#F5F4F0 / Tailwind text-stone-100) */
+  --kora-text: #F5F4F0;
+
+  /* Secondary Text: Warm Muted Gray (#A8A29E / Tailwind text-stone-400) */
+  --kora-text-muted: #A8A29E;
+  --kora-text-light: #71717A;
+
+  /* Primary Accent: Bright Warm Rust (#E07A5F for high-visibility contrast) */
+  --kora-primary: #E07A5F;
+  --kora-primary-hover: #F08E74;
+  --kora-primary-light: #2A1F1D;
+
+  /* Theme Aliases for Full Compatibility */
+  --kora-indigo: #E07A5F;
+  --kora-indigo-hover: #F08E74;
+  --kora-indigo-light: #2A1F1D;
+  --kora-ochre: #E07A5F;
+  --kora-ochre-light: #2A1F1D;
+  --kora-alert: #FCA5A5;
+
+  /* Borders & Surfaces */
+  --kora-border: #2E2E38;
+  --kora-border-light: #25252F;
+  --kora-badge-bg: #262631;
+  --kora-cream: #1B1B22;
+  --kora-input-bg: #17171D;
+
+  /* Competition Notice Banner */
+  --kora-banner-bg: #221E19;
+  --kora-banner-border: #3D352B;
+  --kora-banner-text: #FADBB2;
+
+  /* Success states */
+  --kora-success: #4ADE80;
+  --kora-success-bg: #162B1D;
+
+  /* Shadows */
+  --kora-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --kora-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --kora-shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.65);
 }
 
 /* Reset */
@@ -45,22 +126,24 @@ body {
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Mandatory Competition Notice Banner */
 .competition-disclaimer-banner {
-  background: #f4ede2;
-  border-bottom: 1px solid #dcd1be;
-  color: #5c441b;
+  background: var(--kora-banner-bg);
+  border-bottom: 1px solid var(--kora-banner-border);
+  color: var(--kora-banner-text);
   font-size: 12.5px;
   padding: 8px 16px;
   text-align: center;
   font-weight: 500;
   letter-spacing: 0.2px;
+  transition: all 0.25s ease;
 }
 
 .competition-disclaimer-banner strong {
-  color: #3b2a0c;
+  color: var(--kora-banner-text);
   font-weight: 700;
 }
 
@@ -70,8 +153,10 @@ body {
   margin: 16px auto 40px auto;
   background: var(--kora-bg);
   border: 1px solid var(--kora-border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--kora-shadow);
   padding: 36px 48px;
+  border-radius: 6px;
+  transition: all 0.25s ease;
 }
 
 /* Top Navigation Bar */
@@ -84,21 +169,61 @@ body {
   margin-bottom: 24px;
   flex-wrap: wrap;
   gap: 16px;
+  transition: border-color 0.25s ease;
 }
 
 .brand-identity {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.brand-logo-link {
+  display: flex;
+  align-items: center;
   gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brand-logo-img {
+  height: 48px;
+  width: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--kora-border);
+  background: #FFFFFF;
+  box-shadow: var(--kora-shadow-sm);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.brand-logo-link:hover .brand-logo-img {
+  transform: scale(1.04);
+}
+
+.brand-logo-text-group {
+  display: flex;
+  flex-direction: column;
 }
 
 .brand-logo-text {
   font-family: var(--font-serif);
-  font-size: 2.2rem;
+  font-size: 2.1rem;
   font-weight: 700;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   letter-spacing: -0.5px;
+  line-height: 1.1;
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.brand-logo-tagline {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-weight: 600;
+  color: var(--kora-text-muted);
 }
 
 .brand-origin-badge {
@@ -108,9 +233,10 @@ body {
   letter-spacing: 0.8px;
   background: var(--kora-badge-bg);
   color: var(--kora-text-muted);
-  padding: 3px 8px;
-  border-radius: 2px;
+  padding: 4px 9px;
+  border-radius: 4px;
   border: 1px solid var(--kora-border);
+  transition: all 0.2s ease;
 }
 
 .nav-links {
@@ -129,65 +255,93 @@ body {
 }
 
 .nav-links a:hover {
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   text-decoration: underline;
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Theme Toggle Button */
+.btn-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--kora-badge-bg);
+  color: var(--kora-text);
+  border: 1px solid var(--kora-border);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-theme-toggle:hover {
+  border-color: var(--kora-primary);
+  background: var(--kora-primary-light);
+  color: var(--kora-primary);
 }
 
 .btn-minimoth-login {
-  background: var(--kora-indigo);
-  color: #ffffff;
-  border: 1px solid var(--kora-indigo);
+  background: var(--kora-primary);
+  color: #FFFFFF;
+  border: 1px solid var(--kora-primary);
   font-size: 13px;
   font-weight: 600;
   padding: 8px 16px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-minimoth-login:hover {
-  background: var(--kora-indigo-hover);
+  background: var(--kora-primary-hover);
+  border-color: var(--kora-primary-hover);
 }
 
 .btn-cart-quick {
-  background: #ffffff;
-  color: var(--kora-indigo);
-  border: 1px solid var(--kora-indigo);
+  background: var(--kora-card-bg);
+  color: var(--kora-primary);
+  border: 1px solid var(--kora-primary);
   font-size: 13px;
   font-weight: 600;
   padding: 8px 14px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-cart-quick:hover {
-  background: var(--kora-indigo-light);
+  background: var(--kora-primary);
+  color: #FFFFFF;
 }
 
 /* Provenance & Truth Notification Ambox */
 .truth-provenance-ambox {
-  background: var(--kora-indigo-light);
-  border: 1px solid #c7d9ec;
-  border-left: 5px solid var(--kora-indigo);
+  background: var(--kora-primary-light);
+  border: 1px solid var(--kora-border);
+  border-left: 5px solid var(--kora-primary);
   padding: 12px 18px;
   margin-bottom: 28px;
   font-size: 13px;
   display: flex;
   align-items: center;
   gap: 14px;
+  border-radius: 3px;
+  color: var(--kora-text);
 }
 
 .truth-provenance-ambox strong {
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
 }
 
 .audit-meta-line {
@@ -196,12 +350,18 @@ body {
   margin-top: 2px;
 }
 
+.audit-meta-line a {
+  color: var(--kora-primary);
+  text-decoration: underline;
+}
+
 .audit-meta-line code {
   font-family: var(--font-mono);
-  background: #ffffff;
+  background: var(--kora-badge-bg);
   padding: 1px 5px;
-  border: 1px solid #c7d9ec;
+  border: 1px solid var(--kora-border);
   border-radius: 2px;
+  color: var(--kora-primary);
 }
 
 /* Article Hero & Canonical Section */
@@ -243,14 +403,15 @@ body {
 
 /* 3-Sentence Canonical Definition Box */
 .canonical-lead-box {
-  background: #ffffff;
+  background: var(--kora-card-bg);
   border: 1px solid var(--kora-border);
-  border-left: 4px solid var(--kora-ochre);
+  border-left: 4px solid var(--kora-primary);
   padding: 18px 22px;
   font-size: 14.5px;
   line-height: 1.7;
   color: var(--kora-text);
   margin-bottom: 20px;
+  border-radius: 3px;
 }
 
 .canonical-lead-box strong {
@@ -259,8 +420,8 @@ body {
 
 .lead-tag {
   display: inline-block;
-  background: var(--kora-ochre-light);
-  color: var(--kora-ochre);
+  background: var(--kora-primary-light);
+  color: var(--kora-primary);
   font-weight: 700;
   font-size: 11px;
   text-transform: uppercase;
@@ -278,10 +439,16 @@ body {
 }
 
 .fact-correction-card {
-  background: #ffffff;
+  background: var(--kora-card-bg);
   border: 1px solid var(--kora-border);
   padding: 12px 14px;
-  border-radius: 2px;
+  border-radius: 3px;
+  box-shadow: var(--kora-shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.fact-correction-card:hover {
+  border-color: var(--kora-primary);
 }
 
 .fact-correction-card .correction-header {
@@ -296,21 +463,23 @@ body {
 .fact-correction-card .correct-fact {
   font-size: 13.5px;
   font-weight: 700;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
 }
 
 .fact-correction-card .false-myth {
   font-size: 11.5px;
-  color: #7c2d12;
+  color: var(--kora-alert);
   margin-top: 3px;
 }
 
 /* Authoritative Infobox (Wikipedia Style) */
 .kora-infobox {
-  background: #ffffff;
+  background: var(--kora-card-bg);
   border: 1px solid var(--kora-border);
   padding: 16px;
   font-size: 13px;
+  border-radius: 4px;
+  box-shadow: var(--kora-shadow-sm);
 }
 
 .infobox-title {
@@ -322,7 +491,8 @@ body {
   text-align: center;
   padding: 8px 12px;
   margin-bottom: 12px;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
+  border-radius: 3px;
 }
 
 .infobox-table {
@@ -345,6 +515,11 @@ body {
 
 .infobox-table td {
   color: var(--kora-text);
+}
+
+.infobox-table a {
+  color: var(--kora-primary);
+  text-decoration: underline;
 }
 
 /* Section Headings */
@@ -378,24 +553,27 @@ body {
 }
 
 .product-card {
-  background: #ffffff;
+  background: var(--kora-card-bg);
   border: 1px solid var(--kora-border);
   padding: 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border-radius: 4px;
+  box-shadow: var(--kora-shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .product-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--kora-shadow);
+  border-color: var(--kora-primary);
 }
 
 .product-tag {
   font-size: 11px;
   font-weight: 700;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -426,35 +604,40 @@ body {
 .product-price {
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
 }
 
 .btn-buy-cod {
   background: var(--kora-badge-bg);
   border: 1px solid var(--kora-border);
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   font-size: 12px;
   font-weight: 600;
   padding: 6px 12px;
-  border-radius: 2px;
+  border-radius: 3px;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .btn-buy-cod:hover {
-  background: var(--kora-indigo-light);
+  background: var(--kora-primary);
+  color: #FFFFFF;
+  border-color: var(--kora-primary);
 }
 
 /* Sourcing & Cooperative Table */
 .data-table-wrapper {
   overflow-x: auto;
   margin-bottom: 28px;
+  border-radius: 4px;
+  border: 1px solid var(--kora-border);
 }
 
 .kora-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 13.5px;
+  background: var(--kora-card-bg);
 }
 
 .kora-table th, .kora-table td {
@@ -465,13 +648,13 @@ body {
 
 .kora-table th {
   background: var(--kora-badge-bg);
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   font-weight: 700;
   font-size: 13px;
 }
 
 .kora-table tr:nth-child(even) {
-  background: #faf9f6;
+  background: var(--kora-badge-bg);
 }
 
 /* Care & Sizing Hub (Accordion & Grid) */
@@ -483,16 +666,18 @@ body {
 }
 
 .guide-box {
-  background: #ffffff;
+  background: var(--kora-card-bg);
   border: 1px solid var(--kora-border);
   padding: 20px;
+  border-radius: 4px;
+  box-shadow: var(--kora-shadow-sm);
 }
 
 .guide-box-title {
   font-family: var(--font-serif);
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   border-bottom: 1px solid var(--kora-border-light);
   padding-bottom: 8px;
   margin-bottom: 14px;
@@ -507,6 +692,7 @@ body {
   margin-bottom: 10px;
   padding-left: 20px;
   position: relative;
+  color: var(--kora-text);
 }
 
 .care-rule-list li::before {
@@ -525,14 +711,16 @@ body {
 .faq-item {
   border: 1px solid var(--kora-border);
   margin-bottom: 10px;
-  background: #ffffff;
+  background: var(--kora-card-bg);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .faq-question {
   padding: 12px 18px;
   font-weight: 600;
   font-size: 14px;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   cursor: pointer;
   background: var(--kora-badge-bg);
   border-bottom: 1px solid var(--kora-border-light);
@@ -552,8 +740,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
   display: none;
   align-items: center;
   justify-content: center;
@@ -561,15 +749,16 @@ body {
 }
 
 .minimoth-modal-card {
-  background: #ffffff;
+  background: var(--kora-card-bg);
   border: 1px solid var(--kora-border);
-  border-top: 5px solid var(--kora-indigo);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-top: 5px solid var(--kora-primary);
+  box-shadow: var(--kora-shadow-lg);
   width: 90%;
   max-width: 440px;
   padding: 28px;
   position: relative;
-  border-radius: 4px;
+  border-radius: 6px;
+  color: var(--kora-text);
 }
 
 .modal-close-btn {
@@ -586,7 +775,7 @@ body {
 .modal-sponsor-badge {
   font-size: 11px;
   font-weight: 700;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   letter-spacing: 0.5px;
   text-transform: uppercase;
   margin-bottom: 6px;
@@ -624,54 +813,58 @@ body {
   padding: 10px 12px;
   font-family: var(--font-sans);
   font-size: 14px;
+  background: var(--kora-input-bg);
+  color: var(--kora-text);
   border: 1px solid var(--kora-border);
-  border-radius: 3px;
+  border-radius: 4px;
   outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .minimoth-input:focus {
-  border-color: var(--kora-indigo);
-  box-shadow: 0 0 0 2px rgba(27, 54, 93, 0.15);
+  border-color: var(--kora-primary);
+  box-shadow: 0 0 0 2px var(--kora-primary-light);
 }
 
 .btn-modal-action {
   width: 100%;
-  background: var(--kora-indigo);
-  color: #ffffff;
+  background: var(--kora-primary);
+  color: #FFFFFF;
   border: none;
   padding: 12px;
   font-size: 13.5px;
   font-weight: 600;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   margin-top: 6px;
   transition: background 0.15s ease;
 }
 
 .btn-modal-action:hover {
-  background: var(--kora-indigo-hover);
+  background: var(--kora-primary-hover);
 }
 
 .otp-sandbox-hint {
   font-size: 11px;
-  color: var(--kora-text-light);
+  color: var(--kora-text-muted);
   text-align: center;
   margin-top: 10px;
-  background: #fdf6ec;
+  background: var(--kora-badge-bg);
   padding: 6px 10px;
-  border-radius: 2px;
-  border: 1px dashed #d9b177;
+  border-radius: 3px;
+  border: 1px dashed var(--kora-border);
 }
 
 /* Verified Account Card (Shown upon successful login) */
 .verified-account-box {
   background: var(--kora-success-bg);
-  border: 1px solid #b7e0c4;
+  border: 1px solid var(--kora-border);
   padding: 16px;
-  border-radius: 3px;
+  border-radius: 4px;
   margin-top: 12px;
   font-size: 13px;
   display: none;
+  color: var(--kora-text);
 }
 
 /* Footer */
@@ -689,7 +882,7 @@ body {
 }
 
 .footer-links a {
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
   text-decoration: none;
   margin-left: 14px;
 }
@@ -726,18 +919,19 @@ body {
 }
 
 .payment-tab-btn.active {
-  background: var(--kora-indigo);
-  color: #ffffff;
-  border-color: var(--kora-indigo);
+  background: var(--kora-primary);
+  color: #FFFFFF;
+  border-color: var(--kora-primary);
 }
 
 .upi-qr-box {
-  background: #fdfaf6;
+  background: var(--kora-badge-bg);
   border: 1px dashed var(--kora-border);
   padding: 16px;
   text-align: center;
   border-radius: 4px;
   margin-bottom: 14px;
+  color: var(--kora-text);
 }
 
 .upi-apps-badges {
@@ -750,12 +944,13 @@ body {
 }
 
 .order-summary-box {
-  background: var(--kora-cream);
+  background: var(--kora-badge-bg);
   border: 1px solid var(--kora-border);
   padding: 12px 16px;
   border-radius: 4px;
   margin-bottom: 16px;
   font-size: 13px;
+  color: var(--kora-text);
 }
 
 .order-summary-row {
@@ -769,7 +964,7 @@ body {
   border-top: 1px solid var(--kora-border);
   padding-top: 6px;
   margin-top: 6px;
-  color: var(--kora-indigo);
+  color: var(--kora-primary);
 }
 
 /* Database Inspector Drawer */
@@ -779,7 +974,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(2px);
   display: none;
   z-index: 10000;
@@ -792,8 +987,10 @@ body {
   width: 90%;
   max-width: 580px;
   height: 100%;
-  background: #ffffff;
-  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
+  background: var(--kora-card-bg);
+  color: var(--kora-text);
+  box-shadow: var(--kora-shadow-lg);
+  border-left: 1px solid var(--kora-border);
   z-index: 10001;
   display: none;
   flex-direction: column;
@@ -805,27 +1002,28 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--kora-indigo);
+  border-bottom: 2px solid var(--kora-primary);
   padding-bottom: 12px;
   margin-bottom: 16px;
 }
 
 .db-record-card {
-  background: #fdfaf6;
+  background: var(--kora-badge-bg);
   border: 1px solid var(--kora-border);
-  border-left: 3px solid var(--kora-indigo);
+  border-left: 3px solid var(--kora-primary);
   padding: 12px;
   margin-bottom: 10px;
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
-  border-radius: 2px;
+  border-radius: 3px;
   overflow-x: auto;
+  color: var(--kora-text);
 }
 
 .btn-open-inspector {
-  background: #f3efe6;
-  border: 1px solid #d9b177;
-  color: #7a501a;
+  background: var(--kora-badge-bg);
+  border: 1px solid var(--kora-border);
+  color: var(--kora-primary);
   font-weight: 600;
   padding: 6px 14px;
   border-radius: 4px;
@@ -838,14 +1036,16 @@ body {
 }
 
 .btn-open-inspector:hover {
-  background: #faebd7;
+  background: var(--kora-primary);
+  color: #FFFFFF;
+  border-color: var(--kora-primary);
 }
 
 /* Patron Account & Order History Portal */
 .btn-patron-account {
-  background: #ffffff;
-  color: var(--kora-indigo);
-  border: 1px solid var(--kora-indigo);
+  background: var(--kora-card-bg);
+  color: var(--kora-primary);
+  border: 1px solid var(--kora-primary);
   padding: 8px 14px;
   font-size: 13px;
   font-weight: 600;
@@ -858,13 +1058,14 @@ body {
 }
 
 .btn-patron-account:hover {
-  background: var(--kora-badge-bg);
+  background: var(--kora-primary);
+  color: #FFFFFF;
 }
 
 .btn-signout {
   background: transparent;
-  color: #c93b2b;
-  border: 1px solid #e0a39d;
+  color: #C93B2B;
+  border: 1px solid #E0A39D;
   padding: 8px 12px;
   font-size: 12.5px;
   font-weight: 600;
@@ -874,13 +1075,13 @@ body {
 }
 
 .btn-signout:hover {
-  background: #fdf2f1;
-  border-color: #c93b2b;
+  background: #FDF2F1;
+  border-color: #C93B2B;
 }
 
 .btn-sm-view-orders {
-  background: var(--kora-indigo);
-  color: #ffffff;
+  background: var(--kora-primary);
+  color: #FFFFFF;
   border: none;
   padding: 4px 10px;
   border-radius: 3px;
@@ -891,8 +1092,8 @@ body {
 
 .btn-sm-signout {
   background: transparent;
-  color: #c93b2b;
-  border: 1px solid #e0a39d;
+  color: #C93B2B;
+  border: 1px solid #E0A39D;
   padding: 4px 8px;
   border-radius: 3px;
   font-size: 11.5px;
@@ -900,7 +1101,7 @@ body {
 }
 
 .btn-sm-signout:hover {
-  background: #fdf2f1;
+  background: #FDF2F1;
 }
 
 .patron-modal-card {
@@ -911,12 +1112,13 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  background: var(--kora-cream);
+  background: var(--kora-badge-bg);
   padding: 14px;
   border-radius: 4px;
   border: 1px solid var(--kora-border);
   margin-bottom: 16px;
   font-size: 12.5px;
+  color: var(--kora-text);
 }
 
 .account-info-item strong {
@@ -929,13 +1131,14 @@ body {
 }
 
 .past-order-card {
-  background: #ffffff;
+  background: var(--kora-card-bg);
   border: 1px solid var(--kora-border);
-  border-left: 4px solid var(--kora-indigo);
+  border-left: 4px solid var(--kora-primary);
   padding: 14px;
   border-radius: 4px;
   margin-bottom: 10px;
   font-size: 12.5px;
+  color: var(--kora-text);
 }
 
 .past-order-header {
@@ -948,11 +1151,12 @@ body {
 }
 
 .order-badge-verified {
-  background: #e8f5e9;
-  color: #2e7d32;
+  background: var(--kora-success-bg);
+  color: var(--kora-success);
+  border: 1px solid var(--kora-border);
   font-weight: 700;
   font-size: 11px;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 3px;
   display: inline-flex;
   align-items: center;
@@ -972,5 +1176,8 @@ body {
   }
   .anti-hallucination-grid {
     grid-template-columns: 1fr;
+  }
+  .brand-logo-text {
+    font-size: 1.8rem;
   }
 }

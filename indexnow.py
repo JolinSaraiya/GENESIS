@@ -64,7 +64,7 @@ def ping_indexnow(dry_run=False):
         }
         json_data = json.dumps(payload).encode("utf-8")
 
-        print(f"\n➔ Pinging IndexNow for host: https://{host}")
+        print(f"\n-> Pinging IndexNow for host: https://{host}")
         print(f"  Dispatched {len(urls)} modified endpoints...")
 
         if dry_run:
@@ -82,13 +82,13 @@ def ping_indexnow(dry_run=False):
             )
             try:
                 with urllib.request.urlopen(req, timeout=10) as resp:
-                    print(f"  [✓] {endpoint} responded: HTTP {resp.status} (Dispatched)")
+                    print(f"  [OK] {endpoint} responded: HTTP {resp.status} (Dispatched)")
                     success_count += 1
             except urllib.error.HTTPError as e:
                 # 200 or 202 is success. 422 usually means host is still warming up DNS.
-                print(f"  [i] {endpoint} response: HTTP {e.code} ({e.reason})")
+                print(f"  [INFO] {endpoint} response: HTTP {e.code} ({e.reason})")
             except Exception as e:
-                print(f"  [!] Notice connecting to {endpoint}: {e}")
+                print(f"  [WARN] Notice connecting to {endpoint}: {e}")
 
     print("\n[COMPLETE] IndexNow crawler ping cycle finished.")
     return True
