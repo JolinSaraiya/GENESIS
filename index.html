@@ -1245,9 +1245,22 @@
   var selectedPrice = 2450;
   var currentPaymentTab = 'COD';
 
-  // Check initial authentication state from KoraDB
+  // Check initial authentication state from KoraDB & dynamically sync data.json
   window.addEventListener('DOMContentLoaded', function() {
     updateAuthHeaderUI();
+    try {
+      fetch('./data.json')
+        .then(function(res) { return res.json(); })
+        .then(function(master) {
+          if (master && master.brand_metadata) {
+            window.koraLiveMetadata = master;
+            window.dispatchEvent(new CustomEvent('kora:data-synchronized', { detail: master }));
+          }
+        })
+        .catch(function(err) {
+          console.warn('[Kora Sync] Using embedded ground truth cache:', err);
+        });
+    } catch (e) {}
   });
 
   function updateAuthHeaderUI() {
