@@ -193,15 +193,8 @@
 <body>
 
   <!-- Mandatory Competition Disclaimer Notice -->
-  <div class="competition-disclaimer-banner" role="alert" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-    <div>
-      <strong>⚠️ COMPETITION DEMONSTRATION:</strong> This website is an empirical demonstration prototype engineered for Problem Statement 04 (PS-04: <em>Get Cited: Build the Most AI-Visible Page</em>) and is not an active commercial business.
-    </div>
-    <div>
-      <button type="button" onclick="openAdminDatabaseModal()" style="background: #2e7d32; color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 4px; font-size: 11.5px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
-        📊 Live Database Inspector
-      </button>
-    </div>
+  <div class="competition-disclaimer-banner" role="alert">
+    <strong>⚠️ COMPETITION DEMONSTRATION:</strong> This website is an empirical demonstration prototype engineered for Problem Statement 04 (PS-04: <em>Get Cited: Build the Most AI-Visible Page</em>) and is not an active commercial business.
   </div>
 
   <div class="kora-container">
@@ -751,7 +744,7 @@
 
     <!-- Footer -->
     <footer class="kora-footer">
-      <div onclick="openAdminDatabaseModal()" style="cursor: pointer;" title="Click to inspect live database">
+      <div>
         &copy; 2021–2026 Kora Threads Handloom Apparel &bull; Pune, Maharashtra, India.
         <br>
         <span style="font-size: 11.5px; color: var(--kora-text-light);">
@@ -763,7 +756,6 @@
         <a href="./data.json" target="_blank">Master JSON API</a>
         <a href="./dataset.csv" target="_blank">Tabular CSV</a>
         <a href="./sync_audit_log.json" target="_blank">SHA-256 Audit Log</a>
-        <a href="javascript:void(0)" onclick="openAdminDatabaseModal()" style="color: #2e7d32; font-weight: 700; text-decoration: underline; background: #e8f5e9; padding: 3px 8px; border-radius: 4px; border: 1px solid #c8e6c9;">📊 Live Database View</a>
       </div>
     </footer>
 
@@ -1309,170 +1301,12 @@
     var mmModal = document.getElementById('minimoth-modal');
     var chModal = document.getElementById('checkout-modal');
     var paModal = document.getElementById('patron-account-modal');
-    var dbModal = document.getElementById('admin-db-modal');
     if (event.target === mmModal) closeMiniMothModal();
     if (event.target === chModal) closeCheckoutModal();
     if (event.target === paModal) closePatronAccountModal();
-    if (event.target === dbModal) closeAdminDatabaseModal();
   };
 
-  // Robust Admin Database Openers for Judges & Demos:
-  // 1. Keyboard shortcuts: ` (backtick/tilde), F2, Ctrl+Shift+D, Cmd+Shift+D, Ctrl+M, Cmd+M
-  // 2. URL hash: #database or #admin
-  // 3. Top Banner & Footer buttons
-  // 4. Floating bottom-right button
-  window.addEventListener('keydown', function(e) {
-    var isBacktick = (e.key === '`' || e.key === '~');
-    var isF2 = (e.key === 'F2');
-    var isCtrlShiftD = (e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'D' || e.key === 'd');
-    var isCtrlM = (e.ctrlKey || e.metaKey) && (e.key === 'M' || e.key === 'm');
-
-    // Avoid triggering on backtick when actively typing inside an input field
-    var isInput = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
-
-    if ((isBacktick && !isInput) || isF2 || isCtrlShiftD || isCtrlM) {
-      if (e.cancelable) e.preventDefault();
-      openAdminDatabaseModal();
-    }
-  });
-
-  function checkHashForDatabase() {
-    if (window.location.hash === '#database' || window.location.hash === '#admin') {
-      openAdminDatabaseModal();
-    }
-  }
-
-  window.addEventListener('hashchange', checkHashForDatabase);
-  window.addEventListener('DOMContentLoaded', checkHashForDatabase);
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    checkHashForDatabase();
-  }
-
-  function openAdminDatabaseModal() {
-    var modal = document.getElementById('admin-db-modal');
-    if (!modal) return;
-    renderAdminDatabase();
-    modal.style.display = 'flex';
-  }
-
-  function closeAdminDatabaseModal() {
-    var modal = document.getElementById('admin-db-modal');
-    if (modal) modal.style.display = 'none';
-    if (window.location.hash === '#database' || window.location.hash === '#admin') {
-      history.replaceState(null, null, ' ');
-    }
-  }
-
-  function copyDatabaseJSON() {
-    if (!window.KoraDB) return;
-    var dump = {
-      timestamp: new Date().toISOString(),
-      active_session: sessionStorage.getItem('kora_active_token') || 'mm_sess_active',
-      users: window.KoraDB.users.getAll(),
-      orders: window.KoraDB.orders.getAll()
-    };
-    navigator.clipboard.writeText(JSON.stringify(dump, null, 2)).then(function() {
-      alert("✓ Live Database JSON copied to clipboard for Judge Verification!");
-    }).catch(function() {
-      prompt("Copy database JSON:", JSON.stringify(dump));
-    });
-  }
-
-  function resetDatabaseDemo() {
-    if (confirm("Reset database to initial demo state (1 repeat customer + 1 verified order)?")) {
-      localStorage.removeItem('kora_db_users');
-      localStorage.removeItem('kora_db_orders');
-      localStorage.removeItem('kora_db_sessions');
-      sessionStorage.clear();
-      window.KoraDB.init();
-      renderAdminDatabase();
-      updateAuthHeaderUI();
-      alert("Database re-seeded successfully!");
-    }
-  }
-
-  function renderAdminDatabase() {
-    if (!window.KoraDB) return;
-    var users = window.KoraDB.users.getAll();
-    var orders = window.KoraDB.orders.getAll();
-
-    var usersList = document.getElementById('admin-users-list');
-    var ordersList = document.getElementById('admin-orders-list');
-    var uCount = document.getElementById('admin-user-count');
-    var oCount = document.getElementById('admin-order-count');
-
-    if (uCount) uCount.innerText = users.length;
-    if (oCount) oCount.innerText = orders.length;
-
-    if (usersList) {
-      usersList.innerHTML = users.map(function(u) {
-        return '<div style="background: #fdfaf6; border: 1px solid var(--kora-border); border-left: 4px solid #2e7d32; padding: 10px; margin-bottom: 8px; font-size: 12px; font-family: monospace; border-radius: 4px;">' +
-          '<strong>' + (u.name || 'Patron') + '</strong> &bull; <span style="color:#2e7d32; font-weight:700;">+91 ' + u.phone + '</span> &bull; ' + (u.email || 'No email') + '<br>' +
-          'Status: ' + (u.is_repeat_customer ? '⭐ Repeat Buyer (70% revenue driver)' : '🌱 New Patron') + ' &bull; Total Orders: ' + (u.orders_count || 0) + '<br>' +
-          'Saved Delivery Address: ' + (u.address ? (u.address.locality + ', ' + u.address.city + ', ' + u.address.state + ' ' + (u.address.pincode || '')) : 'Pune') +
-        '</div>';
-      }).join('');
-    }
-
-    if (ordersList) {
-      ordersList.innerHTML = orders.map(function(o) {
-        var item = (o.items && o.items[0]) ? o.items[0].name : (o.item ? o.item.name : 'Handloom Garment');
-        return '<div style="background: #fdfaf6; border: 1px solid var(--kora-border); border-left: 4px solid var(--kora-indigo); padding: 10px; margin-bottom: 8px; font-size: 12px; font-family: monospace; border-radius: 4px;">' +
-          '<strong>#' + o.order_id + '</strong> &bull; Total: ₹' + (o.total_amount || 0).toLocaleString('en-IN') + '<br>' +
-          'Item: ' + item + '<br>' +
-          'Payment: ' + o.payment_method + ' (' + o.payment_status + ') &bull; MiniMoth Verified: <span style="color:#2e7d32; font-weight:700;">' + (o.minimoth_verified || o.minimoth_otp_verified ? '✓ Verified (No Failed Delivery)' : '✗ Unverified') + '</span><br>' +
-          'Customer Phone: +91 ' + (o.phone || '9876543210') + '<br>' +
-          'Delivery SLA: ' + (o.delivery_sla || '4 to 6 business days') + ' &bull; Address: ' + (o.shipping_address || 'Pune') +
-        '</div>';
-      }).join('');
-    }
-  }
   </script>
-
-  <!-- =========================================================================
-       ADMIN DATABASE INSPECTOR MODAL (FOR JUDGES DEMO)
-       ========================================================================= -->
-  <div id="admin-db-modal" class="minimoth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="admin-db-title">
-    <div class="minimoth-modal-card patron-modal-card" style="max-height: 90vh; overflow-y: auto;">
-      <button type="button" class="modal-close-btn" onclick="closeAdminDatabaseModal()">&times;</button>
-      
-      <div class="modal-sponsor-badge">📊 Internal Edge Database &bull; Judge Live Inspector</div>
-      <h3 id="admin-db-title" class="modal-heading">Kora Threads Database (KoraDB &amp; MiniMoth)</h3>
-      <p class="modal-desc">
-        Real-time records stored in edge storage. Open via: <strong>Top Banner</strong>, <strong>Footer Link</strong>, <strong>Floating Button</strong>, or type <code>#database</code> in URL.
-      </p>
-
-      <div style="display: flex; gap: 8px; margin-bottom: 14px;">
-        <button type="button" onclick="copyDatabaseJSON()" style="flex: 1; background: #f0f4f8; border: 1px solid var(--kora-border); padding: 7px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">
-          📋 Copy Live JSON Dump
-        </button>
-        <button type="button" onclick="resetDatabaseDemo()" style="background: #fff; border: 1px solid #d32f2f; color: #d32f2f; padding: 7px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">
-          🔄 Reset Seed
-        </button>
-      </div>
-
-      <h4 style="font-size: 13px; font-weight: 700; color: #2e7d32; margin-bottom: 8px;">
-        👤 Users Collection (<code>kora_db_users</code> &bull; <span id="admin-user-count">1</span>):
-      </h4>
-      <div id="admin-users-list" style="margin-bottom: 16px;"></div>
-
-      <h4 style="font-size: 13px; font-weight: 700; color: var(--kora-indigo); margin-bottom: 8px;">
-        📦 Orders Collection (<code>kora_db_orders</code> &bull; <span id="admin-order-count">1</span>):
-      </h4>
-      <div id="admin-orders-list" style="margin-bottom: 16px;"></div>
-
-      <div style="display: flex; gap: 8px; border-top: 1px solid var(--kora-border); padding-top: 12px;">
-        <button type="button" class="btn-modal-action" style="flex: 1;" onclick="closeAdminDatabaseModal()">
-          Close Database View
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Floating Judge Database Quick Button -->
-  <button type="button" id="floating-db-btn" onclick="openAdminDatabaseModal()" title="Inspect Database (or press ` or Ctrl+Shift+D)" style="position: fixed; bottom: 20px; right: 20px; z-index: 999; background: #1a237e; color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; box-shadow: 0 4px 14px rgba(0,0,0,0.3); cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: inherit;">
-    <span>📊</span> <span>Live Database</span>
-  </button>
 
 </body>
 </html>
