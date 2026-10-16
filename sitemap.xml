@@ -14,6 +14,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://genesis-drab-eight.vercel.app/rss.xml</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://genesis-drab-eight.vercel.app/data.json</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>daily</changefreq>

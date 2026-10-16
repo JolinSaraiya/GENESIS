@@ -12,6 +12,7 @@ Allow: /.well-known/
 Allow: /data.json
 Allow: /dataset.csv
 Allow: /sync_audit_log.json
+Allow: /rss.xml
 Crawl-delay: 0
 
 # OpenAI Autonomous Crawlers & Real-Time Search
