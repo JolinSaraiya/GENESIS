@@ -1221,26 +1221,36 @@
   function lockStorefront() {
     sessionStorage.clear();
     localStorage.removeItem('kora_active_token');
-    document.getElementById('kora-main-storefront').style.display = 'none';
-    document.getElementById('kora-signin-screen').style.display = 'flex';
-    document.getElementById('portal-step-phone').style.display = 'block';
-    document.getElementById('portal-step-otp').style.display = 'none';
+    localStorage.removeItem('kora_active_patron');
+    if (window.KoraDB && window.KoraDB.sessions) {
+      window.KoraDB.sessions.clear();
+    }
+    var storefront = document.getElementById('kora-main-storefront');
+    var signin = document.getElementById('kora-signin-screen');
+    if (storefront) storefront.style.display = 'none';
+    if (signin) signin.style.display = 'flex';
+    var pPhone = document.getElementById('portal-step-phone');
+    var pOtp = document.getElementById('portal-step-otp');
+    if (pPhone) pPhone.style.display = 'block';
+    if (pOtp) pOtp.style.display = 'none';
     updateAuthHeaderUI();
   }
 
   function triggerSignOut() {
-    if (confirm('Sign out of your MiniMoth session?')) {
-      if (window.MiniMothAuth) {
-        window.MiniMothAuth.logout(function() {
-          closePatronAccountModal();
-          closeMiniMothModal();
-          closeCheckoutModal();
-          lockStorefront();
-          alert('Signed out successfully. MiniMoth session terminated.');
-        });
-      } else {
+    if (window.MiniMothAuth && typeof window.MiniMothAuth.logout === 'function') {
+      window.MiniMothAuth.logout(function() {
+        closePatronAccountModal();
+        closeMiniMothModal();
+        closeCheckoutModal();
         lockStorefront();
-      }
+        alert('✓ Signed out successfully. Storefront relocked.');
+      });
+    } else {
+      closePatronAccountModal();
+      closeMiniMothModal();
+      closeCheckoutModal();
+      lockStorefront();
+      alert('✓ Signed out successfully. Storefront relocked.');
     }
   }
 

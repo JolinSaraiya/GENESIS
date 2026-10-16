@@ -233,33 +233,6 @@
       }
 
       if (callback) callback(new Error('Invalid verification code. Please enter the OTP received on WhatsApp/SMS or 123456.'));
-      }
-
-      var sessionToken = 'mm_sess_' + Math.random().toString(36).substring(2, 12);
-      var user = window.KoraDB ? window.KoraDB.users.findByPhone(cleanPhone) : null;
-      if (!user) {
-        user = window.KoraDB ? window.KoraDB.users.createOrUpdate({
-          phone: cleanPhone,
-          name: (pendingRegistration && pendingRegistration.name) || 'Patron',
-          email: (pendingRegistration && pendingRegistration.email) || (cleanPhone + '@patron.korathreads.in'),
-          address: { locality: 'Kothrud', city: 'Pune', state: 'Maharashtra', pincode: '411038' }
-        }) : { phone: cleanPhone };
-      }
-
-      var fallbackAuth = {
-        success: true,
-        verified: true,
-        session_token: sessionToken,
-        phone: '+91' + cleanPhone,
-        user: user
-      };
-
-      try {
-        var ev = new CustomEvent('kora:auth:changed', { detail: fallbackAuth });
-        window.dispatchEvent(ev);
-      } catch (e) {}
-
-      if (callback) callback(null, fallbackAuth);
     },
 
     getCurrentUser: function () {
