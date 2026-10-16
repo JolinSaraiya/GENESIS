@@ -1,29 +1,30 @@
 [
   {
-    "sync_id": "sync_20261016_022003",
-    "timestamp": "2026-10-16T02:20:02Z",
-    "upstream_status": {
-      "swe_bench": 200,
-      "huggingface": 200,
-      "github": 200
-    },
-    "sha256_audit_hash": "83cd949a9582f4dd68b0a07148cd86ff0eae6a05b0f2d2298a8f3717baf89d2d",
-    "verified_records_count": 180,
-    "validation_verdict": "PASS_IEEE_829",
-    "triggered_by": "JolinSaraiya"
+    "timestamp": "2026-10-16T05:07:44Z",
+    "event": "GROUND_TRUTH_VERIFICATION",
+    "entity": "Kora Threads (D2C Handloom Brand)",
+    "city": "Pune",
+    "return_window_days": 10,
+    "sha256": "f4ab216d164250f5f3d2d05893aed46522f7c3186332877d15d0c1fb478558cb",
+    "status": "VERIFIED_COMPLIANT"
   },
   {
-    "sync_id": "sync_20261015_204355",
-    "timestamp": "2026-10-15T20:43:55Z",
-    "upstream_status": {
-      "swe_bench": 200,
-      "huggingface": 200,
-      "github": 200
-    },
-    "sha256_audit_hash": "83cd949a9582f4dd68b0a07148cd86ff0eae6a05b0f2d2298a8f3717baf89d2d",
-    "verified_records_count": 180,
-    "validation_verdict": "PASS_IEEE_829",
-    "triggered_by": "JolinSaraiya"
+    "timestamp": "2026-10-16T05:04:34Z",
+    "event": "GROUND_TRUTH_VERIFICATION",
+    "entity": "Kora Threads (D2C Handloom Brand)",
+    "city": "Pune",
+    "return_window_days": 10,
+    "sha256": "c33e925a23e9283e09990752a58a5a840e0d17fc1ec7818632bb53b4afd49def",
+    "status": "VERIFIED_COMPLIANT"
+  },
+  {
+    "timestamp": "2026-10-16T05:01:33Z",
+    "event": "GROUND_TRUTH_VERIFICATION",
+    "entity": "Kora Threads (D2C Handloom Brand)",
+    "city": "Pune",
+    "return_window_days": 10,
+    "sha256": "0ea857d6cd2913fc255fad40a7e92df1e92469c6cdfc1213cad3e3d82f6ec75d",
+    "status": "VERIFIED_COMPLIANT"
   },
   {
     "sync_id": "sync_20261015_161416",

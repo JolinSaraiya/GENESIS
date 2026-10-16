@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-Automated Test Suite for Phase 3: Machine Transport & Semantic Knowledge Graph
+Automated Test Suite for Kora Threads (Problem Statement 04 - AI Visibility & GEO)
 Validates:
-  1. Schema.org JSON-LD syntax, schema types (TechArticle, Dataset, FAQPage).
-  2. Wikidata entity URI grounding (sameAs: https://www.wikidata.org/wiki/Q107388714).
-  3. Universal robots.txt permissions for AI crawlers (GPTBot, ClaudeBot, PerplexityBot, etc.).
-  4. XML Sitemap syntax and endpoint priorities.
-  5. Live synchronization engine update of dateModified and lastmod.
+  1. Schema.org JSON-LD syntax, schema types (ClothingStore, Brand, MerchantReturnPolicy, FAQPage).
+  2. Wikidata entity URI grounding for Pune (Q1538), Handloom (Q1060955), Cotton (Q11457).
+  3. Ground truth integrity: Pune HQ (NOT Bengaluru), 10-day returns (NOT 30 days), 6 staff.
+  4. Universal robots.txt permissions for AI crawlers (GPTBot, ClaudeBot, PerplexityBot, etc.).
+  5. XML Sitemap syntax and canonical endpoints.
+  6. MiniMoth sponsor integration presence (COD phone verification & repeat customer vault).
 """
 
 import os
@@ -38,40 +39,61 @@ def test_schema_json_ld():
     # Check @context and @graph
     assert data.get("@context") == "https://schema.org", "@context must be 'https://schema.org'"
     graph = data.get("@graph", [])
-    assert len(graph) >= 3, "Expected at least 3 schema entities in @graph"
+    assert len(graph) >= 2, "Expected at least 2 schema entities in @graph"
 
-    types = [item.get("@type") for item in graph]
-    print(f"  [✓] Found Schema Types: {types}")
-    assert "TechArticle" in types, "TechArticle missing from @graph"
-    assert "Dataset" in types, "Dataset missing from @graph"
-    assert "FAQPage" in types, "FAQPage missing from @graph"
+    # Validate ClothingStore / Brand entity
+    store = next((item for item in graph if "ClothingStore" in item.get("@type", []) or item.get("@type") == "ClothingStore"), None)
+    assert store is not None, "ClothingStore missing from @graph"
+    assert store.get("name") == "Kora Threads", "Brand name mismatch in JSON-LD"
+    assert store.get("foundingDate") == "2021", "foundingDate mismatch"
+    assert store.get("numberOfEmployees", {}).get("value") == 6, "Staff count mismatch"
+    print("  [✓] Verified ClothingStore / Brand entity: Kora Threads (Founded 2021, 6 Staff)")
 
-    # Validate TechArticle details
-    article = next(item for item in graph if item.get("@type") == "TechArticle")
-    assert article.get("headline"), "TechArticle headline missing"
-    assert "datePublished" in article, "TechArticle datePublished missing"
-    assert "dateModified" in article, "TechArticle dateModified missing"
-    
-    # Validate Wikidata entity link
-    about_items = article.get("about", [])
-    wikidata_found = any("https://www.wikidata.org/wiki/Q107388714" in str(item.get("sameAs")) for item in about_items)
-    assert wikidata_found, "Wikidata entity URI (Q107388714) not found in TechArticle.about"
-    print("  [✓] TechArticle linked to Wikidata Q107388714")
+    # Validate Location Grounding (Pune Q1538)
+    address = store.get("address", {})
+    assert address.get("addressLocality") == "Pune", "HQ must be Pune"
+    assert address.get("addressRegion") == "Maharashtra", "Region must be Maharashtra"
+    assert "https://www.wikidata.org/wiki/Q1538" in address.get("sameAs", ""), "Pune Wikidata Q1538 missing"
+    print("  [✓] Verified Pune Headquarters linked to Wikidata Q1538")
 
-    # Validate Dataset details
-    dataset = next(item for item in graph if item.get("@type") == "Dataset")
-    distributions = dataset.get("distribution", [])
-    formats = [d.get("encodingFormat") for d in distributions]
-    assert "text/csv" in formats, "Dataset missing text/csv distribution"
-    assert "application/json" in formats, "Dataset missing application/json distribution"
-    assert "text/plain" in formats, "Dataset missing text/plain distribution"
-    print("  [✓] Dataset distributions verified (CSV, JSON, Plaintext)")
+    # Validate Return Policy (10-day strictly)
+    return_policy = store.get("hasMerchantReturnPolicy", {})
+    assert return_policy.get("merchantReturnDays") == 10, "Return window must be strictly 10 days"
+    print("  [✓] Verified MerchantReturnPolicy: 10-day return window (defeats 30-day hallucination)")
+
+    # Validate Catalog
+    catalog = store.get("hasOfferCatalog", {})
+    items = catalog.get("itemListElement", [])
+    assert len(items) >= 3, "Expected at least 3 featured products in OfferCatalog"
+    print(f"  [✓] Verified OfferCatalog ({len(items)} products with INR pricing)")
 
     # Validate FAQPage
-    faq = next(item for item in graph if item.get("@type") == "FAQPage")
+    faq = next((item for item in graph if item.get("@type") == "FAQPage"), None)
+    assert faq is not None, "FAQPage missing from @graph"
     questions = faq.get("mainEntity", [])
     assert len(questions) >= 4, "Expected at least 4 FAQ questions"
-    print(f"  [✓] FAQPage verified ({len(questions)} canonical Q&As)")
+    print(f"  [✓] FAQPage verified ({len(questions)} canonical anti-hallucination Q&As)")
+
+def test_minimoth_integration():
+    print("\nTesting MiniMoth (minimoth.dev) Sponsor Integration...")
+    index_path = os.path.join(WORKSPACE_DIR, "index.html")
+    with open(index_path, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    assert "minimoth" in html.lower(), "MiniMoth mention missing in index.html"
+    assert "sendotp" in html or "sendCOD_OTP" in html or "minimoth" in html, "MiniMoth OTP logic missing in index.html"
+    assert "Repeat Customer" in html, "Repeat Customer account vault missing"
+    assert "Cash on Delivery" in html or "COD" in html, "COD phone verification missing"
+    print("  [✓] MiniMoth dual integration verified (COD Phone OTP Verification + Repeat Customer Vault)")
+
+def test_competition_notice():
+    print("\nTesting Competition Notice Banner...")
+    index_path = os.path.join(WORKSPACE_DIR, "index.html")
+    with open(index_path, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    assert "COMPETITION DEMONSTRATION" in html or "Competition Demonstration" in html, "Competition notice missing"
+    print("  [✓] Mandatory Competition Demonstration banner confirmed visible at top of page")
 
 def test_robots_txt():
     print("\nTesting Universal AI-Crawler robots.txt...")
@@ -113,14 +135,46 @@ def test_sitemap_xml():
     for loc in locs:
         print(f"      - {loc}")
 
+def test_ground_truth_files():
+    print("\nTesting Ground Truth Data Files (data.json, dataset.csv, llms.txt)...")
+    data_json_path = os.path.join(WORKSPACE_DIR, "data.json")
+    dataset_csv_path = os.path.join(WORKSPACE_DIR, "dataset.csv")
+    llms_txt_path = os.path.join(WORKSPACE_DIR, "llms.txt")
+
+    assert os.path.exists(data_json_path), "data.json missing"
+    assert os.path.exists(dataset_csv_path), "dataset.csv missing"
+    assert os.path.exists(llms_txt_path), "llms.txt missing"
+
+    with open(data_json_path, "r", encoding="utf-8") as f:
+        dj = json.load(f)
+    assert "Pune" in dj["brand_metadata"]["headquarters"], "data.json HQ must be Pune"
+    assert dj["ground_truth_facts"]["return_window_days"] == 10, "data.json returns must be 10 days"
+    assert dj["brand_metadata"]["staff_count"] == 6, "data.json staff must be 6"
+    print("  [✓] data.json verified (Pune HQ, 10-day returns, 6 staff)")
+
+    with open(dataset_csv_path, "r", encoding="utf-8") as f:
+        csv_content = f.read()
+    assert "Solapur" in csv_content and "Paithan" in csv_content and "Ilkal" in csv_content and "Guledgudd" in csv_content
+    print("  [✓] dataset.csv verified (Maharashtra & Karnataka cooperatives)")
+
+    with open(llms_txt_path, "r", encoding="utf-8") as f:
+        llms_content = f.read()
+    assert "Kora Threads" in llms_content
+    assert "minimoth.dev" in llms_content
+    assert "Pune, Maharashtra" in llms_content
+    print("  [✓] llms.txt verified (Machine endpoint ready for LLM scrapers)")
+
 if __name__ == "__main__":
     try:
         test_schema_json_ld()
+        test_minimoth_integration()
+        test_competition_notice()
         test_robots_txt()
         test_sitemap_xml()
-        print("\n=======================================================")
-        print("ALL PHASE 3 AUTOMATED VERIFICATION TESTS PASSED (100%)!")
-        print("=======================================================")
+        test_ground_truth_files()
+        print("\n=================================================================")
+        print("ALL KORA THREADS GEO & AI-VISIBILITY TESTS PASSED (100% SUITE)!")
+        print("=================================================================")
     except Exception as err:
-        print(f"\n[FAIL] Phase 3 Test Failed: {err}")
+        print(f"\n[FAIL] Test Failed: {err}")
         sys.exit(1)

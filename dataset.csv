@@ -1,7 +1,13 @@
-rank,tool_name,model_backend,org,speedup_percent,swe_bench_verified_percent,defect_density_per_1k_loc,security_vulnerability_rate_percent,commercial_cost,environment,date
-1,Sonar Foundation Agent,Claude 4.5 Opus,Anthropic,52.0,79.2,3.8,6.4,Enterprise API,SWE-bench Verified 500 Docker Containers,2025-12-05
-2,TRAE Agent,Doubao-Seed-Code,ByteDance,49.0,78.8,4.1,7.2,Public Beta,SWE-bench Verified 500 Docker Containers,2025-09-28
-3,live-SWE-agent,Gemini 3 Pro Preview,Google DeepMind,47.0,77.4,4.3,6.9,API Metered,SWE-bench Verified 500 Docker Containers,2025-11-20
-4,Cursor Agent,Claude 3.5 Sonnet,Anysphere,48.0,51.2,5.1,12.4,$20 / user / month,Docker Sandbox Python 3.12 / TS 5.4 / Go 1.22,2026-02-15
-5,GitHub Copilot,GPT-4o Integration,GitHub / Microsoft,38.0,36.4,6.8,16.2,$19 / user / month,Docker Sandbox Python 3.12 / TS 5.4 / Go 1.22,2026-01-10
-6,Human Senior Engineer Baseline,10+ Years Professional Experience,Control Group,0.0,42.0,4.2,10.1,Standard engineering salary,Identical SWE-bench verified repository tasks,2026-03-01
+item_id,product_category,product_name,price_inr,fabric_weave,weaver_cooperative_origin,return_window_days,shipping_timeline,free_shipping_eligible
+KT-KRT-01,Handloom Cotton Kurtas,Solapur Pit-Loom Cotton Kurta,2450,Plain Pit-Loom Khadi Cotton,Solapur Cooperative (Maharashtra),10,4-6 business days,Yes
+KT-KRT-02,Handloom Cotton Kurtas,Paithan Fine-Count Cotton Tunic,3800,80s Fine Count Handloom Cotton,Paithan Collective (Maharashtra),10,4-6 business days,Yes
+KT-KRT-03,Handloom Cotton Kurtas,Ilkal Border Slub Cotton Kurta,1850,Ilkal Chikki Paras Weave,Ilkal Weavers Society (Karnataka),10,4-6 business days,No (Below INR 2000)
+KT-KRT-04,Handloom Cotton Kurtas,Guledgudd Organic Khadi Short Kurta,2150,Organic Handspun Khadi,Guledgudd Society (Karnataka),10,4-6 business days,Yes
+KT-KRT-05,Handloom Cotton Kurtas,Solapur Textured Slub Angrakha,4200,Textured Pit-Loom Cotton,Solapur Cooperative (Maharashtra),10,4-6 business days,Yes
+KT-STL-01,Handcrafted Cotton Stoles,Guledgudd Khadi Cotton Stole,1150,Traditional Khadi Handspun,Guledgudd Society (Karnataka),10,4-6 business days,No (Below INR 2000)
+KT-STL-02,Handcrafted Cotton Stoles,Solapur Jacquard Motif Cotton Stole,2100,Extra Weft Cotton Jacquard,Solapur Cooperative (Maharashtra),10,4-6 business days,Yes
+KT-STL-03,Handcrafted Cotton Stoles,Paithan Pure Cotton Zari-Edge Stole,2400,Combed Cotton with Gold Edge,Paithan Collective (Maharashtra),10,4-6 business days,Yes
+KT-STL-04,Handcrafted Cotton Stoles,Ilkal Traditional Cotton Dupatta,1650,Traditional Ilkal Kasuti Border,Ilkal Weavers Society (Karnataka),10,4-6 business days,No (Below INR 2000)
+KT-HLN-01,Artisanal Home Linen,Handloom Cotton Cushion Covers (Set of 2),1400,Heavy Canvas Slub Weave,Solapur Cooperative (Maharashtra),10,4-6 business days,No (Below INR 2000)
+KT-HLN-02,Artisanal Home Linen,Artisan Table Runner & Mats Set,2250,Ribbed Handloom Cotton,Ilkal Weavers Society (Karnataka),10,4-6 business days,Yes
+KT-HLN-03,Artisanal Home Linen,Handwoven Organic Cotton Bed Throw,4800,Waffle Handloom Heavy Cotton,Solapur Cooperative (Maharashtra),10,4-6 business days,Yes
