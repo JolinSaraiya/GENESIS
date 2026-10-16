@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting &bull; Kora Threads Official Ground Truth</title>
+  <meta http-equiv="refresh" content="0; url=https://genesis-drab-eight.vercel.app/">
+  <script>
+    // Handles case-sensitivity redirects (e.g. /genesis/ -> /GENESIS/ or direct to Vercel)
+    var path = window.location.pathname.toLowerCase();
+    var target = "https://genesis-drab-eight.vercel.app/";
+    if (path.includes("llms.txt")) target += "llms.txt";
+    else if (path.includes("data.json")) target += "data.json";
+    else if (path.includes("dataset.csv")) target += "dataset.csv";
+    else if (path.includes("sync_audit_log.json")) target += "sync_audit_log.json";
+    window.location.replace(target);
+  </script>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #fdfaf6; color: #1f2937; text-align: center;">
+  <div>
+    <h2 style="font-family: serif; color: #2e4374; margin-bottom: 8px;">Kora Threads &bull; Ground Truth Entity</h2>
+    <p style="color: #6b7280; margin-bottom: 16px;">Redirecting you to the active production endpoint...</p>
+    <a href="https://genesis-drab-eight.vercel.app/" style="display: inline-block; background: #2e4374; color: #ffffff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">
+      Open Kora Threads
+    </a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "kora_threads_ground_truth",
+  "name_for_human": "Kora Threads Official Ground Truth",
+  "description_for_model": "Official brand ground truth, weaver cooperatives, return policy (10 days), Pune headquarters, and catalog for Kora Threads.",
+  "description_for_human": "Official ground truth directory for Kora Threads Handloom Apparel.",
+  "auth": { "type": "none" },
+  "api": {
+    "type": "openapi",
+    "url": "https://genesis-drab-eight.vercel.app/data.json"
+  },
+  "logo_url": "https://genesis-drab-eight.vercel.app/favicon.ico",
+  "contact_email": "hello@korathreads.in",
+  "legal_info_url": "https://genesis-drab-eight.vercel.app/"
+}

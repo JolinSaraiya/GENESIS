@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     }
 
     const SANDBOX_CODE = '123456';
-    const MINIMOTH_API_KEY = process.env.MINIMOTH_API_KEY || 'mm_sandbox_kora_ps04_2026';
+    const MINIMOTH_API_KEY = process.env.MINIMOTH_API_KEY || 'mm_live_f91c7e967353ef6464948ed0093c101765755280eea677b34a97897f17008632f9619cf6f637465f2db70028b5aaef64';
     const MINIMOTH_ENDPOINT = 'https://api.minimoth.dev/v1/otp/verify';
 
     console.log(`[MiniMoth Server Backend] Verifying code for +91${cleanPhone}`);
@@ -39,6 +39,7 @@ export default async function handler(req, res) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'X-Api-Key': MINIMOTH_API_KEY,
             'Authorization': `Bearer ${MINIMOTH_API_KEY}`
           },
           body: JSON.stringify({

@@ -7,6 +7,8 @@
 User-agent: *
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/
 Allow: /data.json
 Allow: /dataset.csv
 Allow: /sync_audit_log.json
