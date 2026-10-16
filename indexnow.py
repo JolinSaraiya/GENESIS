@@ -22,6 +22,7 @@ TARGET_HOSTS = [
         "host": "genesis-drab-eight.vercel.app",
         "urls": [
             "https://genesis-drab-eight.vercel.app/",
+            "https://genesis-drab-eight.vercel.app/what-is-kora-threads",
             "https://genesis-drab-eight.vercel.app/data.json",
             "https://genesis-drab-eight.vercel.app/dataset.csv",
             "https://genesis-drab-eight.vercel.app/llms.txt"
@@ -31,6 +32,7 @@ TARGET_HOSTS = [
         "host": "jolinsaraiya.github.io",
         "urls": [
             "https://jolinsaraiya.github.io/GENESIS/",
+            "https://jolinsaraiya.github.io/GENESIS/what-is-kora-threads.html",
             "https://jolinsaraiya.github.io/GENESIS/data.json",
             "https://jolinsaraiya.github.io/GENESIS/dataset.csv",
             "https://jolinsaraiya.github.io/GENESIS/llms.txt"

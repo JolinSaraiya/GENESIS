@@ -8,6 +8,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://genesis-drab-eight.vercel.app/what-is-kora-threads</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://genesis-drab-eight.vercel.app/data.json</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>daily</changefreq>
@@ -35,6 +41,12 @@
   <!-- Mirror Deployment (GitHub Pages) -->
   <url>
     <loc>https://jolinsaraiya.github.io/GENESIS/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://jolinsaraiya.github.io/GENESIS/what-is-kora-threads.html</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
