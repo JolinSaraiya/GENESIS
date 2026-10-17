@@ -29,8 +29,11 @@ Allow: /
 User-agent: Claude-Web
 Allow: /
 
-# Perplexity AI Research Crawler
+# Perplexity AI Research Crawler & Real-Time Search Agent
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
 Allow: /
 
 # Google Search & Google Gemini Extended Crawler
