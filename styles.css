@@ -2052,7 +2052,7 @@ body.lens-auditor .coop-card {
 }
 
 /* ==========================================================================
-   Hero Section Handloom Visual Showcase
+   Hero Section Handloom Visual Showcase (Image Only)
    ========================================================================== */
 .handloom-hero-card {
   background: var(--kora-card-bg);
@@ -2061,8 +2061,8 @@ body.lens-auditor .coop-card {
   overflow: hidden;
   box-shadow: var(--kora-shadow);
   display: flex;
-  flex-direction: column;
   height: 100%;
+  min-height: 400px;
   transition: all 0.3s ease;
 }
 
@@ -2071,17 +2071,10 @@ body.lens-auditor .coop-card {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.handloom-hero-image-wrap {
-  position: relative;
-  width: 100%;
-  height: 270px;
-  overflow: hidden;
-  background: #2b231d;
-}
-
 .handloom-hero-img {
   width: 100%;
   height: 100%;
+  min-height: 400px;
   object-fit: cover;
   object-position: center 25%;
   display: block;
@@ -2089,67 +2082,7 @@ body.lens-auditor .coop-card {
 }
 
 .handloom-hero-card:hover .handloom-hero-img {
-  transform: scale(1.04);
-}
-
-.handloom-floating-badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(23, 21, 18, 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #FFFFFF;
-  padding: 6px 12px;
-  border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.handloom-hero-caption {
-  padding: 18px 20px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: space-between;
-}
-
-.handloom-caption-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--kora-text);
-  margin-bottom: 6px;
-}
-
-.handloom-caption-desc {
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--kora-text-muted);
-  margin-bottom: 14px;
-}
-
-.handloom-caption-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.handloom-pill {
-  display: inline-flex;
-  align-items: center;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: var(--kora-badge-bg);
-  color: var(--kora-primary);
-  border: 1px solid var(--kora-border-light);
+  transform: scale(1.03);
 }
 
 /* ==========================================================================
