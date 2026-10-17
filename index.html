@@ -262,14 +262,6 @@
         </p>
       </div>
 
-      <!-- MiniMoth Sponsor Authentication Badge -->
-      <div style="background: var(--kora-badge-bg); border: 1px solid var(--kora-border); border-radius: 6px; padding: 10px 14px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 20px;">⚡</span>
-        <div style="font-size: 12px; color: var(--kora-primary); line-height: 1.45;">
-          <strong>MiniMoth Phone Authentication (minimoth.dev):</strong> Please sign in with your mobile OTP to view our authentic handloom collection and verified pricing.
-        </div>
-      </div>
-
       <!-- Step 1: User Registration / Phone Input -->
       <div id="portal-step-phone">
         <div style="margin-bottom: 14px;">
@@ -301,19 +293,9 @@
           📲 Send MiniMoth OTP &rarr;
         </button>
 
-        <div style="margin: 18px 0; display: flex; align-items: center; text-align: center; color: var(--kora-text-muted); font-size: 11px;">
-          <span style="flex: 1; border-bottom: 1px solid var(--kora-border);"></span>
-          <span style="padding: 0 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">or for judges demo</span>
-          <span style="flex: 1; border-bottom: 1px solid var(--kora-border);"></span>
-        </div>
-
-        <button type="button" onclick="portalInstantDemoLogin()" style="width: 100%; background: var(--kora-badge-bg); color: var(--kora-primary); border: 1px solid var(--kora-primary); padding: 11px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">
-          ⚡ 1-Click Judge Sign-In (Priya Sharma - Repeat Patron)
-        </button>
-
         <div style="text-align: center; margin-top: 14px;">
-          <a href="javascript:void(0)" onclick="unlockStorefront()" style="font-size: 12px; color: var(--kora-text-muted); text-decoration: underline;">
-            Continue as Guest (Browse Storefront) &rarr;
+          <a href="javascript:void(0)" onclick="portalGoToCodeDirectly()" style="font-size: 12px; color: var(--kora-text); font-weight: 600; text-decoration: underline;">
+            Already have an OTP? Enter code directly &rarr;
           </a>
         </div>
       </div>
@@ -324,7 +306,7 @@
           <div style="font-size: 13px; color: var(--kora-text); font-weight: 600;">
             OTP sent to <span id="portal-display-phone" style="color: var(--kora-primary); font-weight: 700;">+91 9876543210</span>
           </div>
-          <div style="font-size: 11.5px; color: var(--kora-text-muted); margin-top: 4px;">
+          <div id="portal-otp-hint" style="font-size: 11.5px; color: var(--kora-text-muted); margin-top: 4px;">
             MiniMoth Sandbox Mode &bull; Enter code: <strong>123456</strong>
           </div>
         </div>
@@ -333,7 +315,7 @@
           <label style="display: block; font-size: 12.5px; font-weight: 600; color: var(--kora-text); margin-bottom: 6px; text-align: center;">
             Enter 6-Digit Verification Code:
           </label>
-          <input type="text" id="portal-otp-code" maxlength="6" value="123456" placeholder="123456" style="width: 100%; padding: 12px; border: 2px solid var(--kora-primary); border-radius: 6px; font-size: 22px; font-weight: 700; text-align: center; letter-spacing: 6px; box-sizing: border-box; background: var(--kora-input-bg); color: var(--kora-text);" />
+          <input type="text" id="portal-otp-code" maxlength="6" value="" placeholder="Enter 6-digit OTP" style="width: 100%; padding: 12px; border: 2px solid var(--kora-primary); border-radius: 6px; font-size: 22px; font-weight: 700; text-align: center; letter-spacing: 6px; box-sizing: border-box; background: var(--kora-input-bg); color: var(--kora-text);" />
         </div>
 
         <button type="button" onclick="portalVerifyOTP()" style="width: 100%; background: var(--kora-primary); color: #ffffff; padding: 13px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: var(--kora-shadow-sm);">
@@ -1882,10 +1864,31 @@
 
     document.getElementById('portal-display-phone').innerText = '+91 ' + phone;
 
+    var btn = document.querySelector('#portal-step-phone button[onclick="portalSendOTP()"]');
+    var origText = btn ? btn.innerHTML : '📲 Send MiniMoth OTP &rarr;';
+    if (btn) {
+      btn.innerHTML = '⏳ Generating MiniMoth OTP...';
+      btn.disabled = true;
+    }
+
     window.MiniMothAuth.sendOTP(phone, { name: name, email: email }, function(err, resp) {
-      // Transition to Step 2 immediately so user can enter the WhatsApp OTP
+      if (btn) {
+        btn.innerHTML = origText;
+        btn.disabled = false;
+      }
+      if (err) {
+        alert(err.message);
+        return;
+      }
+      // Transition to Step 2 immediately so user can enter the WhatsApp/SMS OTP
       document.getElementById('portal-step-phone').style.display = 'none';
       document.getElementById('portal-step-otp').style.display = 'block';
+      var hintEl = document.getElementById('portal-otp-hint');
+      if (resp && resp.live_mode) {
+        if (hintEl) hintEl.innerHTML = '⚡ Real MiniMoth OTP dispatched to <strong>+91 ' + phone + '</strong> via WhatsApp/SMS.<br><span style="color:var(--kora-primary); font-size:11px;">(Sandbox verification code: <strong>123456</strong> also accepted)</span>';
+      } else {
+        if (hintEl) hintEl.innerHTML = 'MiniMoth Sandbox Mode &bull; Enter code: <strong>123456</strong>';
+      }
       var otpInput = document.getElementById('portal-otp-code');
       if (otpInput) {
         otpInput.value = '';
@@ -1901,11 +1904,22 @@
     var code = codeInput ? codeInput.value.replace(/\D/g, '').trim() : '';
 
     if (code.length !== 6) {
-      alert("Please enter the complete 6-digit OTP code received on WhatsApp/SMS.");
+      alert("Please enter the complete 6-digit OTP code received on WhatsApp/SMS or 123456.");
       return;
     }
 
+    var btn = document.querySelector('#portal-step-otp button[onclick="portalVerifyOTP()"]');
+    var origText = btn ? btn.innerHTML : '✓ Verify &amp; Unlock Storefront &rarr;';
+    if (btn) {
+      btn.innerHTML = '⏳ Verifying Code...';
+      btn.disabled = true;
+    }
+
     window.MiniMothAuth.verifyOTP(phone, code, function(err, data) {
+      if (btn) {
+        btn.innerHTML = origText;
+        btn.disabled = false;
+      }
       if (err) {
         alert(err.message);
         return;
@@ -1960,13 +1974,14 @@
     }
     var storefront = document.getElementById('kora-main-storefront');
     var signin = document.getElementById('kora-signin-screen');
-    if (storefront) storefront.style.display = 'block';
-    if (signin) signin.style.display = 'none';
+    if (storefront) storefront.style.display = 'none';
+    if (signin) signin.style.display = 'flex';
     var pPhone = document.getElementById('portal-step-phone');
     var pOtp = document.getElementById('portal-step-otp');
     if (pPhone) pPhone.style.display = 'block';
     if (pOtp) pOtp.style.display = 'none';
     updateAuthHeaderUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function triggerSignOut() {
@@ -1976,14 +1991,14 @@
         closeMiniMothModal();
         closeCheckoutModal();
         lockStorefront();
-        alert('✓ Signed out successfully. MiniMoth session terminated.');
+        alert('✓ Signed out successfully. Storefront relocked.');
       });
     } else {
       closePatronAccountModal();
       closeMiniMothModal();
       closeCheckoutModal();
       lockStorefront();
-      alert('✓ Signed out successfully. MiniMoth session terminated.');
+      alert('✓ Signed out successfully. Storefront relocked.');
     }
   }
 
@@ -1998,67 +2013,6 @@
       document.getElementById('kora-signin-screen').style.display = 'flex';
       document.getElementById('kora-main-storefront').style.display = 'none';
     }
-  }
-
-  function unlockStorefront(user) {
-    document.getElementById('kora-signin-screen').style.display = 'none';
-    var sf = document.getElementById('kora-main-storefront');
-    if (sf) sf.style.display = 'block';
-    updateAuthHeaderUI();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function portalInstantDemoLogin() {
-    var demoUser = {
-      name: "Priya Sharma",
-      phone: "9876543210",
-      email: "priya.sharma@example.com",
-      is_repeat_customer: true,
-      orders_count: 3,
-      address: {
-        locality: "Flat 402, Shanti Vihar, Koregaon Park",
-        city: "Pune",
-        state: "Maharashtra",
-        pincode: "411001"
-      }
-    };
-    if (window.KoraDB) {
-      window.KoraDB.sessions.create("9876543210");
-      window.KoraDB.users.createOrUpdate(demoUser);
-    }
-    sessionStorage.setItem('kora_active_token', 'mm_sess_demo_live');
-    sessionStorage.setItem('kora_active_patron', JSON.stringify(demoUser));
-    unlockStorefront(demoUser);
-  }
-
-  function portalSendOTP() {
-    var phone = document.getElementById('portal-phone').value.trim();
-    if (!phone || phone.length < 10) {
-      alert('Please enter a valid 10-digit mobile number.');
-      return;
-    }
-    document.getElementById('portal-display-phone').innerText = '+91 ' + phone;
-    document.getElementById('portal-step-phone').style.display = 'none';
-    document.getElementById('portal-step-otp').style.display = 'block';
-  }
-
-  function portalVerifyOTP() {
-    var code = document.getElementById('portal-otp-code').value.trim();
-    if (code !== '123456') {
-      alert('Invalid OTP. In demo sandbox mode, enter: 123456');
-      return;
-    }
-    portalInstantDemoLogin();
-  }
-
-  function portalBackToPhone() {
-    document.getElementById('portal-step-phone').style.display = 'block';
-    document.getElementById('portal-step-otp').style.display = 'none';
-  }
-
-  function openPortalModal() {
-    var signin = document.getElementById('kora-signin-screen');
-    if (signin) signin.style.display = 'flex';
   }
 
   window.addEventListener('DOMContentLoaded', checkInitialAuthGate);
