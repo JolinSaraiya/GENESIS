@@ -1990,4 +1990,264 @@ body.lens-auditor .coop-card {
   display: none;
 }
 
+/* ==========================================================================
+   Product Collections Filter Pills
+   ========================================================================== */
+.collection-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 26px 0;
+  align-items: center;
+}
+
+.collection-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  color: var(--kora-text);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--kora-shadow-sm);
+}
+
+.collection-filter-pill:hover {
+  border-color: var(--kora-primary);
+  color: var(--kora-primary);
+  transform: translateY(-1px);
+}
+
+.collection-filter-pill.active {
+  background: var(--kora-primary);
+  border-color: var(--kora-primary);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(184, 80, 48, 0.25);
+}
+
+.collection-filter-pill .filter-pill-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--kora-badge-bg);
+  color: var(--kora-text);
+  transition: all 0.2s ease;
+}
+
+.collection-filter-pill.active .filter-pill-count {
+  background: rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Hero Section Handloom Visual Showcase
+   ========================================================================== */
+.handloom-hero-card {
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--kora-shadow);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.handloom-hero-card:hover {
+  border-color: var(--kora-primary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.handloom-hero-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 270px;
+  overflow: hidden;
+  background: #2b231d;
+}
+
+.handloom-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.handloom-hero-card:hover .handloom-hero-img {
+  transform: scale(1.04);
+}
+
+.handloom-floating-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(23, 21, 18, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.handloom-hero-caption {
+  padding: 18px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.handloom-caption-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--kora-text);
+  margin-bottom: 6px;
+}
+
+.handloom-caption-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--kora-text-muted);
+  margin-bottom: 14px;
+}
+
+.handloom-caption-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.handloom-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--kora-badge-bg);
+  color: var(--kora-primary);
+  border: 1px solid var(--kora-border-light);
+}
+
+/* ==========================================================================
+   About Section & Contact Directory
+   ========================================================================== */
+.kora-about-section {
+  margin: 20px 0 44px 0;
+  padding: 28px 28px;
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 8px;
+  box-shadow: var(--kora-shadow-sm);
+}
+
+.about-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--kora-primary);
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.about-content-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  margin-top: 18px;
+}
+
+@media (max-width: 900px) {
+  .about-content-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 550px) {
+  .contact-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-card {
+  background: var(--kora-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 6px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.contact-card:hover {
+  border-color: var(--kora-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--kora-shadow-sm);
+}
+
+.contact-card-icon {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.contact-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--kora-text-muted);
+  margin-bottom: 4px;
+}
+
+.contact-card-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--kora-primary);
+  margin-bottom: 4px;
+}
+
+.contact-card-val a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-card-val a:hover {
+  text-decoration: underline;
+}
+
+.contact-card-note {
+  font-size: 11.5px;
+  color: var(--kora-text-muted);
+  line-height: 1.4;
+}
+
+
 
