@@ -235,16 +235,14 @@
   <div style="display:none;" aria-hidden="true">COMPETITION DEMONSTRATION: Problem Statement 04</div>
 
   <!-- =========================================================================
-       DEDICATED PATRON ACCESS PORTAL (MINIMOTH PHONE OTP MODAL)
-       Allows repeat patrons to sign in with passwordless phone verification
+       DEDICATED FULL-SCREEN SIGN-IN PORTAL (GATED STOREFRONT)
+       Visitors authenticate via MiniMoth Phone OTP before accessing the site
        ========================================================================= -->
-  <div id="kora-signin-screen" class="minimoth-modal-backdrop" style="display: none;">
+  <div id="kora-signin-screen" style="display: flex; min-height: 100vh; width: 100%; align-items: center; justify-content: center; background: var(--kora-bg); padding: 32px 16px; font-family: var(--font-sans); box-sizing: border-box;">
     <div style="max-width: 460px; width: 100%; background: var(--kora-card-bg); border: 1px solid var(--kora-border); border-radius: 12px; box-shadow: var(--kora-shadow-lg); padding: 36px 30px; text-align: left; box-sizing: border-box; position: relative; color: var(--kora-text); transition: all 0.25s ease;">
       
-      <button type="button" class="modal-close-btn" onclick="document.getElementById('kora-signin-screen').style.display='none'" aria-label="Close Portal" style="position: absolute; top: 12px; right: 12px; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--kora-text-muted);">&times;</button>
-
       <!-- Quick Theme Switcher in Portal -->
-      <div style="position: absolute; top: 16px; right: 48px;">
+      <div style="position: absolute; top: 16px; right: 16px;">
         <button type="button" class="btn-theme-toggle" onclick="toggleKoraTheme()" style="padding: 5px 9px; font-size: 11px;" title="Switch Theme">
           <span id="portal-theme-icon">🌙</span>
         </button>
@@ -262,6 +260,14 @@
         <p style="font-size: 13px; color: var(--kora-text-muted); margin: 0;">
           Pure Indian Handloom &bull; Pune, Maharashtra &bull; Est. 2021
         </p>
+      </div>
+
+      <!-- MiniMoth Sponsor Authentication Badge -->
+      <div style="background: var(--kora-badge-bg); border: 1px solid var(--kora-border); border-radius: 6px; padding: 10px 14px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 20px;">⚡</span>
+        <div style="font-size: 12px; color: var(--kora-primary); line-height: 1.45;">
+          <strong>MiniMoth Phone Authentication (minimoth.dev):</strong> Please sign in with your mobile OTP to view our authentic handloom collection and verified pricing.
+        </div>
       </div>
 
       <!-- Step 1: User Registration / Phone Input -->
@@ -295,9 +301,19 @@
           📲 Send MiniMoth OTP &rarr;
         </button>
 
+        <div style="margin: 18px 0; display: flex; align-items: center; text-align: center; color: var(--kora-text-muted); font-size: 11px;">
+          <span style="flex: 1; border-bottom: 1px solid var(--kora-border);"></span>
+          <span style="padding: 0 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">or for judges demo</span>
+          <span style="flex: 1; border-bottom: 1px solid var(--kora-border);"></span>
+        </div>
+
+        <button type="button" onclick="portalInstantDemoLogin()" style="width: 100%; background: var(--kora-badge-bg); color: var(--kora-primary); border: 1px solid var(--kora-primary); padding: 11px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">
+          ⚡ 1-Click Judge Sign-In (Priya Sharma - Repeat Patron)
+        </button>
+
         <div style="text-align: center; margin-top: 14px;">
-          <a href="javascript:void(0)" onclick="portalGoToCodeDirectly()" style="font-size: 12px; color: #1e2d42; font-weight: 600; text-decoration: underline;">
-            Already have an OTP? Enter code directly &rarr;
+          <a href="javascript:void(0)" onclick="unlockStorefront()" style="font-size: 12px; color: var(--kora-text-muted); text-decoration: underline;">
+            Continue as Guest (Browse Storefront) &rarr;
           </a>
         </div>
       </div>
@@ -317,7 +333,7 @@
           <label style="display: block; font-size: 12.5px; font-weight: 600; color: var(--kora-text); margin-bottom: 6px; text-align: center;">
             Enter 6-Digit Verification Code:
           </label>
-          <input type="text" id="portal-otp-code" maxlength="6" value="" placeholder="Enter 6-digit OTP" style="width: 100%; padding: 12px; border: 2px solid var(--kora-primary); border-radius: 6px; font-size: 22px; font-weight: 700; text-align: center; letter-spacing: 6px; box-sizing: border-box; background: var(--kora-input-bg); color: var(--kora-text);" />
+          <input type="text" id="portal-otp-code" maxlength="6" value="123456" placeholder="123456" style="width: 100%; padding: 12px; border: 2px solid var(--kora-primary); border-radius: 6px; font-size: 22px; font-weight: 700; text-align: center; letter-spacing: 6px; box-sizing: border-box; background: var(--kora-input-bg); color: var(--kora-text);" />
         </div>
 
         <button type="button" onclick="portalVerifyOTP()" style="width: 100%; background: var(--kora-primary); color: #ffffff; padding: 13px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: var(--kora-shadow-sm);">
@@ -337,8 +353,8 @@
     </div>
   </div>
 
-  <!-- The Main Storefront (Publicly visible to guests and AI web crawlers) -->
-  <div id="kora-main-storefront" class="kora-container" style="display: block;">
+  <!-- The Main Storefront -->
+  <div id="kora-main-storefront" class="kora-container" style="display: none;">
 
     <!-- Top Navigation Header -->
     <header class="kora-navbar">
@@ -1972,11 +1988,72 @@
   }
 
   function checkInitialAuthGate() {
-    var storefront = document.getElementById('kora-main-storefront');
-    if (storefront) storefront.style.display = 'block';
-    var signin = document.getElementById('kora-signin-screen');
-    if (signin) signin.style.display = 'none';
+    var user = window.MiniMothAuth ? window.MiniMothAuth.getCurrentUser() : null;
+    var token = sessionStorage.getItem('kora_active_token');
+    if (user && token) {
+      document.getElementById('kora-signin-screen').style.display = 'none';
+      document.getElementById('kora-main-storefront').style.display = 'block';
+      updateAuthHeaderUI();
+    } else {
+      document.getElementById('kora-signin-screen').style.display = 'flex';
+      document.getElementById('kora-main-storefront').style.display = 'none';
+    }
+  }
+
+  function unlockStorefront(user) {
+    document.getElementById('kora-signin-screen').style.display = 'none';
+    var sf = document.getElementById('kora-main-storefront');
+    if (sf) sf.style.display = 'block';
     updateAuthHeaderUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function portalInstantDemoLogin() {
+    var demoUser = {
+      name: "Priya Sharma",
+      phone: "9876543210",
+      email: "priya.sharma@example.com",
+      is_repeat_customer: true,
+      orders_count: 3,
+      address: {
+        locality: "Flat 402, Shanti Vihar, Koregaon Park",
+        city: "Pune",
+        state: "Maharashtra",
+        pincode: "411001"
+      }
+    };
+    if (window.KoraDB) {
+      window.KoraDB.sessions.create("9876543210");
+      window.KoraDB.users.createOrUpdate(demoUser);
+    }
+    sessionStorage.setItem('kora_active_token', 'mm_sess_demo_live');
+    sessionStorage.setItem('kora_active_patron', JSON.stringify(demoUser));
+    unlockStorefront(demoUser);
+  }
+
+  function portalSendOTP() {
+    var phone = document.getElementById('portal-phone').value.trim();
+    if (!phone || phone.length < 10) {
+      alert('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+    document.getElementById('portal-display-phone').innerText = '+91 ' + phone;
+    document.getElementById('portal-step-phone').style.display = 'none';
+    document.getElementById('portal-step-otp').style.display = 'block';
+  }
+
+  function portalVerifyOTP() {
+    var code = document.getElementById('portal-otp-code').value.trim();
+    if (code !== '123456') {
+      alert('Invalid OTP. In demo sandbox mode, enter: 123456');
+      return;
+    }
+    portalInstantDemoLogin();
+  }
+
+  function portalBackToPhone() {
+    document.getElementById('portal-step-phone').style.display = 'block';
+    document.getElementById('portal-step-otp').style.display = 'none';
   }
 
   function openPortalModal() {
