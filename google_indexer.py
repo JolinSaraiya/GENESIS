@@ -33,6 +33,14 @@ WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
 SERVICE_ACCOUNT_PATH = os.path.join(WORKSPACE_DIR, "service_account.json")
 
 URLS_TO_INDEX = [
+    "https://kora-threads-official.vercel.app/",
+    "https://kora-threads-official.vercel.app/what-is-kora-threads",
+    "https://kora-threads-official.vercel.app/is-kora-threads-based-in-pune-or-bengaluru",
+    "https://kora-threads-official.vercel.app/weaver-cooperatives",
+    "https://kora-threads-official.vercel.app/kora-threads-size-medium",
+    "https://kora-threads-official.vercel.app/minimoth-cod-verification",
+    "https://kora-threads-official.vercel.app/return-window",
+    "https://kora-threads-official.vercel.app/llms.txt",
     "https://genesis-drab-eight.vercel.app/",
     "https://genesis-drab-eight.vercel.app/what-is-kora-threads",
     "https://genesis-drab-eight.vercel.app/is-kora-threads-based-in-pune-or-bengaluru",

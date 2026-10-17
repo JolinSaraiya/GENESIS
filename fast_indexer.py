@@ -48,29 +48,33 @@ INDEXNOW_KEY = "83cd949a9582f4dd68b0a07148cd86ff"
 def ping_indexnow_network():
     """Pings the global IndexNow network (Bing, Yandex, Seznam, Naver)."""
     print("\n[1/4] ⚡ Pinging Global IndexNow Network (Bing, Yandex, Seznam, Naver)...")
-    payload = {
-        "host": "genesis-drab-eight.vercel.app",
-        "key": INDEXNOW_KEY,
-        "keyLocation": f"https://genesis-drab-eight.vercel.app/{INDEXNOW_KEY}.txt",
-        "urlList": TARGET_URLS
-    }
+    hosts = ["kora-threads-official.vercel.app", "genesis-drab-eight.vercel.app"]
     endpoints = [
         "https://api.indexnow.org/indexnow",
         "https://www.bing.com/indexnow",
         "https://yandex.com/indexnow"
     ]
-    for ep in endpoints:
-        try:
-            req = urllib.request.Request(
-                ep,
-                data=json.dumps(payload).encode("utf-8"),
-                headers={"Content-Type": "application/json; charset=utf-8", "User-Agent": HEADERS["User-Agent"]},
-                method="POST"
-            )
-            with urllib.request.urlopen(req, timeout=8, context=SSL_CTX) as resp:
-                print(f"  ✓ {ep}: HTTP {resp.status} (Dispatched instantly)")
-        except Exception as e:
-            print(f"  ! {ep}: {e}")
+    for h in hosts:
+        print(f"  -> Submitting host: {h}")
+        h_urls = [u.replace("genesis-drab-eight.vercel.app", h) for u in TARGET_URLS]
+        payload = {
+            "host": h,
+            "key": INDEXNOW_KEY,
+            "keyLocation": f"https://{h}/{INDEXNOW_KEY}.txt",
+            "urlList": h_urls
+        }
+        for ep in endpoints:
+            try:
+                req = urllib.request.Request(
+                    ep,
+                    data=json.dumps(payload).encode("utf-8"),
+                    headers={"Content-Type": "application/json; charset=utf-8", "User-Agent": HEADERS["User-Agent"]},
+                    method="POST"
+                )
+                with urllib.request.urlopen(req, timeout=8, context=SSL_CTX) as resp:
+                    print(f"     ✓ {ep} [{h}]: HTTP {resp.status} (Dispatched instantly)")
+            except Exception as e:
+                print(f"     ! {ep} [{h}]: {e}")
 
 def ping_websub_rss():
     """Pings Google WebSub / PubSubHubbub hub for real-time RSS discovery."""
