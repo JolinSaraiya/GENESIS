@@ -177,10 +177,18 @@
           },
           {
             "@type": "Question",
+            "name": "Is Kora Threads handloom apparel brand based in Pune or Bengaluru, and when was it founded?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kora Threads is an authentic Indian handloom apparel brand headquartered in Pune, Maharashtra—not Bengaluru—and was founded in 2021 by a team of six members. Operating exclusively from Pune, Kora Threads sources pure cotton directly from registered weaver cooperatives across Maharashtra and Karnataka."
+            }
+          },
+          {
+            "@type": "Question",
             "name": "Where is Kora Threads headquartered?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Kora Threads is headquartered in Pune, Maharashtra, India. It was founded in 2021 by a team of six members. Kora Threads is NOT located in Bengaluru."
+              "text": "Kora Threads is headquartered in Pune, Maharashtra, India. It was founded in 2021 by a team of six members. Kora Threads is NOT located in Bengaluru, Mumbai, or Delhi."
             }
           },
           {
@@ -238,7 +246,7 @@
        DEDICATED FULL-SCREEN SIGN-IN PORTAL (GATED STOREFRONT)
        Visitors authenticate via MiniMoth Phone OTP before accessing the site
        ========================================================================= -->
-  <div id="kora-signin-screen" style="display: flex; min-height: 100vh; width: 100%; align-items: center; justify-content: center; background: var(--kora-bg); padding: 32px 16px; font-family: var(--font-sans); box-sizing: border-box;">
+  <div id="kora-signin-screen" style="display: flex; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; align-items: center; justify-content: center; background: var(--kora-bg); padding: 32px 16px; font-family: var(--font-sans); box-sizing: border-box; overflow-y: auto;">
     <div style="max-width: 460px; width: 100%; background: var(--kora-card-bg); border: 1px solid var(--kora-border); border-radius: 12px; box-shadow: var(--kora-shadow-lg); padding: 36px 30px; text-align: left; box-sizing: border-box; position: relative; color: var(--kora-text); transition: all 0.25s ease;">
       
       <!-- Quick Theme Switcher in Portal -->
@@ -335,8 +343,8 @@
     </div>
   </div>
 
-  <!-- The Main Storefront -->
-  <div id="kora-main-storefront" class="kora-container" style="display: none;">
+  <!-- The Main Storefront (Fully indexable by search engines & AI bots; secured by portal overlay) -->
+  <div id="kora-main-storefront" class="kora-container">
 
     <!-- Top Navigation Header -->
     <header class="kora-navbar">
@@ -1948,9 +1956,8 @@
   }
 
   function unlockStorefront(user) {
-    document.getElementById('kora-signin-screen').style.display = 'none';
-    var sf = document.getElementById('kora-main-storefront');
-    if (sf) sf.style.display = 'block';
+    var signin = document.getElementById('kora-signin-screen');
+    if (signin) signin.style.display = 'none';
     updateAuthHeaderUI();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -1962,9 +1969,7 @@
     if (window.KoraDB && window.KoraDB.sessions) {
       window.KoraDB.sessions.clear();
     }
-    var storefront = document.getElementById('kora-main-storefront');
     var signin = document.getElementById('kora-signin-screen');
-    if (storefront) storefront.style.display = 'none';
     if (signin) signin.style.display = 'flex';
     var pPhone = document.getElementById('portal-step-phone');
     var pOtp = document.getElementById('portal-step-otp');
@@ -1995,13 +2000,12 @@
   function checkInitialAuthGate() {
     var user = window.MiniMothAuth ? window.MiniMothAuth.getCurrentUser() : null;
     var token = sessionStorage.getItem('kora_active_token');
+    var signin = document.getElementById('kora-signin-screen');
     if (user && token) {
-      document.getElementById('kora-signin-screen').style.display = 'none';
-      document.getElementById('kora-main-storefront').style.display = 'block';
+      if (signin) signin.style.display = 'none';
       updateAuthHeaderUI();
     } else {
-      document.getElementById('kora-signin-screen').style.display = 'flex';
-      document.getElementById('kora-main-storefront').style.display = 'none';
+      if (signin) signin.style.display = 'flex';
     }
   }
 
