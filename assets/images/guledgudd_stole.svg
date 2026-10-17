@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B2838"/>
+      <stop offset="50%" stop-color="#24374D"/>
+      <stop offset="100%" stop-color="#182330"/>
+    </linearGradient>
+    <pattern id="khadiWeave" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="none"/>
+      <line x1="0" y1="3" x2="12" y2="3" stroke="#364E68" stroke-width="0.8" opacity="0.4"/>
+      <line x1="0" y1="9" x2="12" y2="9" stroke="#364E68" stroke-width="0.8" opacity="0.4"/>
+      <line x1="3" y1="0" x2="3" y2="12" stroke="#364E68" stroke-width="0.8" opacity="0.4"/>
+      <line x1="9" y1="0" x2="9" y2="12" stroke="#364E68" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="6" cy="6" r="1" fill="#E6AF2E" opacity="0.5"/>
+    </pattern>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="600" fill="#F4EFE6"/>
+  <rect width="600" height="600" fill="url(#khadiWeave)" opacity="0.15"/>
+
+  <!-- Draped Handloom Stole -->
+  <g filter="url(#shadow)">
+    <!-- Main Stole Body -->
+    <path d="M 120 80 Q 220 50 380 90 T 500 160 L 460 520 Q 320 550 180 500 Z" fill="url(#bgIndigo)"/>
+    <!-- Textured Layer -->
+    <path d="M 120 80 Q 220 50 380 90 T 500 160 L 460 520 Q 320 550 180 500 Z" fill="url(#khadiWeave)" opacity="0.6"/>
+    
+    <!-- Organic Handspun Ecru Selvedge Stripes -->
+    <path d="M 140 100 Q 230 75 380 110 T 485 180" stroke="#FDFBF7" stroke-width="5" fill="none" opacity="0.85"/>
+    <path d="M 145 115 Q 235 90 380 125 T 480 195" stroke="#E6AF2E" stroke-width="2.5" fill="none" opacity="0.9"/>
+    <path d="M 150 125 Q 240 100 380 135 T 475 205" stroke="#FDFBF7" stroke-width="1.5" fill="none" opacity="0.7"/>
+
+    <!-- Bottom Hem Border & Tassels -->
+    <path d="M 195 485 Q 330 535 445 505" stroke="#E6AF2E" stroke-width="8" fill="none"/>
+    <path d="M 190 495 Q 325 545 440 515" stroke="#FDFBF7" stroke-width="3" fill="none"/>
+
+    <!-- Hand-Knotted Fringe Tassels -->
+    <g stroke="#FDFBF7" stroke-width="2" opacity="0.9">
+      <line x1="200" y1="495" x2="195" y2="535"/>
+      <line x1="230" y1="505" x2="225" y2="548"/>
+      <line x1="260" y1="515" x2="258" y2="560"/>
+      <line x1="290" y1="525" x2="288" y2="570"/>
+      <line x1="320" y1="532" x2="318" y2="575"/>
+      <line x1="350" y1="535" x2="350" y2="577"/>
+      <line x1="380" y1="530" x2="382" y2="572"/>
+      <line x1="410" y1="520" x2="415" y2="562"/>
+      <line x1="435" y1="508" x2="442" y2="548"/>
+    </g>
+  </g>
+
+  <!-- Artisan Tag Seal -->
+  <g transform="translate(360, 260) rotate(8)">
+    <rect width="170" height="95" rx="6" fill="#FFFDF8" stroke="#D4AF37" stroke-width="1.5" filter="url(#shadow)"/>
+    <line x1="10" y1="12" x2="160" y2="12" stroke="#E2D6B5" stroke-width="0.8"/>
+    <text x="85" y="38" font-family="'Playfair Display', serif" font-size="12" font-weight="700" fill="#1C1917" text-anchor="middle" letter-spacing="1">GULEDGUDD KHADI</text>
+    <text x="85" y="55" font-family="'Inter', sans-serif" font-size="9" font-weight="600" fill="#C25E38" text-anchor="middle" letter-spacing="1.5">100% ORGANIC COTTON</text>
+    <text x="85" y="74" font-family="'Inter', sans-serif" font-size="8" fill="#78716C" text-anchor="middle">Natural Vegetable Indigo Dye</text>
+  </g>
+</svg>

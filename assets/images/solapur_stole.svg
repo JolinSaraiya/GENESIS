@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgMustard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5A93C"/>
+      <stop offset="50%" stop-color="#D99B26"/>
+      <stop offset="100%" stop-color="#B87D14"/>
+    </linearGradient>
+    <linearGradient id="oliveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4B5320"/>
+      <stop offset="100%" stop-color="#363D16"/>
+    </linearGradient>
+    <pattern id="jacquardPattern" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="none"/>
+      <!-- Paisley / Lotus Jacquard geometric motif -->
+      <path d="M 12 2 Q 18 8 18 14 A 6 6 0 0 1 6 14 Q 6 8 12 2 Z" fill="#363D16" opacity="0.6"/>
+      <circle cx="12" cy="14" r="2.5" fill="#FDFBF7" opacity="0.7"/>
+      <path d="M 0 12 L 6 12 M 18 12 L 24 12" stroke="#363D16" stroke-width="1.2" opacity="0.4"/>
+    </pattern>
+    <filter id="shadowJacquard" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="600" fill="#FAF6F0"/>
+
+  <!-- Folded Jacquard Stole -->
+  <g filter="url(#shadowJacquard)">
+    <!-- Base Body -->
+    <rect x="90" y="80" width="420" height="440" rx="12" fill="url(#bgMustard)"/>
+    <rect x="90" y="80" width="420" height="440" rx="12" fill="url(#jacquardPattern)"/>
+
+    <!-- Olive Green Contrast Palla / Hem -->
+    <rect x="90" y="380" width="420" height="140" rx="0 0 12 12" fill="url(#oliveGrad)"/>
+    
+    <!-- Extra Weft Gold Motifs on Olive -->
+    <g fill="#E5A93C" opacity="0.95">
+      <circle cx="140" cy="425" r="14"/>
+      <circle cx="210" cy="425" r="14"/>
+      <circle cx="280" cy="425" r="14"/>
+      <circle cx="350" cy="425" r="14"/>
+      <circle cx="420" cy="425" r="14"/>
+      <circle cx="480" cy="425" r="14"/>
+      <!-- Inner rings -->
+      <circle cx="140" cy="425" r="7" fill="#363D16"/>
+      <circle cx="210" cy="425" r="7" fill="#363D16"/>
+      <circle cx="280" cy="425" r="7" fill="#363D16"/>
+      <circle cx="350" cy="425" r="7" fill="#363D16"/>
+      <circle cx="420" cy="425" r="7" fill="#363D16"/>
+      <circle cx="480" cy="425" r="7" fill="#363D16"/>
+    </g>
+
+    <!-- Golden Zari Hem Lines -->
+    <line x1="90" y1="380" x2="510" y2="380" stroke="#F4D06F" stroke-width="4"/>
+    <line x1="90" y1="465" x2="510" y2="465" stroke="#F4D06F" stroke-width="3"/>
+    <line x1="90" y1="515" x2="510" y2="515" stroke="#E5A93C" stroke-width="5"/>
+  </g>
+
+  <!-- Artisan Tag Seal -->
+  <g transform="translate(130, 130)">
+    <rect width="180" height="85" rx="6" fill="#FFFDF8" stroke="#B87D14" stroke-width="1.5" filter="url(#shadowJacquard)"/>
+    <text x="90" y="32" font-family="'Playfair Display', serif" font-size="12" font-weight="700" fill="#1C1917" text-anchor="middle">SOLAPUR JACQUARD</text>
+    <text x="90" y="48" font-family="'Inter', sans-serif" font-size="8.5" font-weight="600" fill="#363D16" text-anchor="middle" letter-spacing="1">EXTRA WEFT PIT-LOOM</text>
+    <text x="90" y="67" font-family="'Inter', sans-serif" font-size="8" fill="#78716C" text-anchor="middle">Mustard Yellow &amp; Olive Green</text>
+  </g>
+</svg>

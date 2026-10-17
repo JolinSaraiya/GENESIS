@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cushionEcru" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAF6F0"/>
+      <stop offset="50%" stop-color="#F2ECE4"/>
+      <stop offset="100%" stop-color="#E5DCCE"/>
+    </linearGradient>
+    <linearGradient id="cushionTerra" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C25E38"/>
+      <stop offset="50%" stop-color="#B24F2A"/>
+      <stop offset="100%" stop-color="#8F3918"/>
+    </linearGradient>
+    <pattern id="slubTexture" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="none"/>
+      <line x1="0" y1="4" x2="16" y2="4" stroke="#78716C" stroke-width="0.75" opacity="0.3"/>
+      <line x1="0" y1="12" x2="16" y2="12" stroke="#78716C" stroke-width="0.75" opacity="0.3"/>
+      <line x1="4" y1="0" x2="4" y2="16" stroke="#78716C" stroke-width="0.75" opacity="0.3"/>
+      <line x1="12" y1="0" x2="12" y2="16" stroke="#78716C" stroke-width="0.75" opacity="0.3"/>
+      <!-- subtle slub nodule -->
+      <ellipse cx="8" cy="8" rx="2.5" ry="1" fill="#78716C" opacity="0.25"/>
+    </pattern>
+    <filter id="cushionShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="600" fill="#FDFBF7"/>
+
+  <!-- Back Cushion (Terracotta) -->
+  <g filter="url(#cushionShadow)" transform="translate(180, 70) rotate(10)">
+    <rect width="320" height="320" rx="28" fill="url(#cushionTerra)"/>
+    <rect width="320" height="320" rx="28" fill="url(#slubTexture)" opacity="0.4"/>
+    <!-- Border Stitches -->
+    <rect x="18" y="18" width="284" height="284" rx="18" fill="none" stroke="#FAF6F0" stroke-width="1.8" stroke-dasharray="6,4" opacity="0.6"/>
+  </g>
+
+  <!-- Front Cushion (Natural Ecru Canvas) -->
+  <g filter="url(#cushionShadow)" transform="translate(80, 150)">
+    <rect width="340" height="340" rx="30" fill="url(#cushionEcru)"/>
+    <rect width="340" height="340" rx="30" fill="url(#slubTexture)" opacity="0.6"/>
+    <!-- Outer Flange Stitch -->
+    <rect x="22" y="22" width="296" height="296" rx="20" fill="none" stroke="#C25E38" stroke-width="2" stroke-dasharray="7,5" opacity="0.75"/>
+    
+    <!-- Wooden Toggle Buttons Center Placket -->
+    <rect x="162" y="50" width="16" height="240" fill="#E2D5C1" rx="8"/>
+    <!-- 3 Wooden Toggles -->
+    <g fill="#8B5A2B">
+      <!-- Toggle 1 -->
+      <ellipse cx="170" cy="90" rx="18" ry="7" transform="rotate(-15 170 90)"/>
+      <circle cx="166" cy="89" r="1.5" fill="#FAF6F0"/>
+      <circle cx="174" cy="91" r="1.5" fill="#FAF6F0"/>
+      
+      <!-- Toggle 2 -->
+      <ellipse cx="170" cy="170" rx="18" ry="7" transform="rotate(-15 170 170)"/>
+      <circle cx="166" cy="169" r="1.5" fill="#FAF6F0"/>
+      <circle cx="174" cy="171" r="1.5" fill="#FAF6F0"/>
+      
+      <!-- Toggle 3 -->
+      <ellipse cx="170" cy="250" rx="18" ry="7" transform="rotate(-15 170 250)"/>
+      <circle cx="166" cy="249" r="1.5" fill="#FAF6F0"/>
+      <circle cx="174" cy="251" r="1.5" fill="#FAF6F0"/>
+    </g>
+  </g>
+
+  <!-- Tag -->
+  <g transform="translate(320, 470)">
+    <rect width="210" height="75" rx="6" fill="#FFFFFF" stroke="#C25E38" stroke-width="1.2" filter="url(#cushionShadow)"/>
+    <text x="105" y="30" font-family="'Playfair Display', serif" font-size="11.5" font-weight="700" fill="#1C1917" text-anchor="middle">ARTISANAL HOME LINEN</text>
+    <text x="105" y="46" font-family="'Inter', sans-serif" font-size="8.5" font-weight="600" fill="#C25E38" text-anchor="middle">PAIR OF 2 &bull; 40 CM × 40 CM</text>
+    <text x="105" y="62" font-family="'Inter', sans-serif" font-size="8" fill="#78716C" text-anchor="middle">Wooden Toggle Buttons &bull; 100% Cotton</text>
+  </g>
+</svg>

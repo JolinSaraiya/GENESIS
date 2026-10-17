@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
 /* ==========================================================================
    Kora Threads — Artisanal Handloom Enterprise Design System (PS-04)
    Theme System: Dual Theme (Dark & Light)
@@ -55,9 +57,9 @@
   --kora-shadow: 0 4px 14px rgba(28, 25, 23, 0.06);
   --kora-shadow-lg: 0 12px 30px rgba(28, 25, 23, 0.12);
 
-  --font-serif: "Linux Libertine", Georgia, "Times New Roman", serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "JetBrains Mono", Consolas, Menlo, Monaco, monospace;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, Menlo, Monaco, monospace;
 }
 
 /* DARK THEME */
@@ -1259,3 +1261,499 @@ body {
     font-size: 1.8rem;
   }
 }
+
+/* ==========================================================================
+   DUAL-AUDIENCE LENS SYSTEM & HUMAN-FIRST LUXURY D2C UPGRADES
+   ========================================================================== */
+
+/* 1. Audience Lens Switcher Bar */
+.audience-lens-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--kora-badge-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin-bottom: 22px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.lens-toggle-group {
+  display: inline-flex;
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 6px;
+  padding: 3px;
+  gap: 4px;
+}
+
+.lens-btn {
+  border: none;
+  background: transparent;
+  color: var(--kora-text-muted);
+  padding: 7px 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+}
+
+.lens-btn:hover {
+  color: var(--kora-text);
+}
+
+.lens-btn.active {
+  background: var(--kora-primary);
+  color: #FFFFFF;
+  box-shadow: var(--kora-shadow-sm);
+}
+
+.lens-status-text {
+  font-size: 12px;
+  color: var(--kora-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lens-status-pill {
+  background: var(--kora-success-bg);
+  color: var(--kora-success);
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--kora-border);
+}
+
+/* 2. GEO Inspector Badges (Triggered when AI Ground Truth mode is active) */
+.geo-node-badge {
+  display: none;
+  background: #4F46E5;
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.25);
+}
+
+body.lens-auditor .geo-node-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  animation: fadeInBadge 0.25s ease;
+}
+
+body.lens-auditor .product-card,
+body.lens-auditor .canonical-lead-box,
+body.lens-auditor .fact-correction-card,
+body.lens-auditor .kora-infobox,
+body.lens-auditor .coop-card {
+  border-color: #6366F1 !important;
+  box-shadow: 0 0 0 1px #6366F1, 0 6px 18px rgba(99, 102, 241, 0.12) !important;
+}
+
+@keyframes fadeInBadge {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Product Media & Modern E-Commerce Visual Presentation */
+.product-card {
+  overflow: visible;
+  position: relative;
+}
+
+.product-media-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  min-height: 220px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: var(--kora-badge-bg);
+  border: 1px solid var(--kora-border);
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.05);
+}
+
+.product-badge-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(28, 25, 23, 0.85);
+  backdrop-filter: blur(4px);
+  color: #FFFFFF;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  z-index: 2;
+}
+
+.product-size-selector {
+  margin: 12px 0;
+  padding: 10px 0;
+  border-top: 1px dashed var(--kora-border);
+  border-bottom: 1px dashed var(--kora-border);
+}
+
+.size-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.size-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--kora-text-muted);
+}
+
+.size-guide-link {
+  font-size: 11px;
+  color: var(--kora-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.size-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.size-pill {
+  border: 1px solid var(--kora-border);
+  background: var(--kora-badge-bg);
+  color: var(--kora-text);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-sans);
+}
+
+.size-pill:hover,
+.size-pill.active {
+  background: var(--kora-primary);
+  color: #FFFFFF;
+  border-color: var(--kora-primary);
+}
+
+.product-color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px var(--kora-border);
+}
+
+.color-dot.active {
+  box-shadow: 0 0 0 2px var(--kora-primary);
+}
+
+.product-actions-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btn-product-cod {
+  flex: 1.1;
+  background: var(--kora-primary);
+  color: #FFFFFF;
+  border: 1px solid var(--kora-primary);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 9px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  font-family: var(--font-sans);
+  box-shadow: var(--kora-shadow-sm);
+}
+
+.btn-product-cod:hover {
+  background: var(--kora-primary-hover);
+  border-color: var(--kora-primary-hover);
+}
+
+.btn-product-buy {
+  flex: 0.9;
+  background: transparent;
+  color: var(--kora-primary);
+  border: 1px solid var(--kora-primary);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 9px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  font-family: var(--font-sans);
+}
+
+.btn-product-buy:hover {
+  background: var(--kora-primary-light);
+}
+
+/* 4. Weaver Cooperative Visual Showcase Cards */
+.coop-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 992px) {
+  .coop-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .coop-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.coop-card {
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 8px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--kora-shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.coop-card:hover {
+  border-color: var(--kora-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--kora-shadow);
+}
+
+.coop-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--kora-primary);
+  background: var(--kora-primary-light);
+  padding: 2px 7px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 8px;
+  align-self: flex-start;
+}
+
+.coop-title {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--kora-text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.coop-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  background: var(--kora-badge-bg);
+  padding: 6px 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  border: 1px solid var(--kora-border);
+}
+
+.coop-stat strong {
+  color: var(--kora-primary);
+}
+
+.coop-desc {
+  font-size: 12px;
+  color: var(--kora-text-muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.coop-markup-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--kora-success);
+  background: var(--kora-success-bg);
+  padding: 4px 6px;
+  border-radius: 3px;
+  text-align: center;
+  border: 1px solid var(--kora-border);
+}
+
+.coop-toggle-bar {
+  text-align: center;
+  margin: 12px 0 20px 0;
+}
+
+.btn-toggle-table {
+  background: var(--kora-card-bg);
+  color: var(--kora-text);
+  border: 1px solid var(--kora-border);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+  box-shadow: var(--kora-shadow-sm);
+}
+
+.btn-toggle-table:hover {
+  background: var(--kora-primary-light);
+  border-color: var(--kora-primary);
+  color: var(--kora-primary);
+}
+
+/* 5. Interactive Fit Assistant */
+.fit-assistant-panel {
+  background: var(--kora-badge-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.unit-toggle-group {
+  display: inline-flex;
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 4px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.unit-btn {
+  border: none;
+  background: transparent;
+  color: var(--kora-text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.unit-btn.active {
+  background: var(--kora-primary);
+  color: #FFFFFF;
+}
+
+.fit-assistant-select {
+  padding: 6px 12px;
+  font-size: 12.5px;
+  border: 1px solid var(--kora-border);
+  border-radius: 4px;
+  background: var(--kora-card-bg);
+  color: var(--kora-text);
+  font-weight: 500;
+  font-family: var(--font-sans);
+}
+
+.highlighted-size-row {
+  background: var(--kora-primary-light) !important;
+  font-weight: 700;
+  outline: 2px solid var(--kora-primary);
+}
+
+/* 6. Collapsible Government Citations Box */
+.citations-box {
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--kora-shadow-sm);
+  margin-top: 14px;
+}
+
+.citations-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.citation-search-input {
+  flex: 1;
+  min-width: 260px;
+  max-width: 440px;
+  padding: 9px 14px;
+  border: 1px solid var(--kora-border);
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--kora-input-bg);
+  color: var(--kora-text);
+  font-family: var(--font-sans);
+}
+
+.citation-count-badge {
+  font-size: 11px;
+  background: var(--kora-primary-light);
+  color: var(--kora-primary);
+  padding: 4px 9px;
+  border-radius: 12px;
+  font-weight: 700;
+  border: 1px solid var(--kora-border);
+}
+
