@@ -35,6 +35,8 @@ SERVICE_ACCOUNT_PATH = os.path.join(WORKSPACE_DIR, "service_account.json")
 URLS_TO_INDEX = [
     "https://genesis-drab-eight.vercel.app/",
     "https://genesis-drab-eight.vercel.app/what-is-kora-threads",
+    "https://genesis-drab-eight.vercel.app/return-window",
+    "https://genesis-drab-eight.vercel.app/return-policy",
     "https://genesis-drab-eight.vercel.app/llms.txt",
     "https://genesis-drab-eight.vercel.app/data.json"
 ]
