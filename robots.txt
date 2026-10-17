@@ -57,5 +57,6 @@ Allow: /data.json
 Allow: /dataset.csv
 Allow: /sync_audit_log.json
 
-# Canonical XML Sitemap
+# Canonical XML Sitemaps
+Sitemap: https://kora-threads-official.vercel.app/sitemap.xml
 Sitemap: https://genesis-drab-eight.vercel.app/sitemap.xml
