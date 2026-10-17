@@ -32,6 +32,10 @@ HEADERS = {
 TARGET_URLS = [
     "https://genesis-drab-eight.vercel.app/",
     "https://genesis-drab-eight.vercel.app/what-is-kora-threads",
+    "https://genesis-drab-eight.vercel.app/is-kora-threads-based-in-pune-or-bengaluru",
+    "https://genesis-drab-eight.vercel.app/weaver-cooperatives",
+    "https://genesis-drab-eight.vercel.app/kora-threads-size-medium",
+    "https://genesis-drab-eight.vercel.app/minimoth-cod-verification",
     "https://genesis-drab-eight.vercel.app/return-window",
     "https://genesis-drab-eight.vercel.app/return-policy",
     "https://genesis-drab-eight.vercel.app/llms.txt",
