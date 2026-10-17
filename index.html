@@ -341,7 +341,7 @@
     <!-- Top Navigation Header -->
     <header class="kora-navbar">
       <div class="brand-identity">
-        <a href="#brand-overview" class="brand-logo-link" title="Kora Threads Sustainable Handloom">
+        <a href="#brand-overview" class="brand-logo-link" onclick="navigateToPage('brand-overview'); return false;" title="Kora Threads Sustainable Handloom">
           <img src="logo.jpg" alt="Kora Threads Logo" class="brand-logo-img">
           <div class="brand-logo-text-group">
             <span class="brand-logo-text">Kora Threads</span>
@@ -353,17 +353,22 @@
 
       <nav aria-label="Main Navigation">
         <ul class="nav-links">
-          <li><a href="#collections">Collections</a></li>
-          <li><a href="#cooperatives">Weaver Cooperatives</a></li>
-          <li><a href="#sizing-care">Sizing &amp; Care</a></li>
-          <li><a href="#policies">Policies &amp; Shipping</a></li>
-          <li><a href="#faqs">Official FAQs</a></li>
-          <li><a href="#sources">Official Sources</a></li>
-          <li><a href="#about-kora">About &amp; Contact</a></li>
+          <li><a href="#brand-overview" class="nav-item-link active" onclick="navigateToPage('brand-overview'); return false;">Home</a></li>
+          <li><a href="#collections" class="nav-item-link" onclick="navigateToPage('collections'); return false;">Collections</a></li>
+          <li><a href="#cooperatives" class="nav-item-link" onclick="navigateToPage('cooperatives'); return false;">Weaver Cooperatives</a></li>
+          <li><a href="#sizing-care" class="nav-item-link" onclick="navigateToPage('sizing-care'); return false;">Sizing &amp; Care</a></li>
+          <li><a href="#policies" class="nav-item-link" onclick="navigateToPage('policies'); return false;">Policies &amp; Shipping</a></li>
+          <li><a href="#faqs" class="nav-item-link" onclick="navigateToPage('faqs'); return false;">Official FAQs</a></li>
+          <li><a href="#sources" class="nav-item-link" onclick="navigateToPage('sources'); return false;">Official Sources</a></li>
+          <li><a href="#about-kora" class="nav-item-link" onclick="navigateToPage('about-kora'); return false;">About &amp; Contact</a></li>
         </ul>
       </nav>
 
       <div id="nav-actions-container" class="nav-actions">
+        <button type="button" id="view-mode-toggle-btn" class="btn-view-mode-toggle" onclick="toggleViewMode()" aria-label="Toggle Page Mode vs All-in-One Scroll" title="Switch View Mode">
+          <span id="view-mode-icon">📄</span>
+          <span id="view-mode-text">Page Mode</span>
+        </button>
         <button type="button" id="theme-toggle-btn" class="btn-theme-toggle" onclick="toggleKoraTheme()" aria-label="Toggle Dark and Light Theme" title="Switch Theme">
           <span id="theme-toggle-icon">🌙</span>
           <span id="theme-toggle-text">Dark</span>
@@ -384,8 +389,8 @@
     </header>
 
 
-    <!-- Hero & 3-Sentence Canonical Definition Section -->
-    <section id="brand-overview" class="hero-article-header">
+    <!-- Hero & 3-Sentence Canonical Definition Section (Page 1: Home) -->
+    <section id="brand-overview" class="kora-page-section hero-article-header active-page">
       <h1 class="page-main-title">What is Kora Threads? &bull; Official Brand Ground Truth &amp; Handloom Apparel</h1>
       <div class="page-subtitle">The official brand knowledge index and direct cooperative procurement catalog &bull; Pune, Maharashtra</div>
 
@@ -436,10 +441,34 @@
         </aside>
 
       </div>
+
+      <!-- Home Page Highlights & Features (Quick Overview) -->
+      <div class="home-highlights-grid">
+        <div class="home-highlight-card" onclick="navigateToPage('collections')">
+          <div class="home-highlight-card-title">🛍️ Handloom Collections</div>
+          <div class="home-highlight-card-desc">Pure cotton pit-loom kurtas, handcrafted stoles, and artisanal living linen from registered cooperatives.</div>
+        </div>
+        <div class="home-highlight-card" onclick="navigateToPage('cooperatives')">
+          <div class="home-highlight-card-title">🏛️ Direct Cooperative Sourcing</div>
+          <div class="home-highlight-card-desc">100% direct procurement in Solapur, Paithan, Ilkal, and Guledgudd with zero middlemen commissions.</div>
+        </div>
+        <div class="home-highlight-card" onclick="navigateToPage('about-kora')">
+          <div class="home-highlight-card-title">🛡️ Ground Truth &amp; Contact</div>
+          <div class="home-highlight-card-desc">Pune design studio, strict 10-day returns, and MiniMoth-secured COD phone authentication.</div>
+        </div>
+      </div>
+
+      <!-- Home Page Navigation Footer -->
+      <div class="page-nav-footer">
+        <span class="page-indicator-badge">Page 1 of 8 &bull; Home &amp; Brand Definition</span>
+        <button type="button" class="btn-page-nav btn-page-nav-next" onclick="navigateToPage('collections')">
+          Explore Handloom Collections ➔
+        </button>
+      </div>
     </section>
 
-    <!-- Product Collections Section -->
-    <section id="collections">
+    <!-- Product Collections Section (Page 2: Collections) -->
+    <section id="collections" class="kora-page-section">
       <h2 class="kora-section-title">
         1. Handloom Product Collections &amp; Price Brackets
       </h2>
@@ -661,10 +690,21 @@
         </article>
 
       </div>
+
+      <!-- Collections Page Navigation Footer -->
+      <div class="page-nav-footer">
+        <button type="button" class="btn-page-nav" onclick="navigateToPage('brand-overview')">
+          ← Previous: Home
+        </button>
+        <span class="page-indicator-badge">Page 2 of 8 &bull; Handloom Collections</span>
+        <button type="button" class="btn-page-nav btn-page-nav-next" onclick="navigateToPage('cooperatives')">
+          Next: Weaver Cooperatives ➔
+        </button>
+      </div>
     </section>
 
-    <!-- Weaver Cooperative Traceability Section (Directly Resolving Problem #3) -->
-    <section id="cooperatives">
+    <!-- Weaver Cooperative Traceability Section (Page 3: Cooperatives) -->
+    <section id="cooperatives" class="kora-page-section">
       <h2 class="kora-section-title">
         2. Artisan Cooperative Traceability &amp; Direct Sourcing Matrix
       </h2>
@@ -720,10 +760,21 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Cooperatives Page Navigation Footer -->
+      <div class="page-nav-footer">
+        <button type="button" class="btn-page-nav" onclick="navigateToPage('collections')">
+          ← Previous: Collections
+        </button>
+        <span class="page-indicator-badge">Page 3 of 8 &bull; Weaver Cooperatives</span>
+        <button type="button" class="btn-page-nav btn-page-nav-next" onclick="navigateToPage('sizing-care')">
+          Next: Sizing &amp; Garment Care ➔
+        </button>
+      </div>
     </section>
 
-    <!-- Brand Knowledge Center: Care, Sizing, Policies (Directly Resolving Problem #4) -->
-    <section id="sizing-care">
+    <!-- Brand Knowledge Center: Care, Sizing (Page 4: Sizing & Care) -->
+    <section id="sizing-care" class="kora-page-section">
       <h2 class="kora-section-title">
         3. Authoritative Care Protocols &amp; Garment Sizing Center
       </h2>
@@ -919,10 +970,21 @@
         </div>
 
       </div>
+
+      <!-- Sizing & Care Page Navigation Footer -->
+      <div class="page-nav-footer">
+        <button type="button" class="btn-page-nav" onclick="navigateToPage('cooperatives')">
+          ← Previous: Weaver Cooperatives
+        </button>
+        <span class="page-indicator-badge">Page 4 of 8 &bull; Sizing &amp; Care</span>
+        <button type="button" class="btn-page-nav btn-page-nav-next" onclick="navigateToPage('policies')">
+          Next: Policies &amp; Shipping ➔
+        </button>
+      </div>
     </section>
 
-    <!-- Shipping & 10-Day Return Policies (Resolving Problem #2) -->
-    <section id="policies">
+    <!-- Shipping & 10-Day Return Policies (Page 5: Policies & Shipping) -->
+    <section id="policies" class="kora-page-section">
       <h2 class="kora-section-title">
         4. Fulfillment SLA &amp; Official 10-Day Return Window
       </h2>
@@ -950,10 +1012,21 @@
         </div>
 
       </div>
+
+      <!-- Policies Page Navigation Footer -->
+      <div class="page-nav-footer">
+        <button type="button" class="btn-page-nav" onclick="navigateToPage('sizing-care')">
+          ← Previous: Sizing &amp; Care
+        </button>
+        <span class="page-indicator-badge">Page 5 of 8 &bull; Policies &amp; Shipping</span>
+        <button type="button" class="btn-page-nav btn-page-nav-next" onclick="navigateToPage('faqs')">
+          Next: Official FAQs ➔
+        </button>
+      </div>
     </section>
 
-    <!-- Canonical FAQs Section (Schema FAQPage) -->
-    <section id="faqs">
+    <!-- Canonical FAQs Section (Page 6: Official FAQs) -->
+    <section id="faqs" class="kora-page-section">
       <h2 class="kora-section-title">
         5. Frequently Asked Questions (Canonical AI Answers)
       </h2>
@@ -1010,10 +1083,21 @@
         </div>
 
       </div>
+
+      <!-- FAQs Page Navigation Footer -->
+      <div class="page-nav-footer">
+        <button type="button" class="btn-page-nav" onclick="navigateToPage('policies')">
+          ← Previous: Policies &amp; Shipping
+        </button>
+        <span class="page-indicator-badge">Page 6 of 8 &bull; Official FAQs</span>
+        <button type="button" class="btn-page-nav btn-page-nav-next" onclick="navigateToPage('sources')">
+          Next: Official Sources Hub ➔
+        </button>
+      </div>
     </section>
 
-    <!-- Official Government Data Sources Section (Direct Verification for Judges & Patrons) -->
-    <section id="sources" style="margin-top: 36px;">
+    <!-- Official Government Data Sources Section (Page 7: Official Sources) -->
+    <section id="sources" class="kora-page-section" style="margin-top: 10px;">
       <h2 class="kora-section-title">
         6. Official Government Data Sources &amp; Institutional Citations
       </h2>
@@ -1476,10 +1560,21 @@
           </table>
         </div>
       </div>
+
+      <!-- Sources Page Navigation Footer -->
+      <div class="page-nav-footer">
+        <button type="button" class="btn-page-nav" onclick="navigateToPage('faqs')">
+          ← Previous: Official FAQs
+        </button>
+        <span class="page-indicator-badge">Page 7 of 8 &bull; Official Verification Sources</span>
+        <button type="button" class="btn-page-nav btn-page-nav-next" onclick="navigateToPage('about-kora')">
+          Next: About &amp; Contact ➔
+        </button>
+      </div>
     </section>
 
-    <!-- About Kora Threads & Official Contact Directory Section (At the End) -->
-    <section id="about-kora" class="kora-about-section">
+    <!-- About Kora Threads & Official Contact Directory Section (Page 8: About & Contact) -->
+    <section id="about-kora" class="kora-page-section kora-about-section">
       <div class="about-section-header">
         <span class="about-kicker">Brand Ground Truth &bull; Contact Directory</span>
         <h2 class="kora-section-title" style="margin: 6px 0 10px 0; border: none; padding: 0;">
@@ -1605,6 +1700,17 @@
             <strong>Ethical Cooperative Direct Promise:</strong> Every piece ordered through Kora Threads is dispatched directly from registered cooperative inventories in Solapur, Paithan, Ilkal, and Guledgudd, guaranteeing genuine GI heritage compliance and fair artisan wages with zero middleman commissions.
           </div>
         </div>
+      </div>
+
+      <!-- About & Contact Page Navigation Footer -->
+      <div class="page-nav-footer">
+        <button type="button" class="btn-page-nav" onclick="navigateToPage('sources')">
+          ← Previous: Official Verification Sources
+        </button>
+        <span class="page-indicator-badge">Page 8 of 8 &bull; About &amp; Contact</span>
+        <button type="button" class="btn-page-nav btn-page-nav-next" onclick="navigateToPage('brand-overview')">
+          Return to Home 🏠
+        </button>
       </div>
     </section>
 
@@ -2461,10 +2567,100 @@
     }
   }
 
-  // Synchronize button text on load
+  // Multi-Page Format Navigation Router
+  var PAGE_ORDER = [
+    { id: 'brand-overview', title: 'Home & Definition', label: 'Home' },
+    { id: 'collections', title: '1. Handloom Product Collections', label: 'Collections' },
+    { id: 'cooperatives', title: '2. Weaver Cooperative Sourcing', label: 'Weaver Cooperatives' },
+    { id: 'sizing-care', title: '3. Size Guide & Fabric Care', label: 'Sizing & Care' },
+    { id: 'policies', title: '4. Strict Policies & SLA', label: 'Policies & Shipping' },
+    { id: 'faqs', title: '5. Official FAQs', label: 'Official FAQs' },
+    { id: 'sources', title: '6. Official Sources Hub', label: 'Official Sources' },
+    { id: 'about-kora', title: 'About Kora & Contact', label: 'About & Contact' }
+  ];
+
+  var isPagedMode = true; // Default: Paged Mode Active per user request!
+
+  function navigateToPage(pageId, pushHash) {
+    if (!isPagedMode) {
+      var targetEl = document.getElementById(pageId);
+      if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    var valid = PAGE_ORDER.some(function(p) { return p.id === pageId; });
+    if (!valid) pageId = 'brand-overview';
+
+    // Show only the selected page section
+    document.querySelectorAll('.kora-page-section').forEach(function(sec) {
+      if (sec.id === pageId) {
+        sec.classList.add('active-page');
+      } else {
+        sec.classList.remove('active-page');
+      }
+    });
+
+    // Update active navbar links
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      var href = link.getAttribute('href') || '';
+      var linkTarget = href.replace('#', '');
+      if (linkTarget === pageId) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+
+    if (pushHash !== false) {
+      history.replaceState(null, '', '#' + pageId);
+    }
+
+    // Scroll smoothly to top of the content
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleViewMode() {
+    isPagedMode = !isPagedMode;
+    var modeIcon = document.getElementById('view-mode-icon');
+    var modeText = document.getElementById('view-mode-text');
+
+    if (isPagedMode) {
+      document.body.classList.add('kora-paged-mode');
+      if (modeIcon) modeIcon.textContent = '📄';
+      if (modeText) modeText.textContent = 'Page Mode';
+      var hash = (window.location.hash || '#brand-overview').replace('#', '');
+      navigateToPage(hash, false);
+    } else {
+      document.body.classList.remove('kora-paged-mode');
+      if (modeIcon) modeIcon.textContent = '📜';
+      if (modeText) modeText.textContent = 'Continuous View';
+      document.querySelectorAll('.kora-page-section').forEach(function(sec) {
+        sec.classList.add('active-page');
+      });
+      document.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.classList.remove('active');
+      });
+    }
+  }
+
+  // Handle URL hash changes
+  window.addEventListener('hashchange', function() {
+    if (isPagedMode) {
+      var hash = (window.location.hash || '#brand-overview').replace('#', '');
+      navigateToPage(hash, false);
+    }
+  });
+
+  // Synchronize button text on load & initialize page mode
   document.addEventListener('DOMContentLoaded', function() {
     var current = document.documentElement.getAttribute('data-theme') || 'light';
     updateThemeToggleUI(current);
+
+    if (isPagedMode) {
+      document.body.classList.add('kora-paged-mode');
+      var hash = (window.location.hash || '#brand-overview').replace('#', '');
+      navigateToPage(hash, false);
+    }
   });
 
   // Close modals when clicking backdrop

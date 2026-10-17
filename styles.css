@@ -2182,5 +2182,161 @@ body.lens-auditor .coop-card {
   line-height: 1.4;
 }
 
+/* ==========================================================================
+   Multi-Page Mode System & Page Pagination Navigation
+   ========================================================================== */
+body.kora-paged-mode .kora-page-section {
+  display: none !important;
+}
+
+body.kora-paged-mode .kora-page-section.active-page {
+  display: block !important;
+  animation: koraPageFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes koraPageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Navbar Active Page Highlight */
+.nav-links li a.active {
+  color: var(--kora-primary) !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid var(--kora-primary);
+  padding-bottom: 3px;
+}
+
+/* Page Navigation Footer */
+.page-nav-footer {
+  margin: 36px 0 16px 0;
+  padding: 18px 0 0 0;
+  border-top: 1px solid var(--kora-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-page-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--kora-border);
+  background: var(--kora-card-bg);
+  color: var(--kora-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--kora-shadow-sm);
+}
+
+.btn-page-nav:hover {
+  border-color: var(--kora-primary);
+  color: var(--kora-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--kora-shadow);
+}
+
+.btn-page-nav.btn-page-nav-next {
+  background: var(--kora-primary);
+  border-color: var(--kora-primary);
+  color: #FFFFFF;
+  margin-left: auto;
+}
+
+.btn-page-nav.btn-page-nav-next:hover {
+  background: var(--kora-primary-dark, #9c3c1e);
+  color: #FFFFFF;
+}
+
+.page-indicator-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--kora-text-muted);
+  background: var(--kora-badge-bg);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  border: 1px solid var(--kora-border-light);
+}
+
+/* View Mode Switcher Button */
+.btn-view-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--kora-border);
+  background: var(--kora-card-bg);
+  color: var(--kora-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-view-mode-toggle:hover {
+  border-color: var(--kora-primary);
+  color: var(--kora-primary);
+}
+
+/* Home Page Highlights Grid */
+.home-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+@media (max-width: 800px) {
+  .home-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-highlight-card {
+  background: var(--kora-card-bg);
+  border: 1px solid var(--kora-border);
+  border-radius: 6px;
+  padding: 16px 18px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.home-highlight-card:hover {
+  border-color: var(--kora-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--kora-shadow);
+}
+
+.home-highlight-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--kora-primary);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.home-highlight-card-desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--kora-text-muted);
+}
+
+
 
 
