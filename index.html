@@ -234,14 +234,16 @@
   <div style="display:none;" aria-hidden="true">COMPETITION DEMONSTRATION: Problem Statement 04</div>
 
   <!-- =========================================================================
-       DEDICATED FULL-SCREEN SIGN-IN PORTAL (GATED STOREFRONT)
-       Visitors must authenticate via MiniMoth Phone OTP before accessing the site
+       DEDICATED PATRON ACCESS PORTAL (MINIMOTH PHONE OTP MODAL)
+       Allows repeat patrons to sign in with passwordless phone verification
        ========================================================================= -->
-  <div id="kora-signin-screen" style="display: flex; min-height: 100vh; width: 100%; align-items: center; justify-content: center; background: var(--kora-page-bg); padding: 32px 16px; font-family: var(--font-sans); box-sizing: border-box; transition: background 0.25s ease;">
+  <div id="kora-signin-screen" class="minimoth-modal-backdrop" style="display: none;">
     <div style="max-width: 460px; width: 100%; background: var(--kora-card-bg); border: 1px solid var(--kora-border); border-radius: 12px; box-shadow: var(--kora-shadow-lg); padding: 36px 30px; text-align: left; box-sizing: border-box; position: relative; color: var(--kora-text); transition: all 0.25s ease;">
       
+      <button type="button" class="modal-close-btn" onclick="document.getElementById('kora-signin-screen').style.display='none'" aria-label="Close Portal" style="position: absolute; top: 12px; right: 12px; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--kora-text-muted);">&times;</button>
+
       <!-- Quick Theme Switcher in Portal -->
-      <div style="position: absolute; top: 16px; right: 16px;">
+      <div style="position: absolute; top: 16px; right: 48px;">
         <button type="button" class="btn-theme-toggle" onclick="toggleKoraTheme()" style="padding: 5px 9px; font-size: 11px;" title="Switch Theme">
           <span id="portal-theme-icon">🌙</span>
         </button>
@@ -334,8 +336,8 @@
     </div>
   </div>
 
-  <!-- The Main Storefront (Hidden until authenticated) -->
-  <div id="kora-main-storefront" class="kora-container" style="display: none;">
+  <!-- The Main Storefront (Publicly visible to guests and AI web crawlers) -->
+  <div id="kora-main-storefront" class="kora-container" style="display: block;">
 
     <!-- Top Navigation Header -->
     <header class="kora-navbar">
@@ -1529,8 +1531,8 @@
     }
     var storefront = document.getElementById('kora-main-storefront');
     var signin = document.getElementById('kora-signin-screen');
-    if (storefront) storefront.style.display = 'none';
-    if (signin) signin.style.display = 'flex';
+    if (storefront) storefront.style.display = 'block';
+    if (signin) signin.style.display = 'none';
     var pPhone = document.getElementById('portal-step-phone');
     var pOtp = document.getElementById('portal-step-otp');
     if (pPhone) pPhone.style.display = 'block';
@@ -1545,28 +1547,28 @@
         closeMiniMothModal();
         closeCheckoutModal();
         lockStorefront();
-        alert('✓ Signed out successfully. Storefront relocked.');
+        alert('✓ Signed out successfully. MiniMoth session terminated.');
       });
     } else {
       closePatronAccountModal();
       closeMiniMothModal();
       closeCheckoutModal();
       lockStorefront();
-      alert('✓ Signed out successfully. Storefront relocked.');
+      alert('✓ Signed out successfully. MiniMoth session terminated.');
     }
   }
 
   function checkInitialAuthGate() {
-    var user = window.MiniMothAuth ? window.MiniMothAuth.getCurrentUser() : null;
-    var token = sessionStorage.getItem('kora_active_token');
-    if (user && token) {
-      document.getElementById('kora-signin-screen').style.display = 'none';
-      document.getElementById('kora-main-storefront').style.display = 'block';
-      updateAuthHeaderUI();
-    } else {
-      document.getElementById('kora-signin-screen').style.display = 'flex';
-      document.getElementById('kora-main-storefront').style.display = 'none';
-    }
+    var storefront = document.getElementById('kora-main-storefront');
+    if (storefront) storefront.style.display = 'block';
+    var signin = document.getElementById('kora-signin-screen');
+    if (signin) signin.style.display = 'none';
+    updateAuthHeaderUI();
+  }
+
+  function openPortalModal() {
+    var signin = document.getElementById('kora-signin-screen');
+    if (signin) signin.style.display = 'flex';
   }
 
   window.addEventListener('DOMContentLoaded', checkInitialAuthGate);
