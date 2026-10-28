@@ -1,5 +1,5 @@
 {
-  "last_monitored": "2026-10-28T17:40:15Z",
+  "last_monitored": "2026-10-28T22:01:24Z",
   "total_sources_audited": 13,
   "active_polls": 6,
   "overall_status": "HEALTHY_AND_VERIFIED",
@@ -10,7 +10,7 @@
       "name": "Wikidata Live Entity Verification (Q1538)",
       "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1538.json",
       "status_code": 200,
-      "latency_ms": 515,
+      "latency_ms": 384,
       "health": "LIVE_VERIFIED",
       "detail": "Verified City: Pune (18.5196\u00b0N, 73.8553\u00b0E)"
     },
@@ -19,7 +19,7 @@
       "name": "Ministry of Textiles Handloom Census",
       "url": "https://handlooms.nic.in/writereaddata/3736.pdf",
       "status_code": 404,
-      "latency_ms": 987,
+      "latency_ms": 1029,
       "health": "ERROR",
       "detail": "HTTP 404 | Content: Server Responded"
     },
@@ -28,7 +28,7 @@
       "name": "Khadi & Village Industries Commission (KVIC)",
       "url": "https://www.kvic.gov.in",
       "status_code": 200,
-      "latency_ms": 2737,
+      "latency_ms": 6939,
       "health": "LIVE_VERIFIED",
       "detail": "HTTP 200 | Content: text/html; charset=UTF-8"
     },
@@ -37,7 +37,7 @@
       "name": "Maharashtra Labour Dept (Wage Gazette)",
       "url": "https://mahalabour.gov.in",
       "status_code": 0,
-      "latency_ms": 26,
+      "latency_ms": 25,
       "health": "TIMEOUT_FALLBACK",
       "detail": "HTTP 0 | Content: Connection Timeout / Unreachable"
     },
@@ -46,7 +46,7 @@
       "name": "Schema.org Machine Vocabularies",
       "url": "https://schema.org/MerchantReturnPolicy",
       "status_code": 200,
-      "latency_ms": 60,
+      "latency_ms": 158,
       "health": "LIVE_VERIFIED",
       "detail": "HTTP 200 | Content: text/html"
     },
@@ -55,7 +55,7 @@
       "name": "MiniMoth Phone OTP API Gateway",
       "url": "https://minimoth.dev",
       "status_code": 200,
-      "latency_ms": 547,
+      "latency_ms": 472,
       "health": "LIVE_VERIFIED",
       "detail": "HTTP 200 | Content: text/html; charset=utf-8"
     }
