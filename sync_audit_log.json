@@ -1,5 +1,14 @@
 [
   {
+    "timestamp": "2026-11-21T22:37:09Z",
+    "event": "GROUND_TRUTH_VERIFICATION",
+    "entity": "Kora Threads (D2C Handloom Brand)",
+    "city": "Pune",
+    "return_window_days": 10,
+    "sha256": "54638f3de403491855872f5a82907c993ffada94a66f5c311cc84ce9e066913f",
+    "status": "VERIFIED_COMPLIANT"
+  },
+  {
     "timestamp": "2026-11-21T13:55:22Z",
     "event": "GROUND_TRUTH_VERIFICATION",
     "entity": "Kora Threads (D2C Handloom Brand)",
@@ -168,15 +177,6 @@
     "city": "Pune",
     "return_window_days": 10,
     "sha256": "3bd902811f9571765f4f70bcb96afffb93cf550033470e4fc869eaa9b49f8407",
-    "status": "VERIFIED_COMPLIANT"
-  },
-  {
-    "timestamp": "2026-11-14T04:08:26Z",
-    "event": "GROUND_TRUTH_VERIFICATION",
-    "entity": "Kora Threads (D2C Handloom Brand)",
-    "city": "Pune",
-    "return_window_days": 10,
-    "sha256": "c19123dc7cbac185f2a06ca5368c4da2def8e0d357f855776ac4093f0655a8fa",
     "status": "VERIFIED_COMPLIANT"
   }
 ]
